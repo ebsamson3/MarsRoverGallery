@@ -14,6 +14,7 @@
 		5F8BFE4A2370FE5100465DD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE492370FE5100465DD6 /* Assets.xcassets */; };
 		5F8BFE4D2370FE5100465DD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */; };
 		5F8BFE582370FE5100465DD6 /* MarsRoverGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */; };
+		5F8BFE632370FF9400465DD6 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE622370FF9400465DD6 /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		5F8BFE532370FE5100465DD6 /* MarsRoverGalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarsRoverGalleryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsRoverGalleryTests.swift; sourceTree = "<group>"; };
 		5F8BFE592370FE5100465DD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F8BFE622370FF9400465DD6 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				5F8BFE492370FE5100465DD6 /* Assets.xcassets */,
 				5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */,
 				5F8BFE4E2370FE5100465DD6 /* Info.plist */,
+				5F8BFE622370FF9400465DD6 /* Keys.plist */,
 			);
 			path = MarsRoverGallery;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F8BFE632370FF9400465DD6 /* Keys.plist in Resources */,
 				5F8BFE4D2370FE5100465DD6 /* LaunchScreen.storyboard in Resources */,
 				5F8BFE4A2370FE5100465DD6 /* Assets.xcassets in Resources */,
 				5F8BFE482370FE4E00465DD6 /* Main.storyboard in Resources */,
