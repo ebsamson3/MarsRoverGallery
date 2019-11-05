@@ -15,6 +15,16 @@
 		5F8BFE4D2370FE5100465DD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */; };
 		5F8BFE582370FE5100465DD6 /* MarsRoverGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */; };
 		5F8BFE632370FF9400465DD6 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE622370FF9400465DD6 /* Keys.plist */; };
+		5F8BFE752371464600465DD6 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE742371464600465DD6 /* Rover.swift */; };
+		5F8BFE7A237147F700465DD6 /* NASADateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE79237147F700465DD6 /* NASADateFormatter.swift */; };
+		5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE7B23714CDF00465DD6 /* Photo.swift */; };
+		5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE7E23714DC100465DD6 /* Camera.swift */; };
+		5F8BFE852371559A00465DD6 /* MarsRoverApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE842371559A00465DD6 /* MarsRoverApiError.swift */; };
+		5F8BFE872371EB5300465DD6 /* example_photo.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE862371EB5300465DD6 /* example_photo.json */; };
+		5F8BFE892371EE7D00465DD6 /* PhotosResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE882371EE7D00465DD6 /* PhotosResponse.swift */; };
+		5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE8A2371F99B00465DD6 /* Manifest.swift */; };
+		5F8BFE8D2371FE1200465DD6 /* example_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE8C2371FE1100465DD6 /* example_manifest.json */; };
+		5F8BFE8F2372000100465DD6 /* ManifestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE8E2372000100465DD6 /* ManifestResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +50,16 @@
 		5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsRoverGalleryTests.swift; sourceTree = "<group>"; };
 		5F8BFE592370FE5100465DD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F8BFE622370FF9400465DD6 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		5F8BFE742371464600465DD6 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
+		5F8BFE79237147F700465DD6 /* NASADateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASADateFormatter.swift; sourceTree = "<group>"; };
+		5F8BFE7B23714CDF00465DD6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		5F8BFE7E23714DC100465DD6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		5F8BFE842371559A00465DD6 /* MarsRoverApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsRoverApiError.swift; sourceTree = "<group>"; };
+		5F8BFE862371EB5300465DD6 /* example_photo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_photo.json; sourceTree = "<group>"; };
+		5F8BFE882371EE7D00465DD6 /* PhotosResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResponse.swift; sourceTree = "<group>"; };
+		5F8BFE8A2371F99B00465DD6 /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		5F8BFE8C2371FE1100465DD6 /* example_manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = example_manifest.json; sourceTree = "<group>"; };
+		5F8BFE8E2372000100465DD6 /* ManifestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +101,8 @@
 		5F8BFE3F2370FE4E00465DD6 /* MarsRoverGallery */ = {
 			isa = PBXGroup;
 			children = (
+				5F8BFE762371473100465DD6 /* Utilities */,
+				5F8BFE6C2371452700465DD6 /* Models */,
 				5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */,
 				5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */,
 				5F8BFE442370FE4E00465DD6 /* ViewController.swift */,
@@ -96,10 +118,34 @@
 		5F8BFE562370FE5100465DD6 /* MarsRoverGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
+				5F8BFE862371EB5300465DD6 /* example_photo.json */,
+				5F8BFE8C2371FE1100465DD6 /* example_manifest.json */,
 				5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */,
 				5F8BFE592370FE5100465DD6 /* Info.plist */,
 			);
 			path = MarsRoverGalleryTests;
+			sourceTree = "<group>";
+		};
+		5F8BFE6C2371452700465DD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F8BFE882371EE7D00465DD6 /* PhotosResponse.swift */,
+				5F8BFE7B23714CDF00465DD6 /* Photo.swift */,
+				5F8BFE742371464600465DD6 /* Rover.swift */,
+				5F8BFE7E23714DC100465DD6 /* Camera.swift */,
+				5F8BFE8E2372000100465DD6 /* ManifestResponse.swift */,
+				5F8BFE8A2371F99B00465DD6 /* Manifest.swift */,
+				5F8BFE842371559A00465DD6 /* MarsRoverApiError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5F8BFE762371473100465DD6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5F8BFE79237147F700465DD6 /* NASADateFormatter.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +240,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F8BFE872371EB5300465DD6 /* example_photo.json in Resources */,
+				5F8BFE8D2371FE1200465DD6 /* example_manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,8 +253,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */,
+				5F8BFE852371559A00465DD6 /* MarsRoverApiError.swift in Sources */,
+				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
+				5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */,
 				5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */,
+				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
+				5F8BFE752371464600465DD6 /* Rover.swift in Sources */,
+				5F8BFE8F2372000100465DD6 /* ManifestResponse.swift in Sources */,
+				5F8BFE7A237147F700465DD6 /* NASADateFormatter.swift in Sources */,
+				5F8BFE892371EE7D00465DD6 /* PhotosResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
