@@ -8,6 +8,23 @@
 
 import Foundation
 
-struct PhotosResponse: Decodable {
+struct PhotosResponse {
 	let photos: [Photo]
+}
+
+extension PhotosResponse: Decodable {
+	enum CodingKeys: String, CodingKey {
+		case photos
+		case latestPhotos = "latest_photos"
+	}
+	
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		if let photos = try container.decodeIfPresent([Photo].self, forKey: .photos) {
+			self.photos = photos
+		} else {
+			self.photos = try container.decode([Photo].self, forKey: .latestPhotos)
+		}
+	}
 }

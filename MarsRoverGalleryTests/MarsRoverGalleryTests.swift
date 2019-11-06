@@ -19,7 +19,7 @@ class MarsRoverGalleryTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 	
-	func testPhotoDecoding() {
+	func testPhotosDecoding() {
 		let jsonFileName = "example_photo"
 		let testBundle = Bundle(for: type(of: self))
 		
@@ -34,7 +34,7 @@ class MarsRoverGalleryTests: XCTestCase {
 		}
 		
 		guard let _ = try? JSONDecoder().decode(PhotosResponse.self, from: data) else {
-			XCTFail()
+			XCTFail("Failed to decode photo response")
 			return
 		}
 	}
@@ -54,10 +54,44 @@ class MarsRoverGalleryTests: XCTestCase {
 		}
 		
 		guard let _ = try? JSONDecoder().decode(ManifestResponse.self, from: data) else {
-			XCTFail()
+			XCTFail("Failed to decode manifest response")
 			return
 		}
 	}
+	
+	//TO-DO: Make photos request url builder test
+	
+	func testPhotosFetch() {
+		
+		guard let photosRequest = try? PhotosRequest(
+			roverName: .curiosity,
+			cameraName: .fhaz,
+			dateOption: .latest)
+		else {
+			XCTFail("Invalid photosRequest")
+			return
+		}
+		
+		var result: Result<[Photo], Error>?
+		
+		let expectation = self.expectation(description: "Fetch completed")
+		
+		photosRequest.fetch() { newResult in
+			result = newResult
+			switch newResult {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let photos):
+				print(photos.count)
+			}
+			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(result, "No fetch result recieved")
+	}
+	
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

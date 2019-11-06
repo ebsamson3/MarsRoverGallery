@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum NASADateFormatterError: Error {
+	case invalidDateFormat(dateString: String)
+}
+
 class NASADateFormatter {
 	
 	static let shared = NASADateFormatter()
@@ -23,8 +27,12 @@ class NASADateFormatter {
 	
 	func date(from string: String) throws -> Date {
 		guard let date =  dateFormatter.date(from: string) else {
-			throw MarsRoverApiError.invalidDateFormat(dateString: string)
+			throw NASADateFormatterError.invalidDateFormat(dateString: string)
 		}
 		return date
+	}
+	
+	func string(from date: Date) -> String {
+		return dateFormatter.string(from: date)
 	}
 }
