@@ -55,7 +55,6 @@ struct PhotosRequest {
 	@discardableResult
 	func fetch(
 		page: Int = 1,
-		urlCache: URLCache? = nil,
 		completion: @escaping (Result<[Photo], Error>) -> Void) -> URLSessionDataTask?
 	{
 		let urlString = generateUrlString(forResultsOnPage: page)
@@ -78,7 +77,7 @@ struct PhotosRequest {
 		}
 	}
 	
-	func generateUrlString(forResultsOnPage page: Int) -> String {
+	private func generateUrlString(forResultsOnPage page: Int) -> String {
 		let roverNameString = "rovers/\(roverName.rawValue.lowercased())"
 		let dateOptionString = dateOption.string
 		let cameraNameString: String

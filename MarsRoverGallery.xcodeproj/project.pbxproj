@@ -27,6 +27,7 @@
 		5F8BFE942372B6F900465DD6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE932372B6F800465DD6 /* Constants.swift */; };
 		5F8BFE9C2372C60900465DD6 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE9B2372C60900465DD6 /* URLSession+Extensions.swift */; };
 		5F8BFE9E2372D09700465DD6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE9D2372D09700465DD6 /* Secrets.swift */; };
+		5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA0237359B600465DD6 /* PaginatedPhotosController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		5F8BFE932372B6F800465DD6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5F8BFE9B2372C60900465DD6 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		5F8BFE9D2372D09700465DD6 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		5F8BFEA0237359B600465DD6 /* PaginatedPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedPhotosController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		5F8BFE3F2370FE4E00465DD6 /* MarsRoverGallery */ = {
 			isa = PBXGroup;
 			children = (
+				5F8BFE9F2373596400465DD6 /* ModelControllers */,
 				5F8BFE902372A4D800465DD6 /* Networking */,
 				5F8BFE762371473100465DD6 /* Utilities */,
 				5F8BFE6C2371452700465DD6 /* Models */,
@@ -160,6 +163,14 @@
 				5F8BFE912372A51C00465DD6 /* PhotosRequest.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		5F8BFE9F2373596400465DD6 /* ModelControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F8BFEA0237359B600465DD6 /* PaginatedPhotosController.swift */,
+			);
+			path = ModelControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */,
+				5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */,
 				5F8BFE9E2372D09700465DD6 /* Secrets.swift in Sources */,
 				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
 				5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */,

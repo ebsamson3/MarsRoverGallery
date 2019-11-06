@@ -59,14 +59,14 @@ class MarsRoverGalleryTests: XCTestCase {
 		}
 	}
 	
-	//TO-DO: Make photos request url builder test
+	//TODO: Make photos request url builder test
 	
 	func testPhotosFetch() {
 		
 		guard let photosRequest = try? PhotosRequest(
 			roverName: .curiosity,
 			cameraName: .fhaz,
-			dateOption: .latest)
+			dateOption: .sol(1000))
 		else {
 			XCTFail("Invalid photosRequest")
 			return
@@ -81,8 +81,47 @@ class MarsRoverGalleryTests: XCTestCase {
 			switch newResult {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
-			case .success(let photos):
-				print(photos.count)
+			case .success(_):
+				break
+			}
+			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(result, "No fetch result recieved")
+	}
+	
+	func testPaginatedPhotosRequest() {
+		
+		guard let photosRequest = try? PhotosRequest(
+			roverName: .curiosity,
+			cameraName: nil,
+			dateOption: .sol(1000))
+		else {
+			XCTFail("Invalid photosRequest")
+			return
+		}
+		
+		var result: Result<[Photo], Error>?
+		
+		let expectation = self.expectation(description: "Paginated fetch completed")
+	
+		let controller = PaginatedPhotosController(
+			photosRequest: photosRequest)
+		
+		controller.fetchNextPage { newResult in
+			result = newResult
+			switch newResult {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(_):
+				print(controller.status)
+				if case .upToDate(let nextPage) = controller.status {
+					XCTAssertEqual(nextPage, 2)
+				} else {
+					XCTFail("Invalid status")
+				}
 			}
 			
 			expectation.fulfill()
