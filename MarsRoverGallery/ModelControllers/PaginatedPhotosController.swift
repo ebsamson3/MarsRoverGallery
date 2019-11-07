@@ -25,6 +25,7 @@ class PaginatedPhotosController {
 				task.cancel()
 			}
 			_status = .initial
+			_photos = []
 		}
 	}
 	
@@ -57,15 +58,26 @@ class PaginatedPhotosController {
 			case .failure(let error):
 				completion(.failure(error))
 			case .success(let newPhotos):
-				PhotosSizer.size(photos: newPhotos) { sizedPhotos in
+				
+				var sizedPhotos = newPhotos
+				
+				let imageUrlstrings = newPhotos.map { $0.imageUrl }
+				
+				ImageSizer.size(imageUrlStrings: imageUrlstrings) { sizes in
+					
+					for index in 0..<sizedPhotos.count {
+						sizedPhotos[index].size = sizes[sizedPhotos[index].imageUrl]
+					}
 					
 					guard self?.photosRequest.id == requestId else {
 						return
 					}
 					
 					self?._photos.append(contentsOf: sizedPhotos)
-					self?._status = newPhotos.count < 25 ?
+					
+					self?._status = sizedPhotos.count < 25 ?
 						.finished : .upToDate(nextPage: nextPage + 1)
+					
 					completion(.success(sizedPhotos))
 				}
 			}

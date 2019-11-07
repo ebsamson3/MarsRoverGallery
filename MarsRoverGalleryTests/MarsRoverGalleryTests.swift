@@ -130,32 +130,16 @@ class MarsRoverGalleryTests: XCTestCase {
 		XCTAssertNotNil(result, "No fetch result recieved")
 	}
 	
-	func testPhotoSizer() {
+	func testImageSizer() {
 		
-		let jsonFileName = "example_photo"
-		let testBundle = Bundle(for: type(of: self))
-		
-		guard let path = testBundle.path(forResource: jsonFileName, ofType: "json") else {
-			XCTFail("failed to location json with fileName: \(jsonFileName)")
-			return
-		}
-		
-		guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
-			XCTFail("failed to read json at path: \(path)")
-			return
-		}
-		
-		guard let photosResponse = try? JSONDecoder().decode(PhotosResponse.self, from: data) else {
-			XCTFail("Failed to decode photo response")
-			return
-		}
+		let imageUrl = "http://mars.jpl.nasa.gov/msl-raw-images/msss/01000/mcam/1000ML0044631200305217E01_DXXX.jpg"
 		
 		var size: CGSize?
 		
-		let expectation = self.expectation(description: "Photos sizing completed")
+		let expectation = self.expectation(description: "Image sizing completed")
 		
-		PhotosSizer.size(photos: photosResponse.photos) { sizedPhotos in
-			size = sizedPhotos[0].size
+		ImageSizer.size(imageUrlStrings: [imageUrl]) { sizes in
+			size = sizes[imageUrl]
 			XCTAssertNotNil(size)
 			expectation.fulfill()
 		}

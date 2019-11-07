@@ -31,7 +31,7 @@
 		5F8BFEA4237378FF00465DD6 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA3237378FF00465DD6 /* CollectionViewModel.swift */; };
 		5F8BFEA62373796500465DD6 /* ItemRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */; };
 		5F8BFEA923737A9200465DD6 /* WaterfallCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */; };
-		5F8BFEB12373E13700465DD6 /* PhotosSizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEB02373E13700465DD6 /* PhotosSizer.swift */; };
+		5F8BFEB12373E13700465DD6 /* ImageSizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEB02373E13700465DD6 /* ImageSizer.swift */; };
 		5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEB52373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift */; };
 		5FB214FC237407E4008596DF /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB214FB237407E4008596DF /* ImageStore.swift */; };
 		5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB214FD237409B7008596DF /* ImageDownloadOperation.swift */; };
@@ -77,7 +77,7 @@
 		5F8BFEA3237378FF00465DD6 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepresentable.swift; sourceTree = "<group>"; };
 		5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallCollectionViewController.swift; sourceTree = "<group>"; };
-		5F8BFEB02373E13700465DD6 /* PhotosSizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosSizer.swift; sourceTree = "<group>"; };
+		5F8BFEB02373E13700465DD6 /* ImageSizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSizer.swift; sourceTree = "<group>"; };
 		5F8BFEB52373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTCollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		5FB214FB237407E4008596DF /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		5FB214FD237409B7008596DF /* ImageDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadOperation.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				5F8BFE912372A51C00465DD6 /* PhotosRequest.swift */,
-				5F8BFEB02373E13700465DD6 /* PhotosSizer.swift */,
+				5F8BFEB02373E13700465DD6 /* ImageSizer.swift */,
 				5FB214FB237407E4008596DF /* ImageStore.swift */,
 				5FB214FD237409B7008596DF /* ImageDownloadOperation.swift */,
 			);
@@ -338,7 +338,7 @@
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
 				5F8BFE942372B6F900465DD6 /* Constants.swift in Sources */,
 				5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
-				5F8BFEB12373E13700465DD6 /* PhotosSizer.swift in Sources */,
+				5F8BFEB12373E13700465DD6 /* ImageSizer.swift in Sources */,
 				5FB2150023740BDC008596DF /* AsynchronousOperation.swift in Sources */,
 				5F8BFE752371464600465DD6 /* Rover.swift in Sources */,
 				5F8BFE922372A51D00465DD6 /* PhotosRequest.swift in Sources */,
