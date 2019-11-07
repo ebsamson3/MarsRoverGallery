@@ -17,6 +17,8 @@ protocol CollectionViewModel: class {
 	func registerCells(collectionView: UICollectionView)
 	func numberOfItems(inSection section: Int) -> Int
 	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell
+	func sizeForItem(at indexPath: IndexPath) -> CGSize
+	func didSelectItem(at indexPath: IndexPath)
 }
 
 extension CollectionViewModel {

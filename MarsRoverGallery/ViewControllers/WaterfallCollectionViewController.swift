@@ -12,8 +12,12 @@ class WaterfallCollectionViewController: UIViewController {
 	
 	let viewModel: CollectionViewModel
 	
+	private var flowLayout = CHTCollectionViewWaterfallLayout()
+	
 	private lazy var collectionView: UICollectionView = {
-		let collectionView = UICollectionView()
+		let collectionView = UICollectionView(
+			frame: .zero,
+			collectionViewLayout: flowLayout)
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		return collectionView
@@ -22,6 +26,10 @@ class WaterfallCollectionViewController: UIViewController {
 	init(viewModel: CollectionViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+		
+		viewModel.insertItems = { [weak self] indexPaths in
+			self?.collectionView.insertItems(at: indexPaths)
+		}
 	}
 	
 	required init?(coder: NSCoder) {
@@ -43,4 +51,14 @@ extension WaterfallCollectionViewController: UICollectionViewDataSource {
 	}
 }
 
-extension WaterfallCollectionViewController: UICollectionViewDelegate {}
+extension WaterfallCollectionViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		viewModel.didSelectItem(at: indexPath)
+	}
+}
+
+extension WaterfallCollectionViewController: CHTCollectionViewDelegateWaterfallLayout {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		viewModel.sizeForItem(at: indexPath)
+	}
+}

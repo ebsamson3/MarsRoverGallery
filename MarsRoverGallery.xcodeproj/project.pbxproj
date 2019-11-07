@@ -32,6 +32,7 @@
 		5F8BFEA62373796500465DD6 /* ItemRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */; };
 		5F8BFEA923737A9200465DD6 /* WaterfallCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */; };
 		5F8BFEB12373E13700465DD6 /* PhotosSizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEB02373E13700465DD6 /* PhotosSizer.swift */; };
+		5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFEB52373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepresentable.swift; sourceTree = "<group>"; };
 		5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallCollectionViewController.swift; sourceTree = "<group>"; };
 		5F8BFEB02373E13700465DD6 /* PhotosSizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosSizer.swift; sourceTree = "<group>"; };
+		5F8BFEB52373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTCollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		5F8BFE3F2370FE4E00465DD6 /* MarsRoverGallery */ = {
 			isa = PBXGroup;
 			children = (
+				5F8BFEB42373FF4000465DD6 /* CopyPaste */,
 				5F8BFEA22373783400465DD6 /* Protocols */,
 				5F8BFE902372A4D800465DD6 /* Networking */,
 				5F8BFE762371473100465DD6 /* Utilities */,
@@ -199,6 +202,14 @@
 				5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5F8BFEB42373FF4000465DD6 /* CopyPaste */ = {
+			isa = PBXGroup;
+			children = (
+				5F8BFEB52373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift */,
+			);
+			path = CopyPaste;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +326,7 @@
 				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
 				5F8BFE942372B6F900465DD6 /* Constants.swift in Sources */,
+				5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				5F8BFEB12373E13700465DD6 /* PhotosSizer.swift in Sources */,
 				5F8BFE752371464600465DD6 /* Rover.swift in Sources */,
 				5F8BFE922372A51D00465DD6 /* PhotosRequest.swift in Sources */,
