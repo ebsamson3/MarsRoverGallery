@@ -116,7 +116,6 @@ class MarsRoverGalleryTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			case .success(_):
-				print(controller.status)
 				if case .upToDate(let nextPage) = controller.status {
 					XCTAssertEqual(nextPage, 2)
 				} else {
@@ -131,6 +130,39 @@ class MarsRoverGalleryTests: XCTestCase {
 		XCTAssertNotNil(result, "No fetch result recieved")
 	}
 	
+	func testPhotoSizer() {
+		
+		let jsonFileName = "example_photo"
+		let testBundle = Bundle(for: type(of: self))
+		
+		guard let path = testBundle.path(forResource: jsonFileName, ofType: "json") else {
+			XCTFail("failed to location json with fileName: \(jsonFileName)")
+			return
+		}
+		
+		guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
+			XCTFail("failed to read json at path: \(path)")
+			return
+		}
+		
+		guard let photosResponse = try? JSONDecoder().decode(PhotosResponse.self, from: data) else {
+			XCTFail("Failed to decode photo response")
+			return
+		}
+		
+		var size: CGSize?
+		
+		let expectation = self.expectation(description: "Photos sizing completed")
+		
+		PhotosSizer.size(photos: photosResponse.photos) { sizedPhotos in
+			size = sizedPhotos[0].size
+			XCTAssertNotNil(size)
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(size)
+	}
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

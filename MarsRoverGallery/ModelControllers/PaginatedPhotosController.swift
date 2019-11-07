@@ -55,9 +55,12 @@ class PaginatedPhotosController {
 			case .failure(let error):
 				completion(.failure(error))
 			case .success(let newPhotos):
-				self?._photos.append(contentsOf: newPhotos)
-				self?._status = newPhotos.count < 25 ? .finished : .upToDate(nextPage: nextPage + 1)
-				completion(.success(newPhotos))
+				PhotosSizer.size(photos: newPhotos) { sizedPhotos in
+					self?._photos.append(contentsOf: sizedPhotos)
+					self?._status = newPhotos.count < 25 ?
+						.finished : .upToDate(nextPage: nextPage + 1)
+					completion(.success(sizedPhotos))
+				}
 			}
 		}
 		

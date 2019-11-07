@@ -6,7 +6,7 @@
 //  Copyright © 2019 Edward Samson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Photo {
 	
@@ -16,6 +16,7 @@ struct Photo {
 	let imageUrl: String
 	let earthDate: Date
 	let rover: Rover
+	var size: CGSize?
 }
 
 extension Photo: Decodable {
