@@ -25,7 +25,7 @@ class ImageStore {
 	
 	func fetchImage(
 		withUrl imageUrl: String,
-		completion: @escaping (Result<UIImage, Error>) -> Void)
+		completion: @escaping (Result<UIImage, Error>) -> Void = {_ in })
 	{
 		if let image = fetchedImage(withUrl: imageUrl) {
 			completion(.success(image))

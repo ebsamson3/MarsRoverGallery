@@ -39,7 +39,7 @@
 		5FB215022374969A008596DF /* WaterfallCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB215012374969A008596DF /* WaterfallCollectionViewModel.swift */; };
 		5FB21504237497D7008596DF /* PhotosCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB21503237497D7008596DF /* PhotosCollectionViewModel.swift */; };
 		5FB2150723749998008596DF /* PhotoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2150623749998008596DF /* PhotoCellViewModel.swift */; };
-		5FB2150923749A3A008596DF /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2150823749A3A008596DF /* PhotoCell.swift */; };
+		5FB2150923749A3A008596DF /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB2150823749A3A008596DF /* ImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +89,7 @@
 		5FB215012374969A008596DF /* WaterfallCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallCollectionViewModel.swift; sourceTree = "<group>"; };
 		5FB21503237497D7008596DF /* PhotosCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewModel.swift; sourceTree = "<group>"; };
 		5FB2150623749998008596DF /* PhotoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellViewModel.swift; sourceTree = "<group>"; };
-		5FB2150823749A3A008596DF /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		5FB2150823749A3A008596DF /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,8 +235,8 @@
 		5FB2150523749963008596DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FB2150823749A3A008596DF /* ImageCell.swift */,
 				5FB2150623749998008596DF /* PhotoCellViewModel.swift */,
-				5FB2150823749A3A008596DF /* PhotoCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				5FB214FC237407E4008596DF /* ImageStore.swift in Sources */,
 				5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */,
 				5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */,
-				5FB2150923749A3A008596DF /* PhotoCell.swift in Sources */,
+				5FB2150923749A3A008596DF /* ImageCell.swift in Sources */,
 				5FB21504237497D7008596DF /* PhotosCollectionViewModel.swift in Sources */,
 				5F8BFE9C2372C60900465DD6 /* URLSession+Extensions.swift in Sources */,
 				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,

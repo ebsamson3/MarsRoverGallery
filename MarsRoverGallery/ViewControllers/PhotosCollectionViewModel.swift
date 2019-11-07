@@ -16,6 +16,21 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 		PhotoCellViewModel.self
 	]
 	
+	let imageStore: ImageStore
+	let paginatedPhotosController: PaginatedPhotosController
+	
+	var insertItems: (([IndexPath]) -> Void)?
+	var reloadData: (() -> Void)?
+	
+	init(
+		paginatedPhotosController: PaginatedPhotosController,
+		imageStore: ImageStore)
+	{
+		self.imageStore = imageStore
+		self.paginatedPhotosController = paginatedPhotosController
+		fetchAdditionalPhotos()
+	}
+	
 	func columnCount(forSection section: Int) -> Int {
 		return 2
 	}
@@ -51,10 +66,50 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	}
 	
 	func prefetchItems(at indexPaths: [IndexPath]) {
-		
+		indexPaths.forEach { indexPath in
+			let row = indexPath.row
+			let imageUrl = photoCellViewModels[row].photo.imageUrl
+			imageStore.fetchImage(withUrl: imageUrl)
+		}
 	}
 	
 	func cancelPrefetchingForItems(at indexPaths: [IndexPath]) {
 		
+		indexPaths.forEach { indexPath in
+			let row = indexPath.row
+			let imageUrl = photoCellViewModels[row].photo.imageUrl
+			imageStore.cancelFetch(forImageWithUrl: imageUrl)
+		}
+	}
+}
+
+extension PhotosCollectionViewModel {
+	
+	func fetchAdditionalPhotos() {
+		paginatedPhotosController.fetchNextPage { [weak self] result in
+			
+			guard let strongSelf = self else {
+				return
+			}
+			
+			switch result {
+			case .failure(let error):
+				print(error.localizedDescription)
+			case .success(let photos):
+				let oldViewModelCount = strongSelf.photoCellViewModels.count
+				let newViewModelCount = oldViewModelCount + photos.count
+				
+				let indexPaths = (oldViewModelCount..<newViewModelCount).map {
+					IndexPath(row: $0, section: 0)
+				}
+				
+				let newCellViewModels = photos.map {
+					PhotoCellViewModel(photo: $0, imageStore: strongSelf.imageStore)
+				}
+				
+				strongSelf.photoCellViewModels.append(contentsOf: newCellViewModels)
+				strongSelf.insertItems?(indexPaths)
+			}
+		}
 	}
 }

@@ -27,6 +27,15 @@ class WaterfallCollectionViewController: UIViewController {
 	init(viewModel: WaterfallCollectionViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		viewModel.registerCells(collectionView: collectionView)
 		
 		viewModel.insertItems = { [weak self] indexPaths in
 			self?.collectionView.insertItems(at: indexPaths)
@@ -35,14 +44,35 @@ class WaterfallCollectionViewController: UIViewController {
 		viewModel.reloadData = { [weak self] in
 			self?.collectionView.reloadData()
 		}
+		
+		collectionView.reloadData()
+		configure()
 	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	private func configure() {
+		view.addSubview(collectionView)
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		
+		collectionView.topAnchor.constraint(
+			equalTo: view.topAnchor)
+			.isActive = true
+		collectionView.trailingAnchor.constraint(
+			equalTo: view.trailingAnchor)
+			.isActive = true
+		collectionView.bottomAnchor.constraint(
+			equalTo: view.bottomAnchor)
+			.isActive = true
+		collectionView.leadingAnchor.constraint(
+			equalTo: view.leadingAnchor)
+			.isActive = true
 	}
 }
 
 extension WaterfallCollectionViewController: UICollectionViewDataSource {
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		return viewModel.numberOfSections
+	}
+	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return viewModel.numberOfItems(inSection: section)
 	}

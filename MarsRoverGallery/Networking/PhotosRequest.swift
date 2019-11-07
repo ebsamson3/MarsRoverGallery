@@ -107,8 +107,6 @@ struct PhotosRequest: Identifiable {
 			"&",
 			apiKeyString)
 		
-		print(urlString)
-		
 		return urlString
 	}
 }

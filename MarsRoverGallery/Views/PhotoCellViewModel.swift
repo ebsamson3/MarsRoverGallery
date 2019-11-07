@@ -11,28 +11,49 @@ import UIKit
 class PhotoCellViewModel {
 	
 	let photo: Photo
+	weak var imageStore: ImageStore?
 	
-	init(photo: Photo) {
+	init(photo: Photo, imageStore: ImageStore) {
 		self.photo = photo
+		self.imageStore = imageStore
 	}
 }
 
 extension PhotoCellViewModel: ItemRepresentable {
 	static func registerCell(collectionView: UICollectionView) {
 		collectionView.register(
-			PhotoCell.self,
-			forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
+			ImageCell.self,
+			forCellWithReuseIdentifier: ImageCell.reuseIdentifier)
 	}
 	
 	func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
+		
 		let cell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: PhotoCell.reuseIdentifier,
+			withReuseIdentifier: ImageCell.reuseIdentifier,
 			for: indexPath)
 		
-		if let photoCell = cell as? PhotoCell {
+		if let imageCell = cell as? ImageCell {
+			imageCell.representedId = ObjectIdentifier(self)
 			
+			let imageUrl = photo.imageUrl
+			
+			if let cachedImage = imageStore?.fetchedImage(withUrl: imageUrl) {
+				imageCell.setImage(to: cachedImage)
+			} else {
+				imageCell.setImage(to: nil)
+				
+				imageStore?.fetchImage(withUrl: imageUrl) { result in
+					switch result {
+					case .failure(let error):
+						print(error.localizedDescription)
+					case .success(let image):
+						if imageCell.representedId == ObjectIdentifier(self) {
+							imageCell.setImage(to: image)
+						}
+					}
+				}
+			}
 		}
-		
 		return cell
 	}
 }
