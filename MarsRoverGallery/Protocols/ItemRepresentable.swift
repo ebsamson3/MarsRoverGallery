@@ -10,5 +10,5 @@ import UIKit
 
 protocol ItemRepresentable {
 	static func registerCell(collectionView: UICollectionView)
-	func itemInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell
+	func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell
 }
