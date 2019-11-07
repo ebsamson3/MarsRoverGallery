@@ -12,7 +12,7 @@ enum PhotosRequestError: Error {
 	case invalidCamera
 }
 
-struct PhotosRequest {
+struct PhotosRequest: Identifiable {
 	
 	enum DateOption {
 		case sol(Int)
@@ -32,6 +32,7 @@ struct PhotosRequest {
 		}
 	}
 	
+	let id = UUID()
 	let roverName: Rover.Name
 	let cameraName: Camera.Name?
 	let dateOption: DateOption

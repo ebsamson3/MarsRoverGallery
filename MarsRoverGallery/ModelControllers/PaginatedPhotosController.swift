@@ -46,6 +46,8 @@ class PaginatedPhotosController {
 	func fetchNextPage(
 		completion: @escaping (Result<[Photo], Error>) -> Void = {_ in })
 	{
+		let requestId = photosRequest.id
+		
 		guard case .upToDate(let nextPage) = status else {
 			return
 		}
@@ -56,6 +58,11 @@ class PaginatedPhotosController {
 				completion(.failure(error))
 			case .success(let newPhotos):
 				PhotosSizer.size(photos: newPhotos) { sizedPhotos in
+					
+					guard self?.photosRequest.id == requestId else {
+						return
+					}
+					
 					self?._photos.append(contentsOf: sizedPhotos)
 					self?._status = newPhotos.count < 25 ?
 						.finished : .upToDate(nextPage: nextPage + 1)
