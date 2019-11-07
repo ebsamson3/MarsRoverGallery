@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
 		5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE442370FE4E00465DD6 /* ViewController.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				5F8BFE932372B6F800465DD6 /* Constants.swift */,
 				5F8BFE9D2372D09700465DD6 /* Secrets.swift */,
 				5F8BFE9B2372C60900465DD6 /* URLSession+Extensions.swift */,
+				5F6A51132374D18300C61D25 /* UIColor+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				5F8BFEA923737A9200465DD6 /* WaterfallCollectionViewController.swift in Sources */,
 				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
 				5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */,
+				5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */,
 				5FB214FC237407E4008596DF /* ImageStore.swift in Sources */,
 				5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */,
 				5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */,

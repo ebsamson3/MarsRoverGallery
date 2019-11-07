@@ -16,7 +16,7 @@ class ImageCell: UICollectionViewCell {
 	private let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
-		imageView.backgroundColor = .red
+		imageView.backgroundColor = .random
 		return imageView
 	}()
 	
