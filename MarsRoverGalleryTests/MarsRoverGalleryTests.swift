@@ -163,6 +163,30 @@ class MarsRoverGalleryTests: XCTestCase {
 		waitForExpectations(timeout: 5, handler: nil)
 		XCTAssertNotNil(size)
 	}
+	
+	func testImageStore() {
+		let imageUrl = "http://mars.jpl.nasa.gov/msl-raw-images/msss/01000/mcam/1000ML0044631200305217E01_DXXX.jpg"
+		
+		var image: UIImage?
+		
+		let imageStore = ImageStore()
+		
+		let expectation = self.expectation(description: "Image fetch completed")
+		
+		imageStore.fetchImage(withUrl: imageUrl) { result in
+			switch result {
+			case .failure(let error):
+				XCTFail("Image fetch failed with error: \(error.localizedDescription)")
+			case.success(let newImage):
+				image = newImage
+			}
+			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(image)
+	}
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
