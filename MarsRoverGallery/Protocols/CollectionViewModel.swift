@@ -11,8 +11,10 @@ import UIKit
 protocol CollectionViewModel: class {
 	var numberOfSections: Int { get }
 	var reloadData: (() -> Void)? { get set }
+	var reloadSections: ((IndexSet) -> Void)? { get set }
 	var insertItems: (([IndexPath]) -> Void)? { get set }
 	var deleteItems: (([IndexPath]) -> Void)? { get set }
+	var performBatchUpdates: ((()-> Void) -> Void)? { get set }
 	
 	func registerCells(collectionView: UICollectionView)
 	func numberOfItems(inSection section: Int) -> Int
@@ -38,6 +40,15 @@ extension CollectionViewModel {
 		}
 	}
 	
+	var reloadSections: ((IndexSet) -> Void)? {
+		get {
+			return nil
+		}
+		set {
+			return
+		}
+	}
+	
 	var insertItems: (([IndexPath]) -> Void)? {
 		get {
 			return nil
@@ -48,6 +59,15 @@ extension CollectionViewModel {
 	}
 	
 	var deleteItems: (([IndexPath]) -> Void)? {
+		get {
+			return nil
+		}
+		set {
+			return
+		}
+	}
+	
+	var performBatchUpdates: ((()-> Void) -> Void)? {
 		get {
 			return nil
 		}

@@ -10,17 +10,37 @@ import UIKit
 
 class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	
+	enum Section: Int, CaseIterable {
+		case photos
+		case loading
+	}
+	
 	var photoCellViewModels = [PhotoCellViewModel]()
 	
 	let cellViewModelTypes: [ItemRepresentable.Type] = [
-		PhotoCellViewModel.self
+		PhotoCellViewModel.self,
+		LoadingCellViewModel.self
 	]
 	
 	let imageStore: ImageStore
 	let paginatedPhotosController: PaginatedPhotosController
 	
+	var isLoading: Bool {
+		if case .loading(_) = paginatedPhotosController.status {
+			return true
+		} else {
+			return false
+		}
+	}
+	
 	var insertItems: (([IndexPath]) -> Void)?
 	var reloadData: (() -> Void)?
+	var reloadSections: ((IndexSet) -> Void)?
+	var performBatchUpdates: ((() -> Void) -> Void)?
+	
+	var numberOfSections: Int {
+		return Section.allCases.count
+	}
 	
 	init(
 		paginatedPhotosController: PaginatedPhotosController,
@@ -33,7 +53,16 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	}
 	
 	func columnCount(forSection section: Int) -> Int {
-		return 2
+		guard let sectionType = Section.init(rawValue: section) else {
+			return 0
+		}
+		
+		switch sectionType {
+		case .photos:
+			return 2
+		case .loading:
+			return 1
+		}
 	}
 	
 	func registerCells(collectionView: UICollectionView) {
@@ -43,23 +72,48 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	}
 	
 	func numberOfItems(inSection section: Int) -> Int {
-		switch section {
-		case 0:
-			return photoCellViewModels.count
-		default:
+		guard let sectionType = Section.init(rawValue: section) else {
 			return 0
+		}
+		
+		switch sectionType {
+		case .photos:
+			return photoCellViewModels.count
+		case .loading:
+			return isLoading ? 1 : 0
 		}
 	}
 	
 	func viewModelForItem(at indexPath: IndexPath) -> ItemRepresentable {
 		let row = indexPath.row
-		return photoCellViewModels[row]
+		let section = indexPath.section
+		
+		guard let sectionType = Section.init(rawValue: section) else {
+			fatalError("Invalid section")
+		}
+		
+		switch sectionType {
+		case .photos:
+			return photoCellViewModels[row]
+		case .loading:
+			return LoadingCellViewModel()
+		}
 	}
 	
 	func sizeForItem(at indexPath: IndexPath) -> CGSize {
 		let row = indexPath.row
-		let size = photoCellViewModels[row].photo.size ?? CGSize(width: 300, height: 300)
-		return size
+		let section = indexPath.section
+		
+		guard let sectionType = Section.init(rawValue: section) else {
+			fatalError("Invalid section")
+		}
+		
+		switch sectionType {
+		case .photos:
+			return photoCellViewModels[row].photo.size ?? CGSize(width: 300, height: 300)
+		case .loading:
+			return CGSize(width: 0, height: 100)
+		}
 	}
 	
 	func didSelectItem(at indexPath: IndexPath) {
@@ -105,22 +159,26 @@ extension PhotosCollectionViewModel {
 }
 
 extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
+	
 	func photosController(statusDidChangeTo status: PaginatedPhotosController.Status) {
-		
 		switch status {
 		case .upToDate(let photos, let nextPage):
-			if nextPage == 1 {
+			guard nextPage > 1 else {
 				photoCellViewModels.removeAll()
-			} else {
-				insert(photos: photos)
+				let indexSet = IndexSet(integer: Section.loading.rawValue)
+				reloadSections?(indexSet)
+				break
 			}
+			insert(photos: photos)
+		case .finished(let photos):
+			insert(photos: photos)
 		default:
-			break
+			let indexSet = IndexSet(integer: Section.loading.rawValue)
+			reloadSections?(indexSet)
 		}
 	}
 	
 	func insert(photos: [Photo]) {
-
 		let oldViewModelCount = photoCellViewModels.count
 		let newViewModelCount = oldViewModelCount + photos.count
 		
@@ -133,6 +191,9 @@ extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
 		}
 		
 		photoCellViewModels.append(contentsOf: newCellViewModels)
-		insertItems?(indexPaths)
+		performBatchUpdates?({ [weak self] in
+			self?.insertItems?(indexPaths)
+			self?.reloadSections?(IndexSet(integer: Section.loading.rawValue))
+		})
 	}
 }

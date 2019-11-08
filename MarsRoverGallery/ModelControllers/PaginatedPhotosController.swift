@@ -16,16 +16,16 @@ class PaginatedPhotosController {
 	
 	enum Status {
 		case upToDate(latestResults: [Photo], nextPage: Int)
-		case loading(page: Int, task: URLSessionDataTask)
+		case loading(task: URLSessionDataTask)
 		case error(Error)
-		case finished
+		case finished(latestResults: [Photo])
 		
 		static let initial: Self = .upToDate(latestResults: [], nextPage: 1)
 	}
 	
 	var photosRequest: PhotosRequest {
 		didSet {
-			if case .loading(_, let task) = status {
+			if case .loading(let task) = status {
 				task.cancel()
 			}
 			_status = .initial
@@ -86,7 +86,8 @@ class PaginatedPhotosController {
 					self?._photos.append(contentsOf: sizedPhotos)
 					
 					self?._status = sizedPhotos.count < 25 ?
-						.finished : .upToDate(latestResults: sizedPhotos, nextPage: nextPage + 1)
+						.finished(latestResults: sizedPhotos) :
+						.upToDate(latestResults: sizedPhotos, nextPage: nextPage + 1)
 					
 					completion(.success(sizedPhotos))
 				}
@@ -94,7 +95,7 @@ class PaginatedPhotosController {
 		}
 		
 		if let task = task {
-			_status = .loading(page: nextPage, task: task)
+			_status = .loading(task: task)
 		}
 	}
 }

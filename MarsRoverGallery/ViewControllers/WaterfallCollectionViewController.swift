@@ -45,6 +45,17 @@ class WaterfallCollectionViewController: UIViewController {
 			self?.collectionView.reloadData()
 		}
 		
+		viewModel.reloadSections = { [weak self] indexSet in
+			self?.collectionView.reloadSections(indexSet)
+		}
+		
+		viewModel.performBatchUpdates = { [weak self] updates in
+			self?.collectionView.performBatchUpdates({
+				updates()
+			})
+			
+		}
+		
 		collectionView.reloadData()
 		configure()
 	}
