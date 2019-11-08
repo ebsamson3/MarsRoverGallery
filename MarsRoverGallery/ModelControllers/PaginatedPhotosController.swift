@@ -8,20 +8,24 @@
 
 import Foundation
 
+protocol PaginatedPhotosControllerDelegate: class {
+	func photosController(statusDidChangeTo status: PaginatedPhotosController.Status)
+}
+
 class PaginatedPhotosController {
 	
 	enum Status {
-		case upToDate(nextPage: Int)
+		case upToDate(latestResults: [Photo], nextPage: Int)
 		case loading(page: Int, task: URLSessionDataTask)
 		case error(Error)
 		case finished
 		
-		static let initial: Self = .upToDate(nextPage: 1)
+		static let initial: Self = .upToDate(latestResults: [], nextPage: 1)
 	}
 	
 	var photosRequest: PhotosRequest {
 		didSet {
-			if case .loading(_, let task) = _status {
+			if case .loading(_, let task) = status {
 				task.cancel()
 			}
 			_status = .initial
@@ -30,7 +34,11 @@ class PaginatedPhotosController {
 	}
 	
 	private var _photos = [Photo]()
-	private var _status: Status = .initial
+	private var _status: Status = .initial {
+		didSet {
+			delegate?.photosController(statusDidChangeTo: _status)
+		}
+	}
 	
 	var photos: [Photo] {
 		return _photos
@@ -39,6 +47,8 @@ class PaginatedPhotosController {
 	var status: Status {
 		return _status
 	}
+	
+	weak var delegate: PaginatedPhotosControllerDelegate?
 	
 	init(photosRequest: PhotosRequest) {
 		self.photosRequest = photosRequest
@@ -49,7 +59,7 @@ class PaginatedPhotosController {
 	{
 		let requestId = photosRequest.id
 		
-		guard case .upToDate(let nextPage) = status else {
+		guard case .upToDate(_, let nextPage) = status else {
 			return
 		}
 		
@@ -62,8 +72,6 @@ class PaginatedPhotosController {
 				var sizedPhotos = newPhotos
 				
 				let imageUrlstrings = newPhotos.map { $0.imageUrl }
-				
-				let start = DispatchTime.now()
 				
 				ImageSizer.size(imageUrlStrings: imageUrlstrings) { sizes in
 					
@@ -78,19 +86,7 @@ class PaginatedPhotosController {
 					self?._photos.append(contentsOf: sizedPhotos)
 					
 					self?._status = sizedPhotos.count < 25 ?
-						.finished : .upToDate(nextPage: nextPage + 1)
-					
-//					for photo in sizedPhotos {
-//						if let size = photo.size {
-//							print("camera: \(photo.cameraName) on rover \(photo.rover) has width: \(size.width) and height: \(size.height)")
-//						}
-//					}
-					
-					let end = DispatchTime.now()
-						   let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-						   let timeInterval = Double(nanoTime) / 1_000_000_000
-						   print("Time: \(timeInterval) seconds")
-					
+						.finished : .upToDate(latestResults: sizedPhotos, nextPage: nextPage + 1)
 					
 					completion(.success(sizedPhotos))
 				}

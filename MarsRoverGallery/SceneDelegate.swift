@@ -23,7 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window?.makeKeyAndVisible()
 		window?.windowScene = windowScene
 		
-		let photosRequest = try! PhotosRequest(roverName: .curiosity, dateOption: .sol(1000))
+		let photosRequest = try! PhotosRequest(
+			roverName: .curiosity,
+			cameraName: nil,
+			dateOption: .sol(1150))
+		
 		let paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
 		let imageStore = ImageStore()
 		

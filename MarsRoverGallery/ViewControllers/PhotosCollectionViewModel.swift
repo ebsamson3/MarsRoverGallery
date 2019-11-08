@@ -28,6 +28,7 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	{
 		self.imageStore = imageStore
 		self.paginatedPhotosController = paginatedPhotosController
+		paginatedPhotosController.delegate = self
 		fetchAdditionalPhotos()
 	}
 	
@@ -99,30 +100,39 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 extension PhotosCollectionViewModel {
 	
 	func fetchAdditionalPhotos() {
-		paginatedPhotosController.fetchNextPage { [weak self] result in
-			
-			guard let strongSelf = self else {
-				return
+		paginatedPhotosController.fetchNextPage()
+	}
+}
+
+extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
+	func photosController(statusDidChangeTo status: PaginatedPhotosController.Status) {
+		
+		switch status {
+		case .upToDate(let photos, let nextPage):
+			if nextPage == 1 {
+				photoCellViewModels.removeAll()
+			} else {
+				insert(photos: photos)
 			}
-			
-			switch result {
-			case .failure(let error):
-				print(error.localizedDescription)
-			case .success(let photos):
-				let oldViewModelCount = strongSelf.photoCellViewModels.count
-				let newViewModelCount = oldViewModelCount + photos.count
-				
-				let indexPaths = (oldViewModelCount..<newViewModelCount).map {
-					IndexPath(row: $0, section: 0)
-				}
-				
-				let newCellViewModels = photos.map {
-					PhotoCellViewModel(photo: $0, imageStore: strongSelf.imageStore)
-				}
-				
-				strongSelf.photoCellViewModels.append(contentsOf: newCellViewModels)
-				strongSelf.insertItems?(indexPaths)
-			}
+		default:
+			break
 		}
+	}
+	
+	func insert(photos: [Photo]) {
+
+		let oldViewModelCount = photoCellViewModels.count
+		let newViewModelCount = oldViewModelCount + photos.count
+		
+		let indexPaths = (oldViewModelCount..<newViewModelCount).map {
+			IndexPath(row: $0, section: 0)
+		}
+		
+		let newCellViewModels = photos.map {
+			PhotoCellViewModel(photo: $0, imageStore: imageStore)
+		}
+		
+		photoCellViewModels.append(contentsOf: newCellViewModels)
+		insertItems?(indexPaths)
 	}
 }
