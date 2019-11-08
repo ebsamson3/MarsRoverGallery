@@ -21,6 +21,7 @@ protocol CollectionViewModel: class {
 	func didSelectItem(at indexPath: IndexPath)
 	func prefetchItems(at indexPaths: [IndexPath])
 	func cancelPrefetchingForItems(at indexPaths: [IndexPath])
+	func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
 extension CollectionViewModel {

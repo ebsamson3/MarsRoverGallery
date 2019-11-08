@@ -63,6 +63,8 @@ class PaginatedPhotosController {
 				
 				let imageUrlstrings = newPhotos.map { $0.imageUrl }
 				
+				let start = DispatchTime.now()
+				
 				ImageSizer.size(imageUrlStrings: imageUrlstrings) { sizes in
 					
 					for index in 0..<sizedPhotos.count {
@@ -77,6 +79,18 @@ class PaginatedPhotosController {
 					
 					self?._status = sizedPhotos.count < 25 ?
 						.finished : .upToDate(nextPage: nextPage + 1)
+					
+//					for photo in sizedPhotos {
+//						if let size = photo.size {
+//							print("camera: \(photo.cameraName) on rover \(photo.rover) has width: \(size.width) and height: \(size.height)")
+//						}
+//					}
+					
+					let end = DispatchTime.now()
+						   let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+						   let timeInterval = Double(nanoTime) / 1_000_000_000
+						   print("Time: \(timeInterval) seconds")
+					
 					
 					completion(.success(sizedPhotos))
 				}

@@ -112,3 +112,11 @@ extension WaterfallCollectionViewController: UICollectionViewDataSourcePrefetchi
 		viewModel.cancelPrefetchingForItems(at: indexPaths)
 	}
 }
+
+extension WaterfallCollectionViewController: UIScrollViewDelegate {
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		viewModel.scrollViewDidScroll(scrollView)
+	}
+	
+}

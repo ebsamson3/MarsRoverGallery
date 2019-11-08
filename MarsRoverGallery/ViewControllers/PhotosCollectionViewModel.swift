@@ -81,6 +81,19 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 			imageStore.cancelFetch(forImageWithUrl: imageUrl)
 		}
 	}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let offsetY = scrollView.contentOffset.y
+		let contentHeight = scrollView.contentSize.height
+		let scrollViewHeight = scrollView.frame.height
+		
+		if
+			offsetY > contentHeight - scrollViewHeight - 800,
+			case .upToDate(_) = paginatedPhotosController.status
+		{
+			fetchAdditionalPhotos()
+		}
+	}
 }
 
 extension PhotosCollectionViewModel {

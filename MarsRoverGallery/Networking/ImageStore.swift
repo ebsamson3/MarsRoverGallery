@@ -32,17 +32,25 @@ class ImageStore {
 			return
 		}
 		
-		let operation: ImageDownloadOperation
-		
 		if let previousOperation = downloadOperations[imageUrl] {
-			operation = previousOperation
-		} else {
-			operation = ImageDownloadOperation(imageUrl: imageUrl)
-			downloadOperations.updateValue(operation, forKey: imageUrl)
-			operationQueue.addOperation(operation)
+			let adapterOperation = BlockOperation {
+				guard let result = previousOperation.result else {
+					return
+				}
+				DispatchQueue.main.async {
+					completion(result)
+				}
+			}
+			
+			adapterOperation.addDependency(previousOperation)
+			operationQueue.addOperation(adapterOperation)
+			return
 		}
 		
-		operation.completionBlock = { [weak self] in			
+		let operation = ImageDownloadOperation(imageUrl: imageUrl)
+		
+		operation.completionBlock = { [weak self] in
+			
 			DispatchQueue.main.async {
 				self?.downloadOperations.removeValue(forKey: imageUrl)
 				
@@ -55,12 +63,16 @@ class ImageStore {
 				}
 				
 				if operation.isCancelled {
+					print("operation cancelled")
 					return
 				}
 				
 				completion(result)
 			}
 		}
+		
+		downloadOperations.updateValue(operation, forKey: imageUrl)
+		operationQueue.addOperation(operation)
 	}
 	
 	func cancelFetch(forImageWithUrl imageUrl: String) {
