@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE0F237557D000ED1111 /* LoadingCell.swift */; };
 		5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */; };
+		5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE162376069100ED1111 /* MainCoordinator.swift */; };
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		5F32EE0F237557D000ED1111 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellViewModel.swift; sourceTree = "<group>"; };
+		5F32EE162376069100ED1111 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F32EE132375E8CA00ED1111 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				5F32EE162376069100ED1111 /* MainCoordinator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		5F8BFE342370FE4E00465DD6 = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 		5F8BFE3F2370FE4E00465DD6 /* MarsRoverGallery */ = {
 			isa = PBXGroup;
 			children = (
+				5F32EE132375E8CA00ED1111 /* Navigation */,
 				5F8BFEB42373FF4000465DD6 /* CopyPaste */,
 				5F8BFEA22373783400465DD6 /* Protocols */,
 				5F8BFE902372A4D800465DD6 /* Networking */,
@@ -377,6 +388,7 @@
 				5FB2150023740BDC008596DF /* AsynchronousOperation.swift in Sources */,
 				5F8BFE752371464600465DD6 /* Rover.swift in Sources */,
 				5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */,
+				5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */,
 				5F8BFE922372A51D00465DD6 /* PhotosRequest.swift in Sources */,
 				5F8BFEA4237378FF00465DD6 /* CollectionViewModel.swift in Sources */,
 				5F8BFEA62373796500465DD6 /* ItemRepresentable.swift in Sources */,

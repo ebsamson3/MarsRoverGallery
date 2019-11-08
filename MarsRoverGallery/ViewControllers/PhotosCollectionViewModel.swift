@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PhotosCollectionViewModelDelegate: class {
+	func photosCollection(didSelectPhoto: Photo)
+}
+
 class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	
 	enum Section: Int, CaseIterable {
@@ -41,6 +45,8 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	var numberOfSections: Int {
 		return Section.allCases.count
 	}
+	
+	weak var delegate: PhotosCollectionViewModelDelegate?
 	
 	init(
 		paginatedPhotosController: PaginatedPhotosController,
@@ -117,7 +123,20 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	}
 	
 	func didSelectItem(at indexPath: IndexPath) {
+		let row = indexPath.row
+		let section = indexPath.section
 		
+		guard let sectionType = Section.init(rawValue: section) else {
+			fatalError("Invalid section")
+		}
+		
+		switch sectionType {
+		case .photos:
+			let photo = photoCellViewModels[row].photo
+			delegate?.photosCollection(didSelectPhoto: photo)
+		case .loading:
+			break
+		}
 	}
 	
 	func prefetchItems(at indexPaths: [IndexPath]) {

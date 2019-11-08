@@ -116,7 +116,7 @@ class MarsRoverGalleryTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			case .success(_):
-				if case .upToDate(let nextPage) = controller.status {
+				if case .upToDate(_, let nextPage) = controller.status {
 					XCTAssertEqual(nextPage, 2)
 				} else {
 					XCTFail("Invalid status")

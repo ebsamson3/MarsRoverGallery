@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
-
+	var coordinator: MainCoordinator?
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		// Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -23,23 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window?.makeKeyAndVisible()
 		window?.windowScene = windowScene
 		
-		let photosRequest = try! PhotosRequest(
-			roverName: .curiosity,
-			cameraName: nil,
-			dateOption: .sol(1150))
-		
-		let paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
-		let imageStore = ImageStore()
-		
-		let viewModel = PhotosCollectionViewModel(
-			paginatedPhotosController: paginatedPhotosController,
-			imageStore: imageStore)
-		
-		let viewController = WaterfallCollectionViewController(
-			viewModel: viewModel)
-		
-		let navigationController = UINavigationController(
-			rootViewController: viewController)
+		let navigationController = UINavigationController()
+		let coordinator = MainCoordinator(navigationController: navigationController)
+		self.coordinator = coordinator
+		coordinator.start()
 		
 		window?.rootViewController = navigationController
 	}

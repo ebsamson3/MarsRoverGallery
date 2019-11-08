@@ -67,7 +67,6 @@ class ImageStore {
 				}
 				
 				if operation.isCancelled {
-					print("operation cancelled")
 					return
 				}
 				
