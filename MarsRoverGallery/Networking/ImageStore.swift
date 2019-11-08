@@ -10,7 +10,11 @@ import UIKit
 
 class ImageStore {
 	
-	let imageCache = NSCache<NSString, UIImage>()
+	let imageCache: NSCache<NSString, UIImage> = {
+		let cache = NSCache<NSString, UIImage>()
+		cache.countLimit = 75
+		return cache
+	}()
 	
 	let operationQueue: OperationQueue = {
 		let operationQueue = OperationQueue()
