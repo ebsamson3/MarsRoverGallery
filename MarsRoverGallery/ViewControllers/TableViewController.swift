@@ -19,6 +19,7 @@ class TableViewController: UIViewController {
 		let tableView = UITableView()
 		tableView.dataSource = self
 		tableView.delegate = self
+		tableView.alwaysBounceVertical = false
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.insetsContentViewsToSafeArea = false
 		tableView.tableFooterView = UIView()
@@ -44,6 +45,8 @@ class TableViewController: UIViewController {
 	}
 	
 	func setup() {
+		view.backgroundColor = .background
+		
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -63,9 +66,7 @@ extension TableViewController: UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cellViewModel = viewModel.getCellViewModel(at: indexPath) else {
-			return UITableViewCell()
-		}
+		let cellViewModel = viewModel.getCellViewModel(at: indexPath)
 		let cell = cellViewModel.cellInstance(tableView: tableView, indexPath: indexPath)
 		cell.layoutIfNeeded()
 		let cellHeight = cell.systemLayoutSizeFitting(cell.contentView.bounds.size).height

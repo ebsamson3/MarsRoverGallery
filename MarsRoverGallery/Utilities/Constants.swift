@@ -6,8 +6,13 @@
 //  Copyright © 2019 Edward Samson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
 	static let baseURLString = "https://api.nasa.gov/mars-photos/api/v1"
+	
+	struct Spacing {
+        static let small: CGFloat = 8
+        static let large: CGFloat = 16
+	}
 }

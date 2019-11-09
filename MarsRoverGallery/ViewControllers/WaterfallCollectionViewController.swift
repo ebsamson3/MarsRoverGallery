@@ -61,6 +61,8 @@ class WaterfallCollectionViewController: UIViewController {
 	}
 	
 	private func configure() {
+		view.backgroundColor = .background
+		
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		

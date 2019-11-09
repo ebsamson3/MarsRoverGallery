@@ -12,12 +12,17 @@ class PhotoDetailsViewController: UIViewController {
 	
 	private let viewModel: PhotoDetailsViewModel
 	
-	private let imageView = UIImageView()
+	private let imageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.clipsToBounds = true
+		return imageView
+	}()
+	
 	private var imageViewBottomConstraint: NSLayoutConstraint?
 	
 	private lazy var tableViewController = TableViewController(viewModel: viewModel)
 	
-	var imageHeightToViewHeight: CGFloat = 0.5
+	var imageHeightToViewHeight: CGFloat = 0.6
 	
 	private var imageOffsetRatio: CGFloat {
 		return 1 - max(min(imageHeightToViewHeight, 1), 0)

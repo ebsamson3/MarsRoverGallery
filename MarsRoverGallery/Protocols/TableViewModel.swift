@@ -19,7 +19,7 @@ protocol TableViewModel: class {
 	func registerCells(tableView: UITableView)
 	func title(forSection section: Int) -> String?
 	func numberOfRows(inSection section: Int) -> Int
-	func getCellViewModel(at indexPath: IndexPath) -> CellRepresentable?
+	func getCellViewModel(at indexPath: IndexPath) -> CellRepresentable
 	func didSelectRow(at indexPath: IndexPath)
 	func shouldHighlightRow(at indexPath: IndexPath) -> Bool
 }

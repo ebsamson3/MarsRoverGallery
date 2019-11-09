@@ -10,9 +10,35 @@ import UIKit
 
 class PhotoDetailsViewModel: TableViewModel {
 	
+	private lazy var photoDetailCellViewModels: [NameValuePairCellViewModel] = [
+		NameValuePairCellViewModel(
+			name: "Photo ID",
+			value: String(photo.id)
+		),
+		NameValuePairCellViewModel(
+			name: "Rover",
+			value: photo.rover.name.rawValue
+		),
+		NameValuePairCellViewModel(
+			name: "Camera",
+			value: photo.cameraName.fullName
+		),
+		NameValuePairCellViewModel(
+			name: "Date Taken",
+			value: NASADateFormatter.shared.string(from: photo.earthDate)
+		),
+		NameValuePairCellViewModel(
+			name: "Sol taken",
+			value: String(photo.sol))
+	]
+	
+	private var cellViewModelTypes: [CellRepresentable.Type] = [
+		NameValuePairCellViewModel.self
+	]
+	
 	private let imageStore: ImageStore
 	
-	var photo: Photo
+	let photo: Photo
 	
 	var image: UIImage? {
 		get {
@@ -43,13 +69,17 @@ class PhotoDetailsViewModel: TableViewModel {
 		self.imageStore = imageStore
 	}
 	
-	func registerCells(tableView: UITableView) {}
-	
-	func numberOfRows(inSection section: Int) -> Int {
-		0
+	func registerCells(tableView: UITableView) {
+		for cellViewModelType in cellViewModelTypes {
+			cellViewModelType.registerCell(tableView: tableView)
+		}
 	}
 	
-	func getCellViewModel(at indexPath: IndexPath) -> CellRepresentable? {
-		return nil
+	func numberOfRows(inSection section: Int) -> Int {
+		return photoDetailCellViewModels.count
+	}
+	
+	func getCellViewModel(at indexPath: IndexPath) -> CellRepresentable {
+		return photoDetailCellViewModels[indexPath.row]
 	}
 }
