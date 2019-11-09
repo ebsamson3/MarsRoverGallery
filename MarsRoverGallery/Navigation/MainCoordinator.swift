@@ -38,13 +38,12 @@ class MainCoordinator {
 			viewModel: viewModel)
 		viewController.title = "Photo Gallery"
 		
-		let barButton = UIBarButtonItem(
-			title: "Filter Search",
-			style: .plain,
+		let searchButton = UIBarButtonItem(
+			barButtonSystemItem: .search,
 			target: self,
 			action: #selector(handleBarButtonPress(sender:)))
 		
-		viewController.navigationItem.rightBarButtonItem = barButton
+		viewController.navigationItem.rightBarButtonItem = searchButton
 		
 		navigationController.pushViewController(viewController, animated: false)
 	}
@@ -62,11 +61,17 @@ class MainCoordinator {
 
 extension MainCoordinator: PhotosCollectionViewModelDelegate {
 	func photosCollection(didSelect photo: Photo) {
-		let viewModel = PhotoDetailsViewModel(
+//		let viewModel = PhotoDetailsViewModel(
+//			photo: photo,
+//			imageStore: imageStore)
+//
+//		let viewController = PhotoDetailsViewController(
+//			viewModel: viewModel)
+		
+		let viewModel = FullScreenPhotoViewModel(
 			photo: photo,
 			imageStore: imageStore)
-		
-		let viewController = PhotoDetailsViewController(
+		let viewController = FullScreenPhotoViewController(
 			viewModel: viewModel)
 		
 		navigationController.pushViewController(viewController, animated: true)

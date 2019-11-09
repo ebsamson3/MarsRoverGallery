@@ -12,7 +12,7 @@ class NameValuePairCell: UITableViewCell {
 
     static var reuseIdentifier = "NameValuePairCell"
 	
-	private let nameLabel = UILabel.standard().embolden()
+	private let nameLabel = UILabel.standard()
 	
 	private let valueLabel: UILabel = {
 		let label = UILabel.standard()

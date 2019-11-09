@@ -9,29 +9,24 @@
 import UIKit
 
 extension UILabel {
-	
-	static func fontSize() -> CGFloat {
-		let deviceIdiom = UIDevice.current.userInterfaceIdiom
-		
-		if deviceIdiom == .pad {
-			return 32
-		} else {
-			return UIFont.labelFontSize
-		}
-	}
-	
+
 	static func standard() -> UILabel {
 		let label = UILabel()
+		label.textAlignment = .natural
 		label.font = UIFont.preferredFont(forTextStyle: .body)
-			.withSize(UILabel.fontSize())
+			.withSize(UIFont.labelFontSize)
 		label.baselineAdjustment = .alignCenters
 		label.textColor = .darkText
 		label.isOpaque = true
 		return label
 	}
 	
-	func embolden() -> Self {
-		self.font = UIFont.boldSystemFont(ofSize: UILabel.fontSize())
-		return self
+	static func clearCaption() -> UILabel {
+		let label = UILabel()
+		label.backgroundColor = .clear
+		label.isOpaque = false
+		label.font = UIFont.boldSystemFont(ofSize: 16)
+		label.textColor = .yellow
+		return label
 	}
 }
