@@ -22,7 +22,7 @@ struct Rover {
 }
 
 extension Rover {
-	enum Name: String, Codable {
+	enum Name: String, Codable, CaseIterable {
 		case curiosity = "Curiosity"
 		case opportunity = "Opportunity"
 		case spirit = "Spirit"

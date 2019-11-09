@@ -17,9 +17,12 @@ protocol CollectionViewModel: class {
 	var performBatchUpdates: ((()-> Void) -> Void)? { get set }
 	
 	func registerCells(collectionView: UICollectionView)
+	func registerHeaders(collectionView: UICollectionView)
 	func numberOfItems(inSection section: Int) -> Int
 	func viewModelForItem(at indexPath: IndexPath) -> ItemRepresentable
+	func viewModelForHeader(at indexPath: IndexPath) -> CollectionHeaderRepresentable?
 	func sizeForItem(at indexPath: IndexPath) -> CGSize
+	func insets(forSection section: Int) -> UIEdgeInsets 
 	func didSelectItem(at indexPath: IndexPath)
 	func prefetchItems(at indexPaths: [IndexPath])
 	func cancelPrefetchingForItems(at indexPaths: [IndexPath])
@@ -74,5 +77,21 @@ extension CollectionViewModel {
 		set {
 			return
 		}
+	}
+	
+	func registerHeaders(collectionView: UICollectionView) {}
+	
+	func prefetchItems(at indexPaths: [IndexPath]) {}
+	
+	func cancelPrefetchingForItems(at indexPaths: [IndexPath]) {}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {}
+	
+	func insets(forSection section: Int) -> UIEdgeInsets {
+		return UIEdgeInsets.zero
+	}
+	
+	func viewModelForHeader(at indexPath: IndexPath) -> CollectionHeaderRepresentable? {
+		return nil
 	}
 }

@@ -65,7 +65,9 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 		
 		switch sectionType {
 		case .photos:
-			return 2
+			let bounds = UIScreen.main.bounds
+			let isPortrait = bounds.height > bounds.width
+			return isPortrait ? 2 : 3
 		case .loading:
 			return 1
 		}

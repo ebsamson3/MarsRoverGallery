@@ -10,7 +10,7 @@ import Foundation
 
 struct Camera {
 	
-	enum Name: String, Codable {
+	enum Name: String, Codable, CaseIterable {
 		case fhaz = "FHAZ"
 		case rhaz = "RHAZ"
 		case mast = "MAST"

@@ -15,7 +15,7 @@ class TableViewController: UIViewController {
 	
 	private var cellHeights = [IndexPath: CGFloat]()
 	
-	lazy var tableView: UITableView = {
+	@objc lazy var tableView: UITableView = {
 		let tableView = UITableView()
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -43,6 +43,26 @@ class TableViewController: UIViewController {
 		super.viewDidLoad()
 		setup()
 	}
+	
+    private var kvoContext = 0
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObserver(self, forKeyPath: #keyPath(tableView.contentSize), options: .new, context: &kvoContext)
+
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        removeObserver(self, forKeyPath: #keyPath(tableView.contentSize))
+        super.viewDidDisappear(animated)
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &kvoContext, keyPath == #keyPath(tableView.contentSize),
+            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize  {
+            self.popoverPresentationController?.presentedViewController.preferredContentSize = contentSize
+        }
+    }
 	
 	func setup() {
 		view.backgroundColor = .background

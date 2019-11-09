@@ -49,10 +49,11 @@ class MainCoordinator {
 	}
 	
 	@objc private func handleBarButtonPress(sender: UIBarButtonItem) {
-		let viewController = UITableViewController()
+		let viewModel = SearchSettingsCollectionViewModel()
+		let viewController = WaterfallCollectionViewController(viewModel: viewModel)
 		viewController.view.backgroundColor = .white
-		viewController.preferredContentSize = viewController.tableView.contentSize
 		viewController.modalPresentationStyle = .popover
+		viewController.preferredContentSize = CGSize(width: 450, height: 0)
 		let popOver = viewController.popoverPresentationController
 		popOver?.barButtonItem = sender
 		navigationController.present(viewController, animated: true)

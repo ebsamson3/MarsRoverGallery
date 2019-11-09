@@ -14,7 +14,7 @@ class WaterfallCollectionViewController: UIViewController {
 	
 	private var flowLayout = CHTCollectionViewWaterfallLayout()
 	
-	private lazy var collectionView: UICollectionView = {
+	@objc lazy var collectionView: UICollectionView = {
 		let collectionView = UICollectionView(
 			frame: .zero,
 			collectionViewLayout: flowLayout)
@@ -36,6 +36,7 @@ class WaterfallCollectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		viewModel.registerCells(collectionView: collectionView)
+		viewModel.registerHeaders(collectionView: collectionView)
 		
 		viewModel.insertItems = { [weak self] indexPaths in
 			self?.collectionView.insertItems(at: indexPaths)
@@ -60,8 +61,41 @@ class WaterfallCollectionViewController: UIViewController {
 		configure()
 	}
 	
+	private var kvoContext = 0
+	
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+		
+        addObserver(
+			self,
+			forKeyPath: #keyPath(collectionView.contentSize),
+			options: .new,
+			context: &kvoContext)
+
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        removeObserver(
+			self,
+			forKeyPath: #keyPath(collectionView.contentSize))
+        super.viewDidDisappear(animated)
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if
+			context == &kvoContext,
+			keyPath == #keyPath(collectionView.contentSize),
+            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize
+		{
+            self.popoverPresentationController?
+				.presentedViewController
+				.preferredContentSize = contentSize
+        }
+    }
+	
 	private func configure() {
 		view.backgroundColor = .background
+		collectionView.backgroundColor = .background
 		
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +132,19 @@ extension WaterfallCollectionViewController: UICollectionViewDataSource {
 		
 		return cell
 	}
+	
+	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		switch kind {
+		case UICollectionView.elementKindSectionHeader:
+			let headerViewModel = viewModel.viewModelForHeader(at: indexPath)
+			let header = headerViewModel?.headerInstance(
+				collectionView: collectionView,
+				indexPath: indexPath) ?? UICollectionReusableView()
+			return header
+		default:
+			return UICollectionReusableView()
+		}
+	}
 }
 
 extension WaterfallCollectionViewController: UICollectionViewDelegate {
@@ -113,6 +160,14 @@ extension WaterfallCollectionViewController: CHTCollectionViewDelegateWaterfallL
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, columnCountFor section: Int) -> Int {
 		viewModel.columnCount(forSection: section)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsFor section: Int) -> UIEdgeInsets {
+		viewModel.insets(forSection: section)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
+		viewModel.heightForHeader(inSection: section)
 	}
 }
 
