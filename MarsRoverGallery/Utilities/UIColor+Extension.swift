@@ -16,5 +16,7 @@ extension UIColor {
 			brightness: 1,
 			alpha: 1)
     }
+	
+	static var background = UIColor.black
 }
 

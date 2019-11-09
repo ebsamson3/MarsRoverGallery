@@ -11,6 +11,7 @@ import UIKit
 class MainCoordinator {
 	
 	let navigationController: UINavigationController
+	private lazy var imageStore = ImageStore()
 	
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
@@ -27,7 +28,6 @@ class MainCoordinator {
 			dateOption: .sol(1150))
 		
 		let paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
-		let imageStore = ImageStore()
 		
 		let viewModel = PhotosCollectionViewModel(
 			paginatedPhotosController: paginatedPhotosController,
@@ -61,11 +61,14 @@ class MainCoordinator {
 }
 
 extension MainCoordinator: PhotosCollectionViewModelDelegate {
-	func photosCollection(didSelectPhoto: Photo) {
-		print("photo selected")
-		let viewController = UIViewController()
-		viewController.view.backgroundColor = .black
-		viewController.title = "Photo Details"
+	func photosCollection(didSelect photo: Photo) {
+		let viewModel = PhotoDetailsViewModel(
+			photo: photo,
+			imageStore: imageStore)
+		
+		let viewController = PhotoDetailsViewController(
+			viewModel: viewModel)
+		
 		navigationController.pushViewController(viewController, animated: true)
 	}
 }

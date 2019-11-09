@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PhotosCollectionViewModelDelegate: class {
-	func photosCollection(didSelectPhoto: Photo)
+	func photosCollection(didSelect photo: Photo)
 }
 
 class PhotosCollectionViewModel: WaterfallCollectionViewModel {
@@ -133,7 +133,7 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 		switch sectionType {
 		case .photos:
 			let photo = photoCellViewModels[row].photo
-			delegate?.photosCollection(didSelectPhoto: photo)
+			delegate?.photosCollection(didSelect: photo)
 		case .loading:
 			break
 		}

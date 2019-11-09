@@ -10,6 +10,12 @@
 		5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE0F237557D000ED1111 /* LoadingCell.swift */; };
 		5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */; };
 		5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE162376069100ED1111 /* MainCoordinator.swift */; };
+		5F32EE192376151A00ED1111 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE182376151A00ED1111 /* TableViewModel.swift */; };
+		5F32EE1B2376162600ED1111 /* CellRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1A2376162600ED1111 /* CellRepresentable.swift */; };
+		5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1C2376171400ED1111 /* TableViewController.swift */; };
+		5F32EE1F237618FF00ED1111 /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1E237618FF00ED1111 /* PhotoDetailsViewController.swift */; };
+		5F32EE21237619C800ED1111 /* PhotoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE20237619C800ED1111 /* PhotoDetailsViewModel.swift */; };
+		5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */; };
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
@@ -60,6 +66,12 @@
 		5F32EE0F237557D000ED1111 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE162376069100ED1111 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		5F32EE182376151A00ED1111 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
+		5F32EE1A2376162600ED1111 /* CellRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRepresentable.swift; sourceTree = "<group>"; };
+		5F32EE1C2376171400ED1111 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		5F32EE1E237618FF00ED1111 /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
+		5F32EE20237619C800ED1111 /* PhotoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewModel.swift; sourceTree = "<group>"; };
+		5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
 		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +211,7 @@
 				5F8BFE9D2372D09700465DD6 /* Secrets.swift */,
 				5F8BFE9B2372C60900465DD6 /* URLSession+Extensions.swift */,
 				5F6A51132374D18300C61D25 /* UIColor+Extension.swift */,
+				5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -228,6 +241,8 @@
 				5F8BFEA3237378FF00465DD6 /* CollectionViewModel.swift */,
 				5FB215012374969A008596DF /* WaterfallCollectionViewModel.swift */,
 				5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */,
+				5F32EE182376151A00ED1111 /* TableViewModel.swift */,
+				5F32EE1A2376162600ED1111 /* CellRepresentable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -237,6 +252,9 @@
 			children = (
 				5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */,
 				5FB21503237497D7008596DF /* PhotosCollectionViewModel.swift */,
+				5F32EE1C2376171400ED1111 /* TableViewController.swift */,
+				5F32EE1E237618FF00ED1111 /* PhotoDetailsViewController.swift */,
+				5F32EE20237619C800ED1111 /* PhotoDetailsViewModel.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -367,9 +385,12 @@
 				5FB2150723749998008596DF /* PhotoCellViewModel.swift in Sources */,
 				5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */,
 				5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */,
+				5F32EE192376151A00ED1111 /* TableViewModel.swift in Sources */,
 				5F8BFE9E2372D09700465DD6 /* Secrets.swift in Sources */,
 				5F8BFEA923737A9200465DD6 /* WaterfallCollectionViewController.swift in Sources */,
+				5F32EE21237619C800ED1111 /* PhotoDetailsViewModel.swift in Sources */,
 				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
+				5F32EE1B2376162600ED1111 /* CellRepresentable.swift in Sources */,
 				5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */,
 				5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */,
 				5FB214FC237407E4008596DF /* ImageStore.swift in Sources */,
@@ -381,7 +402,9 @@
 				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,
 				5FB215022374969A008596DF /* WaterfallCollectionViewModel.swift in Sources */,
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
+				5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */,
 				5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */,
+				5F32EE1F237618FF00ED1111 /* PhotoDetailsViewController.swift in Sources */,
 				5F8BFE942372B6F900465DD6 /* Constants.swift in Sources */,
 				5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				5F8BFEB12373E13700465DD6 /* ImageSizer.swift in Sources */,
@@ -394,6 +417,7 @@
 				5F8BFEA62373796500465DD6 /* ItemRepresentable.swift in Sources */,
 				5F8BFE8F2372000100465DD6 /* ManifestResponse.swift in Sources */,
 				5F8BFE7A237147F700465DD6 /* NASADateFormatter.swift in Sources */,
+				5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */,
 				5F8BFE892371EE7D00465DD6 /* PhotosResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
