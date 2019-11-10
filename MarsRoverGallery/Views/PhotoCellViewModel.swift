@@ -11,7 +11,7 @@ import UIKit
 class PhotoCellViewModel {
 	
 	let photo: Photo
-	weak var imageStore: ImageStore?
+	let imageStore: ImageStore
 	
 	init(photo: Photo, imageStore: ImageStore) {
 		self.photo = photo
@@ -37,12 +37,12 @@ extension PhotoCellViewModel: ItemRepresentable {
 			
 			let imageUrl = photo.imageUrl
 			
-			if let cachedImage = imageStore?.fetchedImage(withUrl: imageUrl) {
+			if let cachedImage = imageStore.fetchedImage(withUrl: imageUrl) {
 				imageCell.setImage(to: cachedImage)
 			} else {
 				imageCell.setImage(to: nil)
 				
-				imageStore?.fetchImage(withUrl: imageUrl) { result in
+				imageStore.fetchImage(withUrl: imageUrl) { result in
 					switch result {
 					case .failure(let error):
 						print(error.localizedDescription)

@@ -11,10 +11,18 @@ import UIKit
 class MainCoordinator: NSObject {
 	
 	let navigationController: UINavigationController
+	let paginatedPhotosController: PaginatedPhotosController
 	private lazy var imageStore = ImageStore()
 	
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
+		
+		let photosRequest = try! PhotosRequest(
+			roverName: .curiosity,
+			cameraName: .any,
+			dateOption: .sol(1150))
+		
+		paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
 	}
 	
 	func start() {
@@ -22,12 +30,6 @@ class MainCoordinator: NSObject {
 	}
 	
 	func showPhotoGallery() {
-		let photosRequest = try! PhotosRequest(
-			roverName: .curiosity,
-			cameraName: nil,
-			dateOption: .sol(1150))
-		
-		let paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
 		
 		let viewModel = PhotosCollectionViewModel(
 			paginatedPhotosController: paginatedPhotosController,
@@ -49,7 +51,8 @@ class MainCoordinator: NSObject {
 	}
 	
 	@objc private func handleBarButtonPress(sender: UIBarButtonItem) {
-		let viewModel = SearchSettingsCollectionViewModel()
+		let viewModel = SearchSettingsCollectionViewModel(
+			photosController: paginatedPhotosController)
 		let viewController = SearchSettingsViewController(viewModel: viewModel)
 		viewController.modalPresentationStyle = .popover
 		viewController.preferredContentSize = CGSize(width: 450, height: 0)

@@ -14,13 +14,7 @@ class SettingsButton: UIButton {
 	
 	var color: UIColor = .brightText {
 		didSet {
-			setColor()
-		}
-	}
-	
-	var isActive = false {
-		didSet {
-			backgroundColor = isActive ? color : .clear
+			setColor(to: color)
 		}
 	}
     
@@ -48,25 +42,41 @@ class SettingsButton: UIButton {
 	
 	override var isHighlighted: Bool {
 		didSet {
-			backgroundColor = isHighlighted ? color : .clear
+			backgroundColor = isHighlighted || isSelected ? color : .clear
+		}
+	}
+	
+	override var isSelected: Bool {
+		didSet {
+			backgroundColor = isSelected || isHighlighted ? color : .clear
+		}
+	}
+	
+	override var isEnabled: Bool {
+		didSet {
+			if isEnabled {
+				setColor(to: color)
+				backgroundColor = isSelected ? color : .clear
+			} else {
+				setColor(to: .lightGray)
+				backgroundColor = .clear
+			}
 		}
 	}
     
     private func setup() {
-		setColor()
+		setColor(to: color)
         setTitleColor(UIColor.darkText, for: .highlighted)
+		setTitleColor(UIColor.darkText, for: .selected)
+		
         titleLabel?.textAlignment = .center
         titleLabel?.baselineAdjustment = .alignCenters
 		titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
 		layer.borderWidth = 1
     }
 
-	private func setColor() {
+	private func setColor(to color: UIColor) {
 		setTitleColor(color, for: .normal)
 		layer.borderColor = color.cgColor
-		
-		if isActive {
-			backgroundColor = color
-		}
 	}
 }

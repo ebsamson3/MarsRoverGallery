@@ -34,18 +34,16 @@ struct PhotosRequest: Identifiable {
 	
 	let id = UUID()
 	let roverName: Rover.Name
-	let cameraName: Camera.Name?
+	let cameraName: Camera.Name
 	let dateOption: DateOption
 	
 	init(
 		roverName: Rover.Name,
-		cameraName: Camera.Name? = nil,
+		cameraName: Camera.Name = .any,
 		dateOption: DateOption = .latest) throws
 	{
-		if let cameraName = cameraName {
-			guard roverName.availableCameras.contains(cameraName) else {
-				throw PhotosRequestError.invalidCamera
-			}
+		guard roverName.availableCameras.contains(cameraName) else {
+			throw PhotosRequestError.invalidCamera
 		}
 		
 		self.roverName = roverName
@@ -82,10 +80,10 @@ struct PhotosRequest: Identifiable {
 		let roverNameString = "rovers/\(roverName.rawValue.lowercased())"
 		let dateOptionString = dateOption.string
 		let cameraNameString: String
-		if let cameraName = cameraName {
-			cameraNameString = "camera=\(cameraName.rawValue.lowercased())"
-		} else {
+		if case .any = cameraName {
 			cameraNameString = ""
+		} else {
+			cameraNameString = "camera=\(cameraName.rawValue.lowercased())"
 		}
 		
 		let pageString = "page=\(page)"

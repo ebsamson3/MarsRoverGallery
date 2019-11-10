@@ -35,20 +35,22 @@ class SearchSettingsCollectionViewModel {
 	
 	lazy var headerViewModels: [Section: SettingsSectionHeaderViewModel] = Dictionary(
 		uniqueKeysWithValues: Section.allCases.compactMap { section in
-			
 			guard let title = section.title else {
 				return nil
 			}
-			
 			let key = section
 			let value = SettingsSectionHeaderViewModel(title: title)
-			
 			return (key, value)
 		}
 	)
 
-	lazy var roverCellViewModels: [SelectorCellViewModel] = Rover.Name.allCases.map { roverName in
-		SelectorCellViewModel(title: roverName.rawValue)
+	lazy var roverSettingCellViewModels: [RoverSettingCellViewModel] = Rover.Name.allCases.map { roverName in
+		let viewModel = RoverSettingCellViewModel(roverName: roverName)
+		viewModel.isActive = roverName == photosController.photosRequest.roverName
+		viewModel.selectionHandler = { [weak self] in
+			self?.selectedRover = roverName
+		}
+		return viewModel
 	}
 	
 	lazy var cameraCellViewModels: [SelectorCellViewModel] = Camera.Name.allCases.map { cameraName in
@@ -82,6 +84,33 @@ class SearchSettingsCollectionViewModel {
 	private let sectionHeaderTypes: [CollectionHeaderRepresentable.Type] = [
 		SettingsSectionHeaderViewModel.self
 	]
+	
+	
+	
+	let photosController: PaginatedPhotosController
+	var selectedRover: Rover.Name { didSet { didSelectRover() } }
+	var selectedCamera: Camera.Name
+	var selectedDate: PhotosRequest.DateOption
+	
+	
+	init(photosController: PaginatedPhotosController) {
+		self.photosController = photosController
+		let photosRequest = photosController.photosRequest
+		self.selectedRover = photosRequest.roverName
+		self.selectedCamera = photosRequest.cameraName
+		self.selectedDate = photosRequest.dateOption
+	}
+	
+	func didSelectRover() {
+		print("did select rover: \(selectedRover)")
+		roverSettingCellViewModels.forEach { viewModel in
+			if viewModel.roverName != selectedRover {
+				viewModel.isActive = false
+			} else {
+				viewModel.isActive = true
+			}
+		}
+	}
 }
 	
 extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
@@ -126,7 +155,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .spacer:
 			return 0
 		case .selectRover:
-			return roverCellViewModels.count
+			return roverSettingCellViewModels.count
 		case .selectCamera:
 			return adjustedCameraCellViewModels.count
 		case .dateOption:
@@ -147,7 +176,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .spacer:
 			fatalError("No view models in spacer section")
 		case .selectRover:
-			return roverCellViewModels[row]
+			return roverSettingCellViewModels[row]
 		case .selectCamera:
 			return adjustedCameraCellViewModels[row]
 		case .dateOption:
