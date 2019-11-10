@@ -144,8 +144,10 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 	func prefetchItems(at indexPaths: [IndexPath]) {
 		indexPaths.forEach { indexPath in
 			let row = indexPath.row
-			let imageUrl = photoCellViewModels[row].photo.imageUrl
-			imageStore.fetchImage(withUrl: imageUrl)
+			if photoCellViewModels.count > row {
+				let imageUrl = photoCellViewModels[row].photo.imageUrl
+				imageStore.fetchImage(withUrl: imageUrl)
+			}
 		}
 	}
 	
@@ -153,8 +155,10 @@ class PhotosCollectionViewModel: WaterfallCollectionViewModel {
 		
 		indexPaths.forEach { indexPath in
 			let row = indexPath.row
-			let imageUrl = photoCellViewModels[row].photo.imageUrl
-			imageStore.cancelFetch(forImageWithUrl: imageUrl)
+			if photoCellViewModels.count > row {
+				let imageUrl = photoCellViewModels[row].photo.imageUrl
+				imageStore.cancelFetch(forImageWithUrl: imageUrl)
+			}
 		}
 	}
 	
@@ -186,6 +190,7 @@ extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
 		case .upToDate(let photos, let nextPage):
 			guard nextPage > 1 else {
 				photoCellViewModels.removeAll()
+				imageStore.removeAllObjects()
 				reloadData?()
 				return
 			}

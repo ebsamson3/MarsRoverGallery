@@ -12,7 +12,6 @@ class ImageStore {
 	
 	private let imageCache: NSCache<NSString, UIImage> = {
 		let cache = NSCache<NSString, UIImage>()
-		cache.countLimit = 75
 		return cache
 	}()
 	
@@ -81,5 +80,9 @@ class ImageStore {
 	func cancelFetch(forImageWithUrl imageUrl: String) {
 		downloadOperations[imageUrl]?.cancel()
 		downloadOperations.removeValue(forKey: imageUrl)
+	}
+	
+	func removeAllObjects() {
+		imageCache.removeAllObjects()
 	}
 }
