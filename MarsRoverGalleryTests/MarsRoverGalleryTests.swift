@@ -194,6 +194,29 @@ class MarsRoverGalleryTests: XCTestCase {
 		waitForExpectations(timeout: 5, handler: nil)
 		XCTAssertNotNil(image)
 	}
+	
+	func testManifestStore() {
+		
+		let manifestStore = ManifestStore()
+		
+		let expectation = self.expectation(description: "Manifest fetch completed")
+		
+		var manifest: Manifest?
+		
+		manifestStore.fetchManifest(forRover: .curiosity) { result in
+			switch result {
+			case .failure(let error):
+				XCTFail("Image fetch failed with error: \(error.localizedDescription)")
+			case.success(let newManifest):
+				manifest = newManifest
+			}
+			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(manifest)
+	}
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

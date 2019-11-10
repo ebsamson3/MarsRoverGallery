@@ -16,6 +16,7 @@ class ImageDownloadOperation: AsynchronousOperation {
 	
 	let imageUrl: String
 	private var _result = ThreadSafe<Result<UIImage, Error>?>(value: nil)
+	private var task: URLSessionDataTask?
 	
 	var result: Result<UIImage, Error>? {
 		get {
@@ -42,10 +43,16 @@ class ImageDownloadOperation: AsynchronousOperation {
 		let request = URLRequest(url: url)
 		
 		if isCancelled {
+			self.finish()
 			return
 		}
 		
-		session.dataTask(with: request) { [weak self] data, response, error in
+		task = session.dataTask(with: request) { [weak self] data, response, error in
+			
+			if self?.isCancelled == true {
+				self?.finish()
+				return
+			}
 			
 			if let error = error {
 				self?.result = .failure(error)
@@ -76,14 +83,13 @@ class ImageDownloadOperation: AsynchronousOperation {
 			
 			self?.result = .success(image)
 			self?.finish()
-		}.resume()
-	}
-}
-
-extension ImageDownloadOperation: URLSessionDataDelegate {
-	func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-		if isCancelled {
-			self.finish()
 		}
+		
+		task?.resume()
+	}
+	
+	override func cancel() {
+		super.cancel()
+		task?.cancel()
 	}
 }
