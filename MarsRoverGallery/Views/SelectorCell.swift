@@ -10,6 +10,12 @@ import UIKit
 
 class SelectorCell: UICollectionViewCell, Observer {
 	
+	enum State {
+		case selected
+		case normal
+		case disabled
+	}
+	
 	static let reuseIdentifier = "SelectorCell"
 	
 	var disposeBag = DisposeBag()
@@ -33,7 +39,7 @@ class SelectorCell: UICollectionViewCell, Observer {
 	
 	var selectionHandler: (() -> Void)?
 	
-	var state = UIControl.State.normal {
+	var state = State.normal {
 		didSet {
 			switch state {
 			case .normal:
@@ -45,8 +51,6 @@ class SelectorCell: UICollectionViewCell, Observer {
 			case .disabled:
 				button.isEnabled = false
 				button.isSelected = false
-			default:
-				break
 			}
 		}
 	}

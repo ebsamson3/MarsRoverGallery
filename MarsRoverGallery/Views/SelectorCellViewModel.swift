@@ -57,8 +57,12 @@ extension SelectorCellViewModel: ItemRepresentable {
 				self?.handleSelection()
 			}
 			
-			selectorCell.observe(_isActive, options: [.initial]) { [weak selectorCell] (isActive, _) in
-				selectorCell?.state = isActive ? .selected : .normal
+			selectorCell.observe(_isActive, options: [.initial]) { [weak selectorCell, weak self] (isActive, _) in
+				if isActive {
+					selectorCell?.state = .selected
+				} else {
+					selectorCell?.state = self?.isAvailable == true ? .normal : .disabled
+				}
 			}
 			
 			selectorCell.observe(_isAvailable, options: [.initial]) { [weak selectorCell, weak self] (isAvailable, _) in

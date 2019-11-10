@@ -52,19 +52,24 @@ class SearchSettingsCollectionViewModel {
 
 	lazy var roverSettingCellViewModels: [SelectorCellViewModel<Rover.Name>] = Rover.Name.allCases.map { roverName in
 		let viewModel = SelectorCellViewModel(value: roverName)
-		viewModel.isActive = roverName == photosController.photosRequest.roverName
+		viewModel.isActive = roverName == selectedRover
 		viewModel.selectionHandler = { [weak self] in
 			self?.selectedRover = roverName
 		}
 		return viewModel
 	}
 	
-	lazy var cameraCellViewModels: [SelectorCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
-		SelectorCellViewModel(value: cameraName)
+	lazy var cameraSettingCellViewModels: [SelectorCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
+		let viewModel = SelectorCellViewModel(value: cameraName)
+		viewModel.isActive = cameraName == selectedCamera
+		viewModel.selectionHandler = { [weak self] in
+			self?.selectedCamera = cameraName
+		}
+		return viewModel
 	}
 	
 	lazy var adjustedCameraCellViewModels: [ItemRepresentable] = {
-		var cellViewModels: [ItemRepresentable] = cameraCellViewModels
+		var cellViewModels: [ItemRepresentable] = cameraSettingCellViewModels
 		cellViewModels.insert(LabelCellViewModel(), at: 9)
 		return cellViewModels
 	}()
@@ -90,8 +95,8 @@ class SearchSettingsCollectionViewModel {
 	
 	
 	let photosController: PaginatedPhotosController
-	var selectedRover: Rover.Name { didSet { didSelectRover() } }
-	var selectedCamera: Camera.Name
+	var selectedRover: Rover.Name { didSet { didSelectRover() }}
+	var selectedCamera: Camera.Name { didSet { didSelectCamera() }}
 	var selectedDate: PhotosRequest.DateOption
 	
 	
@@ -104,7 +109,6 @@ class SearchSettingsCollectionViewModel {
 	}
 	
 	func didSelectRover() {
-		print("did select rover: \(selectedRover)")
 		roverSettingCellViewModels.forEach { viewModel in
 			if viewModel.value != selectedRover {
 				viewModel.isActive = false
@@ -113,7 +117,32 @@ class SearchSettingsCollectionViewModel {
 			}
 		}
 		
+		setAvailableCameras()
+	}
+	
+	func didSelectCamera() {
+		cameraSettingCellViewModels.forEach { viewModel in
+			let camera = viewModel.value
+			viewModel.isActive = selectedCamera == camera
+		}
+	}
+	
+	func setAvailableCameras() {
+		let availableCameras = selectedRover.availableCameras
 		
+		cameraSettingCellViewModels.forEach { viewModel in
+			
+			let cameraName = viewModel.value
+			
+			if availableCameras.contains(cameraName) {
+				viewModel.isAvailable = true
+			} else {
+				if selectedCamera == cameraName {
+					selectedCamera = .any
+				}
+				viewModel.isAvailable = false
+			}
+		}
 	}
 }
 	
