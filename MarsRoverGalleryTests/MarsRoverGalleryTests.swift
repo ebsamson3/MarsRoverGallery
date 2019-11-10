@@ -74,7 +74,7 @@ class MarsRoverGalleryTests: XCTestCase {
 		
 		var result: Result<[Photo], Error>?
 		
-		let expectation = self.expectation(description: "Fetch completed")
+		let expectation = self.expectation(description: "Fetch photos completed")
 		
 		photosRequest.fetch() { newResult in
 			result = newResult
@@ -85,6 +85,29 @@ class MarsRoverGalleryTests: XCTestCase {
 				break
 			}
 			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssertNotNil(result, "No fetch result recieved")
+	}
+	
+	func testManifestFetch() {
+		
+		let manifestRequest = ManifestRequest(roverName: .curiosity)
+		
+		var result: Result<Manifest, Error>?
+		
+		let expectation = self.expectation(description: "Fetch manifest completed")
+		
+		manifestRequest.fetch() { newResult in
+			result = newResult
+			switch newResult {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(_):
+				break
+			}
 			expectation.fulfill()
 		}
 		

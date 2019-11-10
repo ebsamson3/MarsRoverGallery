@@ -15,7 +15,16 @@ enum ImageDownloadOperationError: Error {
 class ImageDownloadOperation: AsynchronousOperation {
 	
 	let imageUrl: String
-	var result: Result<UIImage, Error>?
+	private var _result = ThreadSafe<Result<UIImage, Error>?>(value: nil)
+	
+	var result: Result<UIImage, Error>? {
+		get {
+			return _result.getValue()
+		}
+		set {
+			_result.setValue(to: newValue)
+		}
+	}
 	
 	init(imageUrl: String) {
 		self.imageUrl = imageUrl

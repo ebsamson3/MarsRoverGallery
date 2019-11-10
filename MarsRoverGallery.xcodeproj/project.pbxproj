@@ -33,6 +33,10 @@
 		5F32EE552377629B00ED1111 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE542377629B00ED1111 /* SettingsFooterView.swift */; };
 		5F32EE5723778BDF00ED1111 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5623778BDE00ED1111 /* LabelCell.swift */; };
 		5F32EE5923778BF500ED1111 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5823778BF500ED1111 /* LabelCellViewModel.swift */; };
+		5F32EE5D2377A49300ED1111 /* ManifestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5C2377A49300ED1111 /* ManifestStore.swift */; };
+		5F32EE5F2377A56500ED1111 /* ManifestDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */; };
+		5F32EE612377A57900ED1111 /* ThreadSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE602377A57900ED1111 /* ThreadSafe.swift */; };
+		5F32EE632377A76600ED1111 /* ManifestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE622377A76600ED1111 /* ManifestRequest.swift */; };
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
@@ -106,6 +110,10 @@
 		5F32EE542377629B00ED1111 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 		5F32EE5623778BDE00ED1111 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		5F32EE5823778BF500ED1111 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
+		5F32EE5C2377A49300ED1111 /* ManifestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestStore.swift; sourceTree = "<group>"; };
+		5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestDownloadOperation.swift; sourceTree = "<group>"; };
+		5F32EE602377A57900ED1111 /* ThreadSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafe.swift; sourceTree = "<group>"; };
+		5F32EE622377A76600ED1111 /* ManifestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestRequest.swift; sourceTree = "<group>"; };
 		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +255,7 @@
 				5F6A51132374D18300C61D25 /* UIColor+Extension.swift */,
 				5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */,
 				5F32EE2823764EA300ED1111 /* UILabel+Extensions.swift */,
+				5F32EE602377A57900ED1111 /* ThreadSafe.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -255,9 +264,12 @@
 			isa = PBXGroup;
 			children = (
 				5F8BFE912372A51C00465DD6 /* PhotosRequest.swift */,
+				5F32EE622377A76600ED1111 /* ManifestRequest.swift */,
 				5F8BFEB02373E13700465DD6 /* ImageSizer.swift */,
 				5FB214FB237407E4008596DF /* ImageStore.swift */,
 				5FB214FD237409B7008596DF /* ImageDownloadOperation.swift */,
+				5F32EE5C2377A49300ED1111 /* ManifestStore.swift */,
+				5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -449,19 +461,23 @@
 				5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */,
 				5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */,
 				5FB214FC237407E4008596DF /* ImageStore.swift in Sources */,
+				5F32EE5D2377A49300ED1111 /* ManifestStore.swift in Sources */,
 				5F8BFE7C23714CDF00465DD6 /* Photo.swift in Sources */,
 				5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */,
 				5FB2150923749A3A008596DF /* ImageCell.swift in Sources */,
 				5FB21504237497D7008596DF /* PhotosCollectionViewModel.swift in Sources */,
 				5F8BFE9C2372C60900465DD6 /* URLSession+Extensions.swift in Sources */,
+				5F32EE612377A57900ED1111 /* ThreadSafe.swift in Sources */,
 				5F32EE3C2376AB6E00ED1111 /* SliderCellViewModel.swift in Sources */,
 				5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */,
 				5F32EE2F2376680700ED1111 /* FullScreenPhotoViewModel.swift in Sources */,
 				5F32EE4D2377550300ED1111 /* SearchSettingsViewController.swift in Sources */,
+				5F32EE5F2377A56500ED1111 /* ManifestDownloadOperation.swift in Sources */,
 				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,
 				5F32EE5323775CA200ED1111 /* SettingsButton.swift in Sources */,
 				5FB215022374969A008596DF /* WaterfallCollectionViewModel.swift in Sources */,
 				5F32EE362376A38000ED1111 /* SliderCell.swift in Sources */,
+				5F32EE632377A76600ED1111 /* ManifestRequest.swift in Sources */,
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
 				5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */,
 				5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */,

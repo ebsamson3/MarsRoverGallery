@@ -8,7 +8,7 @@
 //
 import UIKit
 
-class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
+class SearchSettingsCollectionViewModel {
 
 	enum Section: Int, CaseIterable {
 		case spacer
@@ -82,7 +82,10 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 	private let sectionHeaderTypes: [CollectionHeaderRepresentable.Type] = [
 		SettingsSectionHeaderViewModel.self
 	]
-
+}
+	
+extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
+	
 	func columnCount(forSection section: Int) -> Int {
 		guard let sectionType = Section.init(rawValue: section) else {
 			fatalError("Invalid section")
