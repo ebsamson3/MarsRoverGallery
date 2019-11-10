@@ -70,4 +70,9 @@ class NASADateFormatter {
 		}
 		return earthDate
 	}
+	
+	func string(fromSol sol: Int, andLandingDate landingDate: Date, andRover roverName: Rover.Name) throws -> String {
+		let dateFromSol = try date(fromSol: sol, andLandingDate: landingDate, andRover: roverName)
+		return string(from: dateFromSol)
+	}
 }

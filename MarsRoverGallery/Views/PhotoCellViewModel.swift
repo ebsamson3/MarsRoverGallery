@@ -48,7 +48,7 @@ extension PhotoCellViewModel: ItemRepresentable {
 						print(error.localizedDescription)
 					case .success(let image):
 						if imageCell.representedId == ObjectIdentifier(self) {
-							imageCell.setImage(to: image)
+							imageCell.setImage(to: image, animated: true)
 						}
 					}
 				}

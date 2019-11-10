@@ -16,7 +16,7 @@ class ImageCell: UICollectionViewCell {
 	private let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
-		imageView.backgroundColor = .random
+		imageView.backgroundColor = .lightGray
 		return imageView
 	}()
 	
@@ -59,7 +59,17 @@ class ImageCell: UICollectionViewCell {
 			.isActive = true
 	}
 	
-	func setImage(to image: UIImage?) {
-		imageView.image = image
+	func setImage(to image: UIImage?, animated: Bool = false) {
+		
+		if animated {
+			UIView.transition(
+				with: imageView,
+				duration: 0.5,
+				options: .transitionCrossDissolve,
+				animations: { self.imageView.image = image },
+				completion: nil)
+		} else {
+			imageView.image = image
+		}
 	}
 }

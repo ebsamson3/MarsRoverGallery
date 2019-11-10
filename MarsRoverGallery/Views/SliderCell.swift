@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SliderCell: UICollectionViewCell {
+class SliderCell: UICollectionViewCell, Observer {
+	
+	var disposeBag = DisposeBag()
 	
 	static let reuseIdentifier = "SliderCell"
 	
@@ -22,7 +24,7 @@ class SliderCell: UICollectionViewCell {
 		return label
 	}()
 	
-	lazy var slider: UISlider = {
+	private lazy var slider: UISlider = {
 		let slider = UISlider()
 		slider.tintColor = .yellow
 		
@@ -34,21 +36,41 @@ class SliderCell: UICollectionViewCell {
 		return slider
 	}()
 	
-	var currentValue: Float = 0
-	var minimumValue: Float = 0
-	var maximumValue: Float = 100
-	var isDisabled = false
+	var valueString: String? = nil {
+		didSet {
+			valueLabel.text = valueString
+		}
+	}
+	
+	var currentValue: Float = 0 {
+		didSet {
+			slider.value = currentValue
+		}
+	}
+	
+	var minimumValue: Float = 0 {
+		didSet {
+			slider.minimumValue = minimumValue
+		}
+	}
+
+	var maximumValue: Float = 100 {
+		didSet {
+			slider.maximumValue = maximumValue
+		}
+	}
+	var isLoading = false {
+		didSet {
+			slider.isEnabled = !isLoading
+		}
+	}
+	
 	var handleSliderValueDidChange: ((Float) -> Void)?
     
 	@objc func sliderValueDidChange(sender: UISlider) {
 		handleSliderValueDidChange?(sender.value)
 		configure()
 	}
-//
-//	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//		super.init(style: style, reuseIdentifier: reuseIdentifier)
-//		configure()
-//	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -57,6 +79,10 @@ class SliderCell: UICollectionViewCell {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func prepareForReuse() {
+		disposeBag = DisposeBag()
 	}
 	
 	private func configure() {

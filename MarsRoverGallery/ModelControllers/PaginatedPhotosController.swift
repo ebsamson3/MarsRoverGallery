@@ -83,13 +83,24 @@ class PaginatedPhotosController {
 						return
 					}
 					
-					self?._photos.append(contentsOf: sizedPhotos)
+					let filteredPhotos = sizedPhotos.filter { photo in
+						guard
+							let width = photo.size?.width,
+							let height = photo.size?.height
+						else {
+							return false
+						}
+						
+						return width > 100 && height > 100
+					}
+					
+					self?._photos.append(contentsOf: filteredPhotos)
 					
 					self?._status = sizedPhotos.count < 25 ?
-						.finished(latestResults: sizedPhotos) :
-						.upToDate(latestResults: sizedPhotos, nextPage: nextPage + 1)
+						.finished(latestResults: filteredPhotos) :
+						.upToDate(latestResults: filteredPhotos, nextPage: nextPage + 1)
 					
-					completion(.success(sizedPhotos))
+					completion(.success(filteredPhotos))
 				}
 			}
 		}

@@ -33,12 +33,6 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
-	enum DateSetting: String, CaseIterable {
-		case latest = "Latest"
-		case sol = "Sol"
-		case earthDate = "Earth Date"
-	}
-	
 	lazy var headerViewModels: [Section: SettingsSectionHeaderViewModel] = Dictionary(
 		uniqueKeysWithValues: Section.allCases.compactMap { section in
 			guard let title = section.title else {
@@ -74,7 +68,7 @@ class SearchSettingsCollectionViewModel {
 		return cellViewModels
 	}()
 	
-	lazy var dateOptionSettingViewModels: [SelectorCellViewModel] = DateSetting.allCases.map {
+	lazy var dateOptionSettingViewModels: [SelectorCellViewModel] = SliderCellViewModel.DateSetting.allCases.map {
 		return SelectorCellViewModel(value: $0)
 	}
 
@@ -138,16 +132,7 @@ class SearchSettingsCollectionViewModel {
 	}
 	
 	func didSetManifest() {
-		dateOptionSettingViewModels.forEach { viewModel in
-			let dateOption = viewModel.value
-			
-			if manifest == nil {
-				viewModel.isActive = dateOption == .latest ? true : false
-				viewModel.isAvailable = dateOption == .latest ? true : false
-			} else {
-				viewModel.isAvailable = true
-			}
-		}
+		sliderCellViewModel.manifest = manifest
 	}
 	
 	func setAvailableCameras() {
@@ -207,7 +192,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectCamera:
 			return 3
 		case .dateOption:
-			return 3
+			return 2
 		case .selectDate:
 			return 1
 		}
@@ -238,7 +223,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectCamera:
 			return adjustedCameraCellViewModels.count
 		case .dateOption:
-			return 3
+			return dateOptionSettingViewModels.count
 		case .selectDate:
 			return 1
 		}
