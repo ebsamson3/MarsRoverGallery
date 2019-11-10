@@ -12,9 +12,14 @@ class SearchSettingsViewController: UIViewController {
 	
 	private var kvoContext = 0
 	
-	let viewModel: SearchSettingsCollectionViewModel
-	let collectionViewController: WaterfallCollectionViewController
-	let footerView = SettingsFooterView()
+	private let viewModel: SearchSettingsCollectionViewModel
+	private let collectionViewController: WaterfallCollectionViewController
+	
+	private lazy var footerView: SettingsFooterView = {
+		let footerView = SettingsFooterView()
+		footerView.delegate = self
+		return footerView
+	}()
 	
 	@objc private var collectionView: UICollectionView {
 		return collectionViewController.collectionView
@@ -93,5 +98,17 @@ class SearchSettingsViewController: UIViewController {
 		footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+	}
+}
+
+extension SearchSettingsViewController: SettingsFooterViewDelegate {
+	func settingsFooterDidCancel() {
+		viewModel.onCancel()
+		dismiss(animated: true)
+	}
+	
+	func settingsFooterDidSubmit() {
+		viewModel.onSubmit()
+		dismiss(animated: true)
 	}
 }

@@ -54,7 +54,7 @@ class SliderCell: UICollectionViewCell, Observer {
 		}
 	}
 
-	var maximumValue: Float = 100 {
+	var maximumValue: Float = 1 {
 		didSet {
 			slider.maximumValue = maximumValue
 		}

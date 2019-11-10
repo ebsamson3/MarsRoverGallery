@@ -11,13 +11,15 @@ import Foundation
 enum NASADateFormatterError: Error {
 	case invalidDateFormat(dateString: String)
 	case invalidDateFromSol(sol: Int)
+	case invalidSolFromDate(date: Date)
+	case invalidDateFromComponents
 }
 
 class NASADateFormatter {
 	
 	static let shared = NASADateFormatter()
 	
-	private let calendar: Calendar = {
+	let calendar: Calendar = {
 		var calendar = Calendar.current
 		if let timeZone = TimeZone(abbreviation: "CST") {
 			calendar.timeZone = timeZone
@@ -45,34 +47,40 @@ class NASADateFormatter {
 		return dateFormatter.string(from: date)
 	}
 	
-	func date(fromSol sol: Int, andLandingDate landingDate: Date, andRover roverName: Rover.Name) throws -> Date {
+	func date(fromSol sol: Int, andLandingDate landingDate: Date) throws -> Date {
+		return try date(fromSol: Double(sol), andLandingDate: landingDate)
+	}
+	
+	func date(fromSol sol: Double, andLandingDate landingDate: Date) throws -> Date {
+		let days = Int(round(sol * 1.02749125))
 		
-		let days = Int(Double(sol) * 1.02749125)
-		
-		let hours: Int
-		let minutes: Int
-		
-		switch roverName {
-		case .spirit:
-			hours = 4
-			minutes = 35
-		case .opportunity:
-			hours = 5
-			minutes = 5
-		case .curiosity:
-			hours = 0
-			minutes = 32
-		}
-		
-		let dateComponents = DateComponents(day: days, hour: hours, minute: minutes)
-		guard let earthDate = calendar.date(byAdding: dateComponents, to: landingDate) else {
-			throw NASADateFormatterError.invalidDateFromSol(sol: sol)
+		let dateComponents = DateComponents(day: days)
+		guard let earthDate = calendar.date(byAdding: dateComponents, to: start(of: landingDate)) else {
+			throw NASADateFormatterError.invalidDateFromSol(sol: Int(sol))
 		}
 		return earthDate
 	}
 	
-	func string(fromSol sol: Int, andLandingDate landingDate: Date, andRover roverName: Rover.Name) throws -> String {
-		let dateFromSol = try date(fromSol: sol, andLandingDate: landingDate, andRover: roverName)
+	func sol(fromDate date: Date, andLandingDate landingDate: Date) throws -> Int {
+		let startOfLandingDate = start(of: landingDate)
+		let startOfDate = start(of: date)
+		
+		guard let numberOfDays = calendar.dateComponents([.day], from: startOfLandingDate, to: startOfDate).day else {
+			throw NASADateFormatterError.invalidSolFromDate(date: date)
+		}
+		
+		let sol = Int(round(Double(numberOfDays) / 1.02749125))
+		return sol
+	}
+	
+	func string(fromSol sol: Int, andLandingDate landingDate: Date) throws -> String {
+		let dateFromSol = try date(fromSol: sol, andLandingDate: landingDate)
 		return string(from: dateFromSol)
+	}
+	
+	func start(of date: Date) -> Date {
+		 let unitFlags = Set<Calendar.Component>([.year, .month, .day])
+		 let components = calendar.dateComponents(unitFlags, from: date)
+		 return calendar.date(from: components)!
 	}
 }

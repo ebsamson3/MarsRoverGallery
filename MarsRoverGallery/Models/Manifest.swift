@@ -107,7 +107,7 @@ extension Manifest: Decodable {
 			if let earthDateString = earthDateString {
 				earthDate = try dateFormatter.date(from: earthDateString)
 			} else {
-				earthDate = try dateFormatter.date(fromSol: sol, andLandingDate: landingDate, andRover: roverName)
+				earthDate = try dateFormatter.date(fromSol: sol, andLandingDate: landingDate)
 			}
 			
 			let totalPhotosForEntry = try entryContainer.decode(Int.self, forKey: .totalPhotos)

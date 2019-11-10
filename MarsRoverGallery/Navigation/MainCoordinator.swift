@@ -19,9 +19,9 @@ class MainCoordinator: NSObject {
 		self.navigationController = navigationController
 		
 		let photosRequest = try! PhotosRequest(
-			roverName: .opportunity,
+			roverName: .curiosity,
 			cameraName: .any,
-			dateOption: .sol(1150))
+			dateOption: .sol(1000))
 		
 		paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
 	}

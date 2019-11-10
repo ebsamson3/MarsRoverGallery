@@ -186,9 +186,8 @@ extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
 		case .upToDate(let photos, let nextPage):
 			guard nextPage > 1 else {
 				photoCellViewModels.removeAll()
-				let indexSet = IndexSet(integer: Section.loading.rawValue)
-				reloadSections?(indexSet)
-				break
+				reloadData?()
+				return
 			}
 			insert(photos: photos)
 		case .finished(let photos):

@@ -8,19 +8,37 @@
 
 import UIKit
 
+protocol SettingsFooterViewDelegate: class {
+	func settingsFooterDidCancel()
+	func settingsFooterDidSubmit()
+}
+
 class SettingsFooterView: UIView {
 
-	let cancelButton: SettingsButton = {
+	private let cancelButton: SettingsButton = {
 		let button = SettingsButton(color: UIColor.yellow)
 		button.setTitle("Cancel", for: .normal)
+		
+		button.addTarget(
+			self,
+			action: #selector(didPressButton(_:)),
+			for: .touchUpInside)
+		
 		return button
 	}()
 	
-	let submitButton: SettingsButton  = {
-		   let button = SettingsButton(color: UIColor.yellow)
-		   button.setTitle("Submit", for: .normal)
+	private let submitButton: SettingsButton  = {
+		let button = SettingsButton(color: UIColor.yellow)
+		button.setTitle("Submit", for: .normal)
+		
+		button.addTarget(
+			self,
+			action: #selector(didPressButton(_:)),
+			for: .touchUpInside)
 		   return button
-	   }()
+	}()
+	
+	weak var delegate: SettingsFooterViewDelegate?
 	
 	init() {
 		super.init(frame: CGRect.zero)
@@ -34,6 +52,14 @@ class SettingsFooterView: UIView {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	@objc private func didPressButton(_ sender: SettingsButton) {
+		if sender == cancelButton {
+			delegate?.settingsFooterDidCancel()
+		} else if sender == submitButton {
+			delegate?.settingsFooterDidSubmit()
+		}
 	}
 	
 	private func configure() {

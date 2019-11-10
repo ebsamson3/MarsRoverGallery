@@ -10,12 +10,12 @@ import UIKit
 
 class SliderCellViewModel {
 	
-	enum DateSetting: String, CaseIterable {
-		case sol = "Sol"
-		case earthDate = "Earth Date"
-	}
+	private let dateFormatter = NASADateFormatter.shared
+	private lazy var calendar = dateFormatter.calendar
 	
-	let dateFormatter = NASADateFormatter.shared
+	private var _isLoading = CoalescingObservable<Bool>(false)
+	private var _valueString = CoalescingObservable<String>("Loading manifest")
+	private var _currentPercentMax = CoalescingObservable<Float>(1)
 	
 	var manifest: Manifest? {
 		didSet {
@@ -23,16 +23,15 @@ class SliderCellViewModel {
 		}
 	}
 	
-	var dateSetting = DateSetting.sol {
-		didSet {
-			setValueString(forValue: currentValue)
+	private var currentValue = PhotosRequest.DateOption.latest 
+	
+	private var currentPercentMax: Float {
+		get {
+			return _currentPercentMax.value
+		} set {
+			_currentPercentMax.value = newValue
 		}
 	}
-	
-	private var _isLoading = CoalescingObservable<Bool>(false)
-	private var _valueString = CoalescingObservable<String>("Latest")
-	private var _maximumValue = CoalescingObservable<Float>(100)
-	private lazy var currentValue = _maximumValue.value
 	
 	init(manifest: Manifest? = nil) {
 		defer {
@@ -41,39 +40,104 @@ class SliderCellViewModel {
 	}
 	
 	func didSetManifest() {
-		guard let manifest = manifest else {
+		
+		guard manifest != nil else {
+			_valueString.value = "Loading manifest..."
 			_isLoading.value = true
 			return
 		}
+		
 		_isLoading.value = false
-		_maximumValue.value = Float(manifest.maxSol)
+		
+		if let value = getSol(fromValue: currentValue) {
+			currentValue = .sol(value)
+		}
+		
+		setCurrentPercentMax()
+		setValueString(forValue: currentValue)
 	}
 	
 	func handleSliderCellValueDidChange(_ value: Float) {
-		currentValue = value
-		setValueString(forValue: value)
+		currentValue = getValue(forCurrentPercentMax: value)
+		setValueString(forValue: currentValue)
 	}
 	
-	func setValueString(forValue value: Float) {
-		print(currentValue)
-		print(_maximumValue.value)
+	func getCurrentValue() -> PhotosRequest.DateOption {
+		return currentValue
+	}
+	
+	func setCurrentValue(to value: PhotosRequest.DateOption) {
 		
-		if value == _maximumValue.value {
-			_valueString.value = "Latest"
+		if let sol = getSol(fromValue: value) {
+			currentValue = .sol(sol)
+		} else {
+			currentValue = value
+		}
+		setCurrentPercentMax()
+		setValueString(forValue: currentValue)
+	}
+	
+	func setValueString(forValue value: PhotosRequest.DateOption) {
+		guard manifest != nil else {
+			_valueString.value = "Loading manifest"
+			return
 		}
 		
-		switch dateSetting {
-		case .sol:
-			_valueString.value = "Sol: \(Int(value))"
-		case .earthDate:
-			guard
-				let landingDate = manifest?.landingDate,
-				let roverName = manifest?.roverName,
-				let dateString = try? dateFormatter.string(fromSol: Int(value), andLandingDate: landingDate, andRover: roverName)
-			else {
-				return
+		guard let sol = getSol(fromValue: value) else {
+			return
+		}
+		
+		_valueString.value = "Sol \(sol)"
+	}
+	
+	func setCurrentPercentMax() {
+		guard let manifest = manifest else {
+			currentPercentMax = 1.0
+			return
+		}
+		
+		guard let sol = getSol(fromValue: currentValue) else {
+			currentPercentMax = 1.0
+			return
+		}
+		
+		let solPercentMax = Float(sol) / Float(manifest.maxSol)
+		if solPercentMax > 1 {
+			currentValue = .sol(manifest.maxSol)
+			currentPercentMax = 1
+		} else {
+			currentPercentMax = solPercentMax
+		}
+	}
+	
+	func getValue(forCurrentPercentMax currentPercentMax: Float) -> PhotosRequest.DateOption {
+		guard let manifest = manifest else {
+			return .latest
+		}
+		return .sol(Int(currentPercentMax * Float(manifest.maxSol)))
+	}
+	
+	func getSol(fromValue value: PhotosRequest.DateOption) -> Int? {
+		guard let manifest = manifest else {
+			return nil
+		}
+		
+		switch value {
+		case .latest:
+			return manifest.maxSol
+		case .sol(let sol):
+			return sol
+		case .earthDate(let date):
+			guard date > manifest.landingDate else {
+				return 0
 			}
-			_valueString.value = dateString
+			
+			guard let sol = try? dateFormatter.sol(
+				fromDate: date,
+				andLandingDate: manifest.landingDate) else {
+				return nil
+			}
+			return sol
 		}
 	}
 }
@@ -107,26 +171,18 @@ extension SliderCellViewModel: ItemRepresentable {
 			for: indexPath)
 		
 		if let sliderCell = cell as? SliderCell {
-			sliderCell.currentValue = currentValue
 			sliderCell.handleSliderValueDidChange = handleSliderCellValueDidChange(_:)
 			
 			sliderCell.observe(_isLoading, options: [.initial]) { [weak sliderCell] (isLoading, _) in
 				sliderCell?.isLoading = isLoading
 			}
 			
-			sliderCell.observe(_maximumValue, options: [.initial]) { [weak sliderCell] (maximumValue, _) in
-				
-				sliderCell?.maximumValue = maximumValue
-				
-				if let currentValue = sliderCell?.currentValue,
-					currentValue > maximumValue
-				{
-					sliderCell?.currentValue = maximumValue
-				}
-			}
-			
 			sliderCell.observe(_valueString, options: [.initial]) { [weak sliderCell] (valueString, _) in
 				sliderCell?.valueString = valueString
+			}
+			
+			sliderCell.observe(_currentPercentMax, options: [.initial]) { [weak sliderCell] (currentPercentMax, _) in
+				sliderCell?.currentValue = currentPercentMax
 			}
 		}
 		
