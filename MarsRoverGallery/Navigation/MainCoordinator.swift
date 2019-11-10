@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainCoordinator {
+class MainCoordinator: NSObject {
 	
 	let navigationController: UINavigationController
 	private lazy var imageStore = ImageStore()
@@ -50,8 +50,7 @@ class MainCoordinator {
 	
 	@objc private func handleBarButtonPress(sender: UIBarButtonItem) {
 		let viewModel = SearchSettingsCollectionViewModel()
-		let viewController = WaterfallCollectionViewController(viewModel: viewModel)
-		viewController.view.backgroundColor = .white
+		let viewController = SearchSettingsViewController(viewModel: viewModel)
 		viewController.modalPresentationStyle = .popover
 		viewController.preferredContentSize = CGSize(width: 450, height: 0)
 		let popOver = viewController.popoverPresentationController

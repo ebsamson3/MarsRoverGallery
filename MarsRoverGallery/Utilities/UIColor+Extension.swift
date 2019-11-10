@@ -18,5 +18,7 @@ extension UIColor {
     }
 	
 	static var background = UIColor.black
+	
+	static var brightText = UIColor.yellow
 }
 

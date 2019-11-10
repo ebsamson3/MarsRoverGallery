@@ -11,6 +11,7 @@ import Foundation
 struct Camera {
 	
 	enum Name: String, Codable, CaseIterable {
+		case any = "ANY"
 		case fhaz = "FHAZ"
 		case rhaz = "RHAZ"
 		case mast = "MAST"
@@ -23,6 +24,7 @@ struct Camera {
 		
 		var fullName: String {
 			switch self {
+			case .any: return ""
 			case .fhaz: return "Front Hazard Avoidance Camera"
 			case .rhaz: return "Read Hazard Avoidance Camera"
 			case .mast: return "Mast Camera"

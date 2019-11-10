@@ -61,37 +61,37 @@ class WaterfallCollectionViewController: UIViewController {
 		configure()
 	}
 	
-	private var kvoContext = 0
-	
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-		
-        addObserver(
-			self,
-			forKeyPath: #keyPath(collectionView.contentSize),
-			options: .new,
-			context: &kvoContext)
-
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        removeObserver(
-			self,
-			forKeyPath: #keyPath(collectionView.contentSize))
-        super.viewDidDisappear(animated)
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if
-			context == &kvoContext,
-			keyPath == #keyPath(collectionView.contentSize),
-            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize
-		{
-            self.popoverPresentationController?
-				.presentedViewController
-				.preferredContentSize = contentSize
-        }
-    }
+//	private var kvoContext = 0
+//	
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//		
+//        addObserver(
+//			self,
+//			forKeyPath: #keyPath(collectionView.contentSize),
+//			options: .new,
+//			context: &kvoContext)
+//
+//    }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        removeObserver(
+//			self,
+//			forKeyPath: #keyPath(collectionView.contentSize))
+//        super.viewDidDisappear(animated)
+//    }
+//
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        if
+//			context == &kvoContext,
+//			keyPath == #keyPath(collectionView.contentSize),
+//            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize
+//		{
+//            self.popoverPresentationController?
+//				.presentedViewController
+//				.preferredContentSize = contentSize
+//        }
+//    }
 	
 	private func configure() {
 		view.backgroundColor = .background

@@ -14,8 +14,8 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case spacer
 		case selectRover
 		case selectCamera
+		case dateOption
 		case selectDate
-		case submit
 		
 		var title: String? {
 			switch self {
@@ -25,9 +25,9 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 				return "Select Rover"
 			case .selectCamera:
 				return "Select Camera"
-			case .selectDate:
+			case .dateOption:
 				return "Select Date"
-			default:
+			case .selectDate:
 				return nil
 			}
 		}
@@ -50,9 +50,19 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 	lazy var roverCellViewModels: [SelectorCellViewModel] = Rover.Name.allCases.map { roverName in
 		SelectorCellViewModel(title: roverName.rawValue)
 	}
-
+	
 	lazy var cameraCellViewModels: [SelectorCellViewModel] = Camera.Name.allCases.map { cameraName in
 		SelectorCellViewModel(title: cameraName.rawValue)
+	}
+	
+	lazy var adjustedCameraCellViewModels: [ItemRepresentable] = {
+		var cellViewModels: [ItemRepresentable] = cameraCellViewModels
+		cellViewModels.insert(LabelCellViewModel(), at: 9)
+		return cellViewModels
+	}()
+	
+	lazy var dateOptionViewModels: [SelectorCellViewModel] = ["Latest", "Sol", "EarthDate"].map {
+		return SelectorCellViewModel(title: $0)
 	}
 
 	lazy var sliderCellViewModel = SliderCellViewModel()
@@ -65,6 +75,7 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 
 	private let cellViewModelTypes: [ItemRepresentable.Type] = [
 		SelectorCellViewModel.self,
+		LabelCellViewModel.self,
 		SliderCellViewModel.self
 	]
 	
@@ -78,12 +89,16 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		}
 
 		switch sectionType {
-		case .selectRover, .selectCamera:
+		case .spacer:
+			return 1
+		case .selectRover:
+			return 3
+		case .selectCamera:
+			return 3
+		case .dateOption:
 			return 3
 		case .selectDate:
 			return 1
-		case .submit, .spacer:
-			return 2
 		}
 	}
 	
@@ -110,11 +125,11 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectRover:
 			return roverCellViewModels.count
 		case .selectCamera:
-			return cameraCellViewModels.count
+			return adjustedCameraCellViewModels.count
+		case .dateOption:
+			return 3
 		case .selectDate:
 			return 1
-		case .submit:
-			return submitCellViewModels.count
 		}
 	}
 
@@ -131,11 +146,11 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectRover:
 			return roverCellViewModels[row]
 		case .selectCamera:
-			return cameraCellViewModels[row]
+			return adjustedCameraCellViewModels[row]
+		case .dateOption:
+			return dateOptionViewModels[row]
 		case .selectDate:
 			return sliderCellViewModel
-		case .submit:
-			return submitCellViewModels[row]
 		}
 	}
 	
@@ -156,12 +171,10 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		switch sectionType {
 		case .spacer:
 			return CGSize.zero
-		case .selectRover, .selectCamera:
-			return CGSize(width: 0, height: 44)
+		case .selectRover, .selectCamera, .dateOption:
+			return CGSize(width: 0, height: 30)
 		case .selectDate:
 			return CGSize(width: 0, height: 120)
-		case .submit:
-			return CGSize(width: 0, height: 32)
 		}
 	}
 	
@@ -179,12 +192,24 @@ class SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 	func didSelectItem(at indexPath: IndexPath) {}
 	
 	func insets(forSection section: Int) -> UIEdgeInsets {
+		guard let sectionType = Section.init(rawValue: section) else {
+			fatalError("Invalid section")
+		}
 		let insetSize = Constants.Spacing.large
 		
-		return UIEdgeInsets(
+		switch sectionType {
+		case .spacer, .selectRover, .selectCamera, .selectDate:
+			return UIEdgeInsets(
 			top: insetSize,
 			left: insetSize,
 			bottom: insetSize,
 			right: insetSize)
+		case .dateOption:
+			return UIEdgeInsets(
+			top: insetSize,
+			left: insetSize,
+			bottom: 0,
+			right: insetSize)
+		}
 	}
 }

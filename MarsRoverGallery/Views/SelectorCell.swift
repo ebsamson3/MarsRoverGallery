@@ -11,16 +11,11 @@ import UIKit
 class SelectorCell: UICollectionViewCell {
 	static let reuseIdentifier = "SelectorCell"
 	
-	private let titleLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont.boldSystemFont(ofSize: 20)
-		label.textColor = .yellow
-		return label
-	}()
+	let button = SettingsButton(color: UIColor.yellow)
 	
 	var title: String? = nil {
 		didSet {
-			titleLabel.text = title
+			button.setTitle(title, for: .normal)
 		}
 	}
 	
@@ -39,18 +34,12 @@ class SelectorCell: UICollectionViewCell {
 	}
 	
 	private func configure() {
-		layer.masksToBounds = true
-		layer.borderColor = UIColor.yellow.cgColor
-		layer.borderWidth = 1.0
-		contentView.addSubview(titleLabel)
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(button)
+		button.translatesAutoresizingMaskIntoConstraints = false
 		
-		titleLabel.centerXAnchor.constraint(
-			equalTo: contentView.centerXAnchor)
-			.isActive = true
-		
-		titleLabel.centerYAnchor.constraint(
-			equalTo: contentView.centerYAnchor)
-			.isActive = true
+		button.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+		button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+		button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+		button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
 	}
 }

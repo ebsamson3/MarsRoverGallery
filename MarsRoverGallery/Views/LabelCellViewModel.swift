@@ -1,5 +1,5 @@
 //
-//  SelectorCellViewModel.swift
+//  LabelCellViewModel.swift
 //  MarsRoverGallery
 //
 //  Created by Edward Samson on 11/9/19.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SelectorCellViewModel {
+class LabelCellViewModel {
+	
 	var title: String?
 	
 	init(title: String? = nil) {
@@ -16,20 +17,20 @@ class SelectorCellViewModel {
 	}
 }
 
-extension SelectorCellViewModel: ItemRepresentable {
+extension LabelCellViewModel: ItemRepresentable {
 	static func registerCell(collectionView: UICollectionView) {
 		collectionView.register(
-			SelectorCell.self,
-			forCellWithReuseIdentifier: SelectorCell.reuseIdentifier)
+			LabelCell.self,
+			forCellWithReuseIdentifier: LabelCell.reuseIdentifier)
 	}
 	
 	func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: SelectorCell.reuseIdentifier,
+			withReuseIdentifier: LabelCell.reuseIdentifier,
 			for: indexPath)
 		
-		if let selectorCell = cell as? SelectorCell {
-			selectorCell.title = title
+		if let labelCell = cell as? LabelCell {
+			labelCell.title = title
 		}
 		
 		return cell

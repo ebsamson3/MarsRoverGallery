@@ -30,9 +30,9 @@ extension Rover {
 		var availableCameras: Set<Camera.Name> {
 			switch self {
 			case .curiosity:
-				return [.fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]
+				return [.any, .fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]
 			case .opportunity, .spirit:
-				return [.fhaz, .rhaz, .pancam, .minites]
+				return [.any, .fhaz, .rhaz, .pancam, .minites]
 			}
 		}
 	}

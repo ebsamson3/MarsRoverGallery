@@ -26,7 +26,7 @@ extension UILabel {
 		label.backgroundColor = .clear
 		label.isOpaque = false
 		label.font = UIFont.boldSystemFont(ofSize: 16)
-		label.textColor = .yellow
+		label.textColor = .brightText
 		return label
 	}
 }

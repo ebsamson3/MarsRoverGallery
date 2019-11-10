@@ -12,19 +12,14 @@ class SliderCell: UICollectionViewCell {
 	
 	static let reuseIdentifier = "SliderCell"
 	
-	let titleLabel: UILabel = {
-		let titleLabel = UILabel()
-		titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-		titleLabel.text = "Title"
-		titleLabel.textColor = .yellow
-		return titleLabel
-	}()
-	
 	let valueLabel: UILabel = {
-		let valueLabel = UILabel()
-		valueLabel.text = "Value"
-		valueLabel.textColor = .yellow
-		return valueLabel
+		let label = UILabel()
+		label.text = "Value"
+		label.textAlignment = .center
+        label.baselineAdjustment = .alignCenters
+		label.font = UIFont.boldSystemFont(ofSize: 20)
+		label.textColor = .brightText
+		return label
 	}()
 	
 	lazy var slider: UISlider = {
@@ -65,37 +60,27 @@ class SliderCell: UICollectionViewCell {
 	}
 	
 	private func configure() {
-		contentView.addSubview(titleLabel)
 		contentView.addSubview(valueLabel)
 		contentView.addSubview(slider)
 		
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		valueLabel.translatesAutoresizingMaskIntoConstraints = false
 		slider.translatesAutoresizingMaskIntoConstraints = false
 		
 		let margins = contentView.layoutMarginsGuide
 		
-		titleLabel.topAnchor.constraint(
-			equalTo: margins.topAnchor)
-			.isActive = true
-		titleLabel.leadingAnchor.constraint(
-			equalTo: margins.leadingAnchor)
-			.isActive = true
-		titleLabel.trailingAnchor.constraint(
-			equalTo: margins.trailingAnchor)
-			.withPriority(.defaultHigh)
-			.isActive = true
-		
 		valueLabel.topAnchor.constraint(
-			equalTo: titleLabel.bottomAnchor,
+			equalTo: contentView.topAnchor,
 			constant: Constants.Spacing.large)
 			.isActive = true
 		valueLabel.leadingAnchor.constraint(
-			equalTo: margins.leadingAnchor)
+			greaterThanOrEqualTo: margins.leadingAnchor)
 			.isActive = true
 		valueLabel.trailingAnchor.constraint(
-			equalTo: margins.trailingAnchor)
+			lessThanOrEqualTo: margins.trailingAnchor)
 			.withPriority(.defaultHigh)
+			.isActive = true
+		valueLabel.centerXAnchor.constraint(
+			equalTo: contentView.centerXAnchor)
 			.isActive = true
 		
 		slider.topAnchor.constraint(
