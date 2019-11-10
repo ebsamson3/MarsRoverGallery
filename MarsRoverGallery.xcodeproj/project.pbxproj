@@ -37,6 +37,9 @@
 		5F32EE5F2377A56500ED1111 /* ManifestDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */; };
 		5F32EE612377A57900ED1111 /* ThreadSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE602377A57900ED1111 /* ThreadSafe.swift */; };
 		5F32EE632377A76600ED1111 /* ManifestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE622377A76600ED1111 /* ManifestRequest.swift */; };
+		5F32EE672377C11600ED1111 /* Observer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE642377C11400ED1111 /* Observer+Extensions.swift */; };
+		5F32EE682377C11600ED1111 /* Disposable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE652377C11500ED1111 /* Disposable+Extensions.swift */; };
+		5F32EE692377C11600ED1111 /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE662377C11600ED1111 /* Observable+Extensions.swift */; };
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
@@ -114,6 +117,9 @@
 		5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestDownloadOperation.swift; sourceTree = "<group>"; };
 		5F32EE602377A57900ED1111 /* ThreadSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafe.swift; sourceTree = "<group>"; };
 		5F32EE622377A76600ED1111 /* ManifestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestRequest.swift; sourceTree = "<group>"; };
+		5F32EE642377C11400ED1111 /* Observer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observer+Extensions.swift"; sourceTree = "<group>"; };
+		5F32EE652377C11500ED1111 /* Disposable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disposable+Extensions.swift"; sourceTree = "<group>"; };
+		5F32EE662377C11600ED1111 /* Observable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extensions.swift"; sourceTree = "<group>"; };
 		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -256,6 +262,9 @@
 				5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */,
 				5F32EE2823764EA300ED1111 /* UILabel+Extensions.swift */,
 				5F32EE602377A57900ED1111 /* ThreadSafe.swift */,
+				5F32EE662377C11600ED1111 /* Observable+Extensions.swift */,
+				5F32EE642377C11400ED1111 /* Observer+Extensions.swift */,
+				5F32EE652377C11500ED1111 /* Disposable+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -448,6 +457,7 @@
 				5FB2150723749998008596DF /* PhotoCellViewModel.swift in Sources */,
 				5F32EE4B2377387800ED1111 /* CollectionHeaderRepresentable.swift in Sources */,
 				5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */,
+				5F32EE672377C11600ED1111 /* Observer+Extensions.swift in Sources */,
 				5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */,
 				5F32EE2923764EA300ED1111 /* UILabel+Extensions.swift in Sources */,
 				5F32EE192376151A00ED1111 /* TableViewModel.swift in Sources */,
@@ -459,6 +469,7 @@
 				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
 				5F32EE1B2376162600ED1111 /* CellRepresentable.swift in Sources */,
 				5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */,
+				5F32EE682377C11600ED1111 /* Disposable+Extensions.swift in Sources */,
 				5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */,
 				5FB214FC237407E4008596DF /* ImageStore.swift in Sources */,
 				5F32EE5D2377A49300ED1111 /* ManifestStore.swift in Sources */,
@@ -497,6 +508,7 @@
 				5F32EE2B237650BF00ED1111 /* NameValuePairCellViewModel.swift in Sources */,
 				5F8BFEA62373796500465DD6 /* ItemRepresentable.swift in Sources */,
 				5F8BFE8F2372000100465DD6 /* ManifestResponse.swift in Sources */,
+				5F32EE692377C11600ED1111 /* Observable+Extensions.swift in Sources */,
 				5F8BFE7A237147F700465DD6 /* NASADateFormatter.swift in Sources */,
 				5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */,
 				5F32EE412376ACFD00ED1111 /* SelectorCell.swift in Sources */,
