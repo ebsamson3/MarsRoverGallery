@@ -10,8 +10,8 @@ import UIKit
 
 class SelectorCellViewModel<T: RawRepresentable> where T.RawValue == String {
 	var value: T
-	private var _isActive = Observable<Bool>(false)
-	private var _isAvailable = Observable<Bool>(true)
+	private var _isActive = CoalescingObservable<Bool>(false)
+	private var _isAvailable = CoalescingObservable<Bool>(true)
 	var selectionHandler: (() -> Void)?
 	
 	var isActive: Bool {

@@ -54,7 +54,6 @@ struct ManifestRequest {
 			"?",
 			apiKeyString
 		)
-		
 		return urlString
 	}
 }

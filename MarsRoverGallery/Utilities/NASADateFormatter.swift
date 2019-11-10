@@ -10,15 +10,24 @@ import Foundation
 
 enum NASADateFormatterError: Error {
 	case invalidDateFormat(dateString: String)
+	case invalidDateFromSol(sol: Int)
 }
 
 class NASADateFormatter {
 	
 	static let shared = NASADateFormatter()
 	
-	private let dateFormatter: DateFormatter = {
+	private let calendar: Calendar = {
+		var calendar = Calendar.current
+		if let timeZone = TimeZone(abbreviation: "CST") {
+			calendar.timeZone = timeZone
+		}
+		return calendar
+	}()
+	
+	private lazy var dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.timeZone = TimeZone(abbreviation: "CST")
+		dateFormatter.calendar = calendar
 		dateFormatter.dateFormat = "yyyy-MM-dd"
 		return dateFormatter
 	}()
@@ -34,5 +43,31 @@ class NASADateFormatter {
 	
 	func string(from date: Date) -> String {
 		return dateFormatter.string(from: date)
+	}
+	
+	func date(fromSol sol: Int, andLandingDate landingDate: Date, andRover roverName: Rover.Name) throws -> Date {
+		
+		let days = Int(Double(sol) * 1.02749125)
+		
+		let hours: Int
+		let minutes: Int
+		
+		switch roverName {
+		case .spirit:
+			hours = 4
+			minutes = 35
+		case .opportunity:
+			hours = 5
+			minutes = 5
+		case .curiosity:
+			hours = 0
+			minutes = 32
+		}
+		
+		let dateComponents = DateComponents(day: days, hour: hours, minute: minutes)
+		guard let earthDate = calendar.date(byAdding: dateComponents, to: landingDate) else {
+			throw NASADateFormatterError.invalidDateFromSol(sol: sol)
+		}
+		return earthDate
 	}
 }

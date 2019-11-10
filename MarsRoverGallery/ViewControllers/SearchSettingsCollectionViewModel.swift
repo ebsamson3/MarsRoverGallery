@@ -74,7 +74,7 @@ class SearchSettingsCollectionViewModel {
 		return cellViewModels
 	}()
 	
-	lazy var dateOptionViewModels: [SelectorCellViewModel] = DateSetting.allCases.map {
+	lazy var dateOptionSettingViewModels: [SelectorCellViewModel] = DateSetting.allCases.map {
 		return SelectorCellViewModel(value: $0)
 	}
 
@@ -95,17 +95,26 @@ class SearchSettingsCollectionViewModel {
 	
 	
 	let photosController: PaginatedPhotosController
+	let manifestStore: ManifestStore
+	
 	var selectedRover: Rover.Name { didSet { didSelectRover() }}
 	var selectedCamera: Camera.Name { didSet { didSelectCamera() }}
 	var selectedDate: PhotosRequest.DateOption
+	var manifest: Manifest? = nil { didSet { didSetManifest() }}
 	
-	
-	init(photosController: PaginatedPhotosController) {
+	init(
+		photosController: PaginatedPhotosController,
+		manifestStore: ManifestStore)
+	{
 		self.photosController = photosController
+		self.manifestStore = manifestStore
+		
 		let photosRequest = photosController.photosRequest
+		
 		self.selectedRover = photosRequest.roverName
 		self.selectedCamera = photosRequest.cameraName
 		self.selectedDate = photosRequest.dateOption
+		didSelectRover()
 	}
 	
 	func didSelectRover() {
@@ -118,12 +127,26 @@ class SearchSettingsCollectionViewModel {
 		}
 		
 		setAvailableCameras()
+		setManifest()
 	}
 	
 	func didSelectCamera() {
 		cameraSettingCellViewModels.forEach { viewModel in
 			let camera = viewModel.value
 			viewModel.isActive = selectedCamera == camera
+		}
+	}
+	
+	func didSetManifest() {
+		dateOptionSettingViewModels.forEach { viewModel in
+			let dateOption = viewModel.value
+			
+			if manifest == nil {
+				viewModel.isActive = dateOption == .latest ? true : false
+				viewModel.isAvailable = dateOption == .latest ? true : false
+			} else {
+				viewModel.isAvailable = true
+			}
 		}
 	}
 	
@@ -141,6 +164,29 @@ class SearchSettingsCollectionViewModel {
 					selectedCamera = .any
 				}
 				viewModel.isAvailable = false
+			}
+		}
+	}
+	
+	func setManifest() {
+		let rover = selectedRover
+		
+		if let manifest = manifestStore.fetchedManifest(forRover: rover) {
+			self.manifest = manifest
+			return
+		}
+		
+		manifest = nil
+		
+		manifestStore.fetchManifest(forRover: rover) { [weak self] result in
+			switch result {
+			case .failure(let error):
+				print(error.localizedDescription)
+			case .success(let newManifest):
+				guard self?.selectedRover == rover else {
+					return
+				}
+				self?.manifest = newManifest
 			}
 		}
 	}
@@ -213,7 +259,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectCamera:
 			return adjustedCameraCellViewModels[row]
 		case .dateOption:
-			return dateOptionViewModels[row]
+			return dateOptionSettingViewModels[row]
 		case .selectDate:
 			return sliderCellViewModel
 		}
