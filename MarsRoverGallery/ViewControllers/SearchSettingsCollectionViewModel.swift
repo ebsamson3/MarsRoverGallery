@@ -33,6 +33,12 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
+	enum DateSetting: String, CaseIterable {
+		case latest = "Latest"
+		case sol = "Sol"
+		case earthDate = "Earth Date"
+	}
+	
 	lazy var headerViewModels: [Section: SettingsSectionHeaderViewModel] = Dictionary(
 		uniqueKeysWithValues: Section.allCases.compactMap { section in
 			guard let title = section.title else {
@@ -44,8 +50,8 @@ class SearchSettingsCollectionViewModel {
 		}
 	)
 
-	lazy var roverSettingCellViewModels: [RoverSettingCellViewModel] = Rover.Name.allCases.map { roverName in
-		let viewModel = RoverSettingCellViewModel(roverName: roverName)
+	lazy var roverSettingCellViewModels: [SelectorCellViewModel<Rover.Name>] = Rover.Name.allCases.map { roverName in
+		let viewModel = SelectorCellViewModel(value: roverName)
 		viewModel.isActive = roverName == photosController.photosRequest.roverName
 		viewModel.selectionHandler = { [weak self] in
 			self?.selectedRover = roverName
@@ -53,8 +59,8 @@ class SearchSettingsCollectionViewModel {
 		return viewModel
 	}
 	
-	lazy var cameraCellViewModels: [SelectorCellViewModel] = Camera.Name.allCases.map { cameraName in
-		SelectorCellViewModel(title: cameraName.rawValue)
+	lazy var cameraCellViewModels: [SelectorCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
+		SelectorCellViewModel(value: cameraName)
 	}
 	
 	lazy var adjustedCameraCellViewModels: [ItemRepresentable] = {
@@ -63,20 +69,16 @@ class SearchSettingsCollectionViewModel {
 		return cellViewModels
 	}()
 	
-	lazy var dateOptionViewModels: [SelectorCellViewModel] = ["Latest", "Sol", "EarthDate"].map {
-		return SelectorCellViewModel(title: $0)
+	lazy var dateOptionViewModels: [SelectorCellViewModel] = DateSetting.allCases.map {
+		return SelectorCellViewModel(value: $0)
 	}
 
 	lazy var sliderCellViewModel = SliderCellViewModel()
-	
-	lazy var submitCellViewModels = ["Cancel", "Submit"].map { title in
-		SelectorCellViewModel(title: title)
-	}
 
 	var numberOfSections: Int = Section.allCases.count
 
 	private let cellViewModelTypes: [ItemRepresentable.Type] = [
-		SelectorCellViewModel.self,
+		SelectorCellViewModel<Rover.Name>.self,
 		LabelCellViewModel.self,
 		SliderCellViewModel.self
 	]
@@ -104,12 +106,14 @@ class SearchSettingsCollectionViewModel {
 	func didSelectRover() {
 		print("did select rover: \(selectedRover)")
 		roverSettingCellViewModels.forEach { viewModel in
-			if viewModel.roverName != selectedRover {
+			if viewModel.value != selectedRover {
 				viewModel.isActive = false
 			} else {
 				viewModel.isActive = true
 			}
 		}
+		
+		
 	}
 }
 	

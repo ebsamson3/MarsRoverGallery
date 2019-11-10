@@ -8,11 +8,32 @@
 
 import UIKit
 
-class SelectorCellViewModel {
-	var title: String?
+class SelectorCellViewModel<T: RawRepresentable> where T.RawValue == String {
+	var value: T
+	private var _isActive = Observable<Bool>(false)
+	private var _isAvailable = Observable<Bool>(true)
+	var selectionHandler: (() -> Void)?
 	
-	init(title: String? = nil) {
-		self.title = title
+	var isActive: Bool {
+		get {
+			return _isActive.value
+		}
+		set {
+			_isActive.value = newValue
+		}
+	}
+	
+	var isAvailable: Bool {
+		get {
+			return _isAvailable.value
+		}
+		set {
+			_isAvailable.value = newValue
+		}
+	}
+	
+	init(value: T) {
+		self.value = value
 	}
 }
 
@@ -29,9 +50,32 @@ extension SelectorCellViewModel: ItemRepresentable {
 			for: indexPath)
 		
 		if let selectorCell = cell as? SelectorCell {
-			selectorCell.title = title
+			
+			selectorCell.title = value.rawValue
+			
+			selectorCell.selectionHandler = { [weak self] in
+				self?.handleSelection()
+			}
+			
+			selectorCell.observe(_isActive, options: [.initial]) { [weak selectorCell] (isActive, _) in
+				selectorCell?.state = isActive ? .selected : .normal
+			}
+			
+			selectorCell.observe(_isAvailable, options: [.initial]) { [weak selectorCell, weak self] (isAvailable, _) in
+				if isAvailable {
+					selectorCell?.state = self?.isActive == true ? .selected : .normal
+				} else {
+					selectorCell?.state = .disabled
+				}
+			}
 		}
 		
 		return cell
+	}
+}
+
+extension SelectorCellViewModel: Selectable {
+	func handleSelection() {
+		selectionHandler?()
 	}
 }

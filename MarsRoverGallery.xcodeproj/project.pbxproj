@@ -40,7 +40,6 @@
 		5F32EE672377C11600ED1111 /* Observer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE642377C11400ED1111 /* Observer+Extensions.swift */; };
 		5F32EE682377C11600ED1111 /* Disposable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE652377C11500ED1111 /* Disposable+Extensions.swift */; };
 		5F32EE692377C11600ED1111 /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE662377C11600ED1111 /* Observable+Extensions.swift */; };
-		5F32EE6B2377C9E600ED1111 /* RoverSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE6A2377C9E600ED1111 /* RoverSettingCellViewModel.swift */; };
 		5F32EE6D2377E2FA00ED1111 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE6C2377E2FA00ED1111 /* Selectable.swift */; };
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
@@ -122,7 +121,6 @@
 		5F32EE642377C11400ED1111 /* Observer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observer+Extensions.swift"; sourceTree = "<group>"; };
 		5F32EE652377C11500ED1111 /* Disposable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disposable+Extensions.swift"; sourceTree = "<group>"; };
 		5F32EE662377C11600ED1111 /* Observable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extensions.swift"; sourceTree = "<group>"; };
-		5F32EE6A2377C9E600ED1111 /* RoverSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverSettingCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE6C2377E2FA00ED1111 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		5F6A51132374D18300C61D25 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,7 +345,6 @@
 				5F32EE352376A38000ED1111 /* SliderCell.swift */,
 				5F32EE3B2376AB6E00ED1111 /* SliderCellViewModel.swift */,
 				5F32EE402376ACFD00ED1111 /* SelectorCell.swift */,
-				5F32EE6A2377C9E600ED1111 /* RoverSettingCellViewModel.swift */,
 				5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */,
 				5F32EE5623778BDE00ED1111 /* LabelCell.swift */,
 				5F32EE5823778BF500ED1111 /* LabelCellViewModel.swift */,
@@ -509,7 +506,6 @@
 				5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */,
 				5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */,
 				5F8BFE922372A51D00465DD6 /* PhotosRequest.swift in Sources */,
-				5F32EE6B2377C9E600ED1111 /* RoverSettingCellViewModel.swift in Sources */,
 				5F8BFEA4237378FF00465DD6 /* CollectionViewModel.swift in Sources */,
 				5F32EE552377629B00ED1111 /* SettingsFooterView.swift in Sources */,
 				5F32EE3A2376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift in Sources */,
