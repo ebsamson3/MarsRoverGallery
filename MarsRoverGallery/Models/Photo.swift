@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Models the photo object returned by the NASA Mars Rover API
 struct Photo {
 	
 	let id: Int

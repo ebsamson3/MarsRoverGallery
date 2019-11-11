@@ -8,8 +8,10 @@
 
 import Foundation
 
+/// A model object of the camera data contained in the NASA Mars Rover Photos API
 struct Camera {
 	
+	/// An enum of each of the valid cameras (plus any)
 	enum Name: String, Codable, CaseIterable {
 		case any = "ANY"
 		case fhaz = "FHAZ"
@@ -46,6 +48,7 @@ extension Camera: Decodable {
 		case name
 	}
 	
+	// We are only interested in the camera name during decoding, the rest is mostly redudant information
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		name = try container.decode(Camera.Name.self, forKey: .name)

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A  model the represents the mission manifest of a given rover
 struct Manifest {
 	
 	let roverName: Rover.Name
@@ -22,6 +23,7 @@ struct Manifest {
 
 extension Manifest {
 	
+	/// An entry for an individual date in a rover's manifest
 	struct Entry {
 		let sol: Int
 		let earthDate: Date
@@ -38,22 +40,6 @@ extension Manifest.Entry {
 		case totalPhotos = "total_photos"
 		case cameras
 	}
-	
-//	init(from decoder: Decoder) throws {
-//		let container = try decoder.container(keyedBy: CodingKeys.self)
-//		let dateFormatter = NASADateFormatter.shared
-//
-//		sol = try container.decode(Int.self, forKey: .sol)
-//
-//		let earthDateString = try container.decodeIfPresent(String.self, forKey: .earthDate)
-//		earthDate = try dateFormatter.date(from: earthDateString)
-//
-//		totalPhotos = try container.decode(Int.self, forKey: .totalPhotos)
-//		let cameraStrings = try container.decode([String].self, forKey: .cameras)
-//		cameras = cameraStrings.compactMap { cameraString in
-//			Camera.Name.init(rawValue: cameraString)
-//		}
-//	}
 }
 
 extension Manifest: Decodable {
@@ -69,6 +55,7 @@ extension Manifest: Decodable {
 		case entries = "photos"
 	}
 	
+	// Because the manifest structure can vary depending on rover, decoding is a little convoluted
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let dateFormatter = NASADateFormatter.shared
@@ -89,12 +76,11 @@ extension Manifest: Decodable {
 		
 		totalPhotos = try container.decode(Int.self, forKey: .totalPhotos)
 		
-		//entries = try container.decode([Entry].self, forKey: .entries)
-		
 		var entries = [Entry]()
 		
 		var entriesContainer = try container.nestedUnkeyedContainer(forKey: .entries)
 		
+		// We decode the entries w/in the manifest init in order to gain access to the rover name which allows us to convert the sol data to the missing earth date data in the Spirit rover's manifest entries
 		while !entriesContainer.isAtEnd {
 			let entryContainer = try entriesContainer.nestedContainer(keyedBy: Entry.CodingKeys.self)
 			

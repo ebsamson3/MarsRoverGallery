@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Models the rover object returned as a photo element in the NASA API
 struct Rover {
 	
 	let id: Int
@@ -18,10 +19,11 @@ struct Rover {
 	let maxSol: Int
 	let maxDate: Date
 	let totalPhotos: Int
-	
 }
 
 extension Rover {
+
+	/// Enum of each specific rover with a variable that denotes their available cameras 
 	enum Name: String, Codable, CaseIterable {
 		case curiosity = "Curiosity"
 		case opportunity = "Opportunity"

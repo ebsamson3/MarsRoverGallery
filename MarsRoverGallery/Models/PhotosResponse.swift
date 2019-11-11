@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The entire JSON object that is returned by a photos request
 struct PhotosResponse {
 	let photos: [Photo]
 }
@@ -18,6 +19,7 @@ extension PhotosResponse: Decodable {
 		case latestPhotos = "latest_photos"
 	}
 	
+	// Depending on whether or not you fetch the latest photos or photos from a given date, the container of for the photos is named differently
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
