@@ -39,8 +39,6 @@
 		5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6A51132374D18300C61D25 /* UIColor+Extension.swift */; };
 		5F8BFE412370FE4E00465DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */; };
 		5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */; };
-		5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE442370FE4E00465DD6 /* ViewController.swift */; };
-		5F8BFE482370FE4E00465DD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE462370FE4E00465DD6 /* Main.storyboard */; };
 		5F8BFE4A2370FE5100465DD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE492370FE5100465DD6 /* Assets.xcassets */; };
 		5F8BFE4D2370FE5100465DD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */; };
 		5F8BFE582370FE5100465DD6 /* MarsRoverGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8BFE572370FE5100465DD6 /* MarsRoverGalleryTests.swift */; };
@@ -116,8 +114,6 @@
 		5F8BFE3D2370FE4E00465DD6 /* MarsRoverGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5F8BFE442370FE4E00465DD6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5F8BFE472370FE4E00465DD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F8BFE492370FE5100465DD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F8BFE4C2370FE5100465DD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F8BFE4E2370FE5100465DD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -209,10 +205,8 @@
 				5FB2150523749963008596DF /* Views */,
 				5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */,
 				5F8BFE422370FE4E00465DD6 /* SceneDelegate.swift */,
-				5F8BFE442370FE4E00465DD6 /* ViewController.swift */,
-				5F8BFE462370FE4E00465DD6 /* Main.storyboard */,
-				5F8BFE492370FE5100465DD6 /* Assets.xcassets */,
 				5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */,
+				5F8BFE492370FE5100465DD6 /* Assets.xcassets */,
 				5F8BFE4E2370FE5100465DD6 /* Info.plist */,
 			);
 			path = MarsRoverGallery;
@@ -414,7 +408,6 @@
 			files = (
 				5F8BFE4D2370FE5100465DD6 /* LaunchScreen.storyboard in Resources */,
 				5F8BFE4A2370FE5100465DD6 /* Assets.xcassets in Resources */,
-				5F8BFE482370FE4E00465DD6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +429,6 @@
 			files = (
 				5FB2150723749998008596DF /* PhotoCellViewModel.swift in Sources */,
 				5F32EE4B2377387800ED1111 /* CollectionHeaderRepresentable.swift in Sources */,
-				5F8BFE452370FE4E00465DD6 /* ViewController.swift in Sources */,
 				5F32EE672377C11600ED1111 /* Observer+Extensions.swift in Sources */,
 				5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */,
 				5F32EE2923764EA300ED1111 /* UILabel+Extensions.swift in Sources */,
@@ -513,14 +505,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5F8BFE462370FE4E00465DD6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F8BFE472370FE4E00465DD6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5F8BFE4B2370FE5100465DD6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

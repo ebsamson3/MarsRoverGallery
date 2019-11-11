@@ -101,7 +101,7 @@ class SettingsFooterView: UIView {
 			.isActive = true
 
 		cancelButton.leadingAnchor.constraint(
-			equalTo: leadingAnchor,
+			greaterThanOrEqualTo: leadingAnchor,
 			constant: Constants.Spacing.large)
 			.isActive = true
 		
@@ -121,8 +121,20 @@ class SettingsFooterView: UIView {
 			.isActive = true
 		
 		submitButton.trailingAnchor.constraint(
-			equalTo: trailingAnchor,
+			lessThanOrEqualTo: trailingAnchor,
 			constant: -Constants.Spacing.large)
 			.isActive = true
+		
+		cancelButton.widthAnchor.constraint(equalToConstant: 250)
+			.withPriority(.defaultHigh)
+			.isActive = true
+		
+		cancelButton.setContentHuggingPriority(.defaultLow,for: .horizontal)
+		
+		submitButton.widthAnchor.constraint(equalToConstant: 250)
+			.withPriority(.defaultHigh)
+			.isActive = true
+		
+		submitButton.setContentHuggingPriority(.defaultLow,for: .horizontal)
 	}
 }
