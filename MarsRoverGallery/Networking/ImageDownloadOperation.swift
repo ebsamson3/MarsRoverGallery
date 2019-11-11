@@ -8,16 +8,28 @@
 
 import UIKit
 
-enum ImageDownloadOperationError: Error {
-	case imageRead
+/// Errors thrown by ImageDownloadOperation
+enum ImageDownloadOperationError: LocalizedError {
+	case badImageReadFromData
+	
+	var errorDescription: String? {
+		switch self {
+		case .badImageReadFromData:
+			return "Operation failed to read image from data"
+		}
+	}
 }
 
+/// An asynchornous, cancellable image fetch operation
+/// - Throws: `ImageDownloadOperationError.badImageReadFromData`
 class ImageDownloadOperation: AsynchronousOperation {
+	
 	
 	let imageUrl: String
 	private var _result = ThreadSafe<Result<UIImage, Error>?>(value: nil)
 	private var task: URLSessionDataTask?
 	
+	// Access point for thread-safe result
 	var result: Result<UIImage, Error>? {
 		get {
 			return _result.getValue()
@@ -76,7 +88,7 @@ class ImageDownloadOperation: AsynchronousOperation {
 			}
 			
 			guard let image = UIImage(data: data) else {
-				self?.result = .failure(ImageDownloadOperationError.imageRead)
+				self?.result = .failure(ImageDownloadOperationError.badImageReadFromData)
 				self?.finish()
 				return
 			}
@@ -88,8 +100,9 @@ class ImageDownloadOperation: AsynchronousOperation {
 		task?.resume()
 	}
 	
+	// Cancels the operation's active data task prior to cancelling the operation
 	override func cancel() {
-		super.cancel()
 		task?.cancel()
+		super.cancel()
 	}
 }

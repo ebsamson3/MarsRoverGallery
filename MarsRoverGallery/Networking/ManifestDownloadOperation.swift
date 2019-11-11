@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An asynchorous operation that fetches a manifest for a given rover
 class ManifestDownloadOperation: AsynchronousOperation {
 	
 	let roverName: Rover.Name
@@ -18,6 +19,7 @@ class ManifestDownloadOperation: AsynchronousOperation {
 		self.roverName = roverName
 	}
 	
+	// Access point for thread-safe result
 	var result: Result<Manifest, Error>? {
 		get {
 			return _result.getValue()

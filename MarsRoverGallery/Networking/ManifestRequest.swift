@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Builds and carries out a request for a rover-specific mission manifest
 struct ManifestRequest {
 	
 	let roverName: Rover.Name
@@ -16,6 +17,7 @@ struct ManifestRequest {
 		self.roverName = roverName
 	}
 	
+	/// Starts and returns a data task for carrying out the manifest request
 	@discardableResult
 	func fetch(
 		completion: @escaping (Result<Manifest, Error>) -> Void) -> URLSessionDataTask?
@@ -40,6 +42,7 @@ struct ManifestRequest {
 		}
 	}
 	 
+	/// Generates the url string for the manifest request
 	func generateUrlString() -> String {
 		
 		let manifestsString = "/manifests"

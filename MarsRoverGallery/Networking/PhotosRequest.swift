@@ -20,7 +20,7 @@ enum PhotosRequestError: LocalizedError {
 }
 
 
-///Constructs requests for Nasa's rover photos endpoint
+///Builds  and carries out requests for NASA's rover photos endpoint
 ///	- Throws:`PhotosRequestError.invalidCamera(camera: Camera.Name, rover: Rover.Name)`
 struct PhotosRequest: Identifiable {
 	
