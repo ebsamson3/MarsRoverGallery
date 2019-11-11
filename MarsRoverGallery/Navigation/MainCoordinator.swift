@@ -29,7 +29,7 @@ class MainCoordinator: NSObject {
 		let photosRequest = try? PhotosRequest(
 			roverName: .curiosity,
 			cameraName: .any,
-			dateOption: .sol(1000))
+			dateOption: .sol(1500))
 		
 		// Object for handling paginated photo requests
 		paginatedPhotosController.photosRequest = photosRequest
