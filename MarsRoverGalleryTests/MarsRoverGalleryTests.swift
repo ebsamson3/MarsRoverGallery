@@ -119,7 +119,7 @@ class MarsRoverGalleryTests: XCTestCase {
 		
 		guard let photosRequest = try? PhotosRequest(
 			roverName: .curiosity,
-			cameraName: nil,
+			cameraName: .any,
 			dateOption: .sol(1000))
 		else {
 			XCTFail("Invalid photosRequest")
@@ -217,12 +217,4 @@ class MarsRoverGalleryTests: XCTestCase {
 		waitForExpectations(timeout: 5, handler: nil)
 		XCTAssertNotNil(manifest)
 	}
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

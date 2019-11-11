@@ -42,6 +42,12 @@ class SliderCell: UICollectionViewCell, Observer {
 	
 	//MARK: Parameters
 	
+	var thumbImage: UIImage? = nil {
+		didSet {
+			slider.setThumbImage(thumbImage, for: .normal)
+		}
+	}
+	
 	var valueString: String? = nil {
 		didSet {
 			valueLabel.text = valueString
