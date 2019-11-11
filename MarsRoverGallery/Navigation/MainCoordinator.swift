@@ -71,7 +71,7 @@ class MainCoordinator: NSObject {
 			photosController: paginatedPhotosController,
 			manifestStore: manifestStore)
 		
-		let viewController = SearchSettingsViewController(viewModel: viewModel)
+		let viewController = SearchSettingsCollectionViewController(viewModel: viewModel)
 		
 		let deviceIdiom = UIDevice.current.userInterfaceIdiom
 		

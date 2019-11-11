@@ -8,22 +8,30 @@
 
 import UIKit
 
-class SearchSettingsViewController: UIViewController {
+/// A container view controller for a waterfall collection view controller than works for pop-up or normal modal presentations
+class SearchSettingsCollectionViewController: UIViewController {
 	
 	private var kvoContext = 0
 	
-	private let viewModel: SearchSettingsCollectionViewModel
+	//MARK: Views / Child ViewControllers
+	
 	private let collectionViewController: WaterfallCollectionViewController
 	
+	// Footer for cancel/submit buttons
 	private lazy var footerView: SettingsFooterView = {
 		let footerView = SettingsFooterView()
 		footerView.delegate = self
 		return footerView
 	}()
 	
+	// @objc collectionView variable for observation
 	@objc private var collectionView: UICollectionView {
 		return collectionViewController.collectionView
 	}
+	
+	private let viewModel: SearchSettingsCollectionViewModel
+	
+	//MARK: Lifecycle
 	
 	init(viewModel: SearchSettingsCollectionViewModel) {
 		self.viewModel = viewModel
@@ -41,6 +49,7 @@ class SearchSettingsViewController: UIViewController {
 		configure()
 	}
 	
+	// When the view will appear begin tracking the colleciton view content size
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		
@@ -52,6 +61,7 @@ class SearchSettingsViewController: UIViewController {
 
     }
 
+	// Clean up collection view content size observer
     override func viewDidDisappear(_ animated: Bool) {
         removeObserver(
 			self,
@@ -59,6 +69,7 @@ class SearchSettingsViewController: UIViewController {
         super.viewDidDisappear(animated)
     }
 
+	// When the collection view content size changes, set the preferred size of the view controller to adjust for it so that the any pop up controllers are sized to fit the collection view + footer view
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if
 			context == &kvoContext,
@@ -73,6 +84,7 @@ class SearchSettingsViewController: UIViewController {
         }
     }
 	
+	//MARK: Configure layout
 	private func configure() {
 		view.backgroundColor = .background
 		
@@ -80,6 +92,7 @@ class SearchSettingsViewController: UIViewController {
 			return
 		}
 		
+		// Add waterfall collection view as a child controller
 		addChild(collectionViewController)
 		collectionViewController.didMove(toParent: self)
 		
@@ -101,12 +114,15 @@ class SearchSettingsViewController: UIViewController {
 	}
 }
 
-extension SearchSettingsViewController: SettingsFooterViewDelegate {
+// MARK: Settings footer delegate
+extension SearchSettingsCollectionViewController: SettingsFooterViewDelegate {
+	// Handle cancel button press
 	func settingsFooterDidCancel() {
 		viewModel.onCancel()
 		dismiss(animated: true)
 	}
 	
+	// Handle submit button press
 	func settingsFooterDidSubmit() {
 		viewModel.onSubmit()
 		dismiss(animated: true)

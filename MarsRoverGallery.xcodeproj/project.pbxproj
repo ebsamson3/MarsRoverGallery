@@ -23,7 +23,7 @@
 		5F32EE472377359600ED1111 /* SettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */; };
 		5F32EE492377382D00ED1111 /* SettingsSectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */; };
 		5F32EE4B2377387800ED1111 /* CollectionHeaderRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE4A2377387800ED1111 /* CollectionHeaderRepresentable.swift */; };
-		5F32EE4D2377550300ED1111 /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE4C2377550300ED1111 /* SearchSettingsViewController.swift */; };
+		5F32EE4D2377550300ED1111 /* SearchSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE4C2377550300ED1111 /* SearchSettingsCollectionViewController.swift */; };
 		5F32EE5323775CA200ED1111 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5223775CA100ED1111 /* SettingsButton.swift */; };
 		5F32EE552377629B00ED1111 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE542377629B00ED1111 /* SettingsFooterView.swift */; };
 		5F32EE5723778BDF00ED1111 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE5623778BDE00ED1111 /* LabelCell.swift */; };
@@ -99,7 +99,7 @@
 		5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeaderView.swift; sourceTree = "<group>"; };
 		5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeaderViewModel.swift; sourceTree = "<group>"; };
 		5F32EE4A2377387800ED1111 /* CollectionHeaderRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeaderRepresentable.swift; sourceTree = "<group>"; };
-		5F32EE4C2377550300ED1111 /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
+		5F32EE4C2377550300ED1111 /* SearchSettingsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		5F32EE5223775CA100ED1111 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		5F32EE542377629B00ED1111 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 		5F32EE5623778BDE00ED1111 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 				5FB21503237497D7008596DF /* PhotosCollectionViewModel.swift */,
 				5F32EE2E2376680700ED1111 /* FullScreenPhotoViewModel.swift */,
 				5F32EE3123766B5B00ED1111 /* FullScreenPhotoViewController.swift */,
-				5F32EE4C2377550300ED1111 /* SearchSettingsViewController.swift */,
+				5F32EE4C2377550300ED1111 /* SearchSettingsCollectionViewController.swift */,
 				5F32EE392376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift */,
 			);
 			path = ViewControllers;
@@ -460,7 +460,7 @@
 				5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */,
 				5F32EE6D2377E2FA00ED1111 /* Selectable.swift in Sources */,
 				5F32EE2F2376680700ED1111 /* FullScreenPhotoViewModel.swift in Sources */,
-				5F32EE4D2377550300ED1111 /* SearchSettingsViewController.swift in Sources */,
+				5F32EE4D2377550300ED1111 /* SearchSettingsCollectionViewController.swift in Sources */,
 				5F32EE5F2377A56500ED1111 /* ManifestDownloadOperation.swift in Sources */,
 				5F8BFE7F23714DC100465DD6 /* Camera.swift in Sources */,
 				5F32EE5323775CA200ED1111 /* SettingsButton.swift in Sources */,
