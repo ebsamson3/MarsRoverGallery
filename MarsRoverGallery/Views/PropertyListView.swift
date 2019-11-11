@@ -8,10 +8,12 @@
 
 import UIKit
 
+/// View for a of colon-separated property-value labels
 class PropertyListView: UIView {
 	typealias Property = (name: String, value: String)
 	typealias PropertyLabelPair = (nameLabel: UILabel, valueLabel: UILabel)
 	
+	// If properties are set, reconfigure the subviews
 	var properties: [(name: String, value: String)] {
 		didSet {
 			configure()
@@ -19,8 +21,8 @@ class PropertyListView: UIView {
 		}
 	}
 	
+	// Stoes labels for each property-value pair
 	private var propertyLabelPairs = [PropertyLabelPair]()
-	private var stackView: UIStackView?
 	
 	init(_ properties: [Property] = [])  {
 		self.properties = properties
@@ -37,10 +39,18 @@ class PropertyListView: UIView {
 		layoutLabelPairs()
 	}
 	
+	/// Generates label pairs for each property
 	private func generateLabelPairs() -> [PropertyLabelPair] {
 		
-		self.stackView?.removeFromSuperview()
+		// Clean up old label pairs
+		for labelPair in propertyLabelPairs {
+			labelPair.nameLabel.removeFromSuperview()
+			labelPair.valueLabel.removeFromSuperview()
+		}
 		
+		propertyLabelPairs = []
+		
+		// Create new label pairs for each property
 		return properties.map { property in
 			
 			let nameLabel = UILabel.clearCaption()
@@ -55,6 +65,7 @@ class PropertyListView: UIView {
 		}
 	}
 	
+	/// Layout label pairs
 	private func layoutLabelPairs() {
 
 		guard !propertyLabelPairs.isEmpty else {
@@ -102,8 +113,6 @@ class PropertyListView: UIView {
 					.isActive = true
 			}
 
-
-
 			let valueLabelTopAnchor = (index > 0) ?
 				propertyLabelPairs[index - 1].valueLabel.bottomAnchor :
 				topAnchor
@@ -128,9 +137,9 @@ class PropertyListView: UIView {
 					.isActive = true
 			}
 
+			// Configure constriants such that when the label pair gets compressed, the value label beings word wrapping
 			nameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 			nameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
 			valueLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 			valueLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
 

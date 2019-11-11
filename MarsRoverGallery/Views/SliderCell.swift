@@ -8,11 +8,15 @@
 
 import UIKit
 
+/// A slider cell with that contains a vertically stacked value label + slider
 class SliderCell: UICollectionViewCell, Observer {
 	
+	// View conforms to the observable protocol, so it has a dispose bag for storing and cleaning up it's obsevations on de-init or reuse
 	var disposeBag = DisposeBag()
 	
 	static let reuseIdentifier = "SliderCell"
+	
+	//MARK: Views
 	
 	let valueLabel: UILabel = {
 		let label = UILabel()
@@ -35,6 +39,8 @@ class SliderCell: UICollectionViewCell, Observer {
 		
 		return slider
 	}()
+	
+	//MARK: Parameters
 	
 	var valueString: String? = nil {
 		didSet {
@@ -66,11 +72,8 @@ class SliderCell: UICollectionViewCell, Observer {
 	}
 	
 	var handleSliderValueDidChange: ((Float) -> Void)?
-    
-	@objc func sliderValueDidChange(sender: UISlider) {
-		handleSliderValueDidChange?(sender.value)
-		configure()
-	}
+	
+	//MARK: Lifecycle
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -81,10 +84,17 @@ class SliderCell: UICollectionViewCell, Observer {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// Clean up obsevations on reuse so they don't continue to set the cell's properties after the view model has changed
 	override func prepareForReuse() {
 		disposeBag = DisposeBag()
 	}
 	
+	///Handles slider value change
+	@objc func sliderValueDidChange(sender: UISlider) {
+		handleSliderValueDidChange?(sender.value)
+	}
+	
+	//MARK: Configure layout
 	private func configure() {
 		contentView.addSubview(valueLabel)
 		contentView.addSubview(slider)

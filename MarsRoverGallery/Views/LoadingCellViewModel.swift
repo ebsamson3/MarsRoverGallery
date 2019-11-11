@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View model for instantiating and registering a loading cell
 class LoadingCellViewModel {
 	
 }

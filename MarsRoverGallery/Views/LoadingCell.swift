@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Clear cell with an activity indicator at it's center
 class LoadingCell: UICollectionViewCell {
 	
 	static let reuseIdentifier = "LoadingCell"
@@ -35,7 +36,6 @@ class LoadingCell: UICollectionViewCell {
 	private func configure() {
 		contentView.addSubview(spinner)
 		spinner.translatesAutoresizingMaskIntoConstraints = false
-		
 		spinner.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
 		spinner.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 	}

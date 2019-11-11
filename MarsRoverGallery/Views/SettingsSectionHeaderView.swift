@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Simple Settings Header Cell with a title label at it's center
 class SettingsSectionHeaderView: UICollectionReusableView {
 	
 	static let reuseIdentifier = "SettingsSectionHeader"

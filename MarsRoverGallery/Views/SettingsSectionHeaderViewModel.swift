@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View model that registers and implements a Settings Header Cell
 class SettingsSectionHeaderViewModel {
 	
 	var title: String?
