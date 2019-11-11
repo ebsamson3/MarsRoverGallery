@@ -79,7 +79,7 @@ class SettingsButton: UIButton {
 		
         titleLabel?.textAlignment = .center
         titleLabel?.baselineAdjustment = .alignCenters
-		titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+		titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
 		layer.borderWidth = 1
     }
 

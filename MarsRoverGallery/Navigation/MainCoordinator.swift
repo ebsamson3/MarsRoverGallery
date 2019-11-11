@@ -51,7 +51,7 @@ class MainCoordinator: NSObject {
 		
 		let viewController = WaterfallCollectionViewController(
 			viewModel: viewModel)
-		viewController.title = "Rover Photos Gallery"
+		viewController.title = "Rover Gallery"
 		
 		// Add search button to gallery
 		let searchButton = UIBarButtonItem(

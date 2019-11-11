@@ -18,6 +18,6 @@ extension UIColor {
     }
 	
 	static var background = UIColor.black
-	static var brightText = UIColor.yellow
+	static var brightText = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
 }
 
