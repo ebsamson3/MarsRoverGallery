@@ -17,7 +17,7 @@
 		5F32EE3223766B5B00ED1111 /* FullScreenPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3123766B5B00ED1111 /* FullScreenPhotoViewController.swift */; };
 		5F32EE362376A38000ED1111 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE352376A38000ED1111 /* SliderCell.swift */; };
 		5F32EE3A2376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE392376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift */; };
-		5F32EE3C2376AB6E00ED1111 /* SliderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3B2376AB6E00ED1111 /* SliderCellViewModel.swift */; };
+		5F32EE3C2376AB6E00ED1111 /* DateSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */; };
 		5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */; };
 		5F32EE412376ACFD00ED1111 /* SelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE402376ACFD00ED1111 /* SelectorCell.swift */; };
 		5F32EE472377359600ED1111 /* SettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */; };
@@ -93,7 +93,7 @@
 		5F32EE3123766B5B00ED1111 /* FullScreenPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenPhotoViewController.swift; sourceTree = "<group>"; };
 		5F32EE352376A38000ED1111 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		5F32EE392376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCollectionViewModel.swift; sourceTree = "<group>"; };
-		5F32EE3B2376AB6E00ED1111 /* SliderCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCellViewModel.swift; sourceTree = "<group>"; };
+		5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSettingCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE402376ACFD00ED1111 /* SelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCell.swift; sourceTree = "<group>"; };
 		5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -320,13 +320,13 @@
 				5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */,
 				5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */,
 				5F32EE352376A38000ED1111 /* SliderCell.swift */,
-				5F32EE3B2376AB6E00ED1111 /* SliderCellViewModel.swift */,
+				5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */,
 				5F32EE402376ACFD00ED1111 /* SelectorCell.swift */,
 				5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */,
 				5F32EE5623778BDE00ED1111 /* LabelCell.swift */,
 				5F32EE5823778BF500ED1111 /* LabelCellViewModel.swift */,
-				5F32EE5223775CA100ED1111 /* SettingsButton.swift */,
 				5F32EE542377629B00ED1111 /* SettingsFooterView.swift */,
+				5F32EE5223775CA100ED1111 /* SettingsButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 				5FB21504237497D7008596DF /* PhotosCollectionViewModel.swift in Sources */,
 				5F8BFE9C2372C60900465DD6 /* URLSession+Extensions.swift in Sources */,
 				5F32EE612377A57900ED1111 /* ThreadSafe.swift in Sources */,
-				5F32EE3C2376AB6E00ED1111 /* SliderCellViewModel.swift in Sources */,
+				5F32EE3C2376AB6E00ED1111 /* DateSettingCellViewModel.swift in Sources */,
 				5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */,
 				5F32EE6D2377E2FA00ED1111 /* Selectable.swift in Sources */,
 				5F32EE2F2376680700ED1111 /* FullScreenPhotoViewModel.swift in Sources */,

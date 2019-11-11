@@ -8,8 +8,10 @@
 //
 import UIKit
 
+/// View model for search settings view
 class SearchSettingsCollectionViewModel {
 
+	//MARK: Collection View Sections
 	enum Section: Int, CaseIterable {
 		case spacer
 		case selectRover
@@ -30,6 +32,11 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
+	var numberOfSections: Int = Section.allCases.count
+	
+	//MARK: Cell View Models
+	
+	// Create a header view model for each section
 	lazy var headerViewModels: [Section: SettingsSectionHeaderViewModel] = Dictionary(
 		uniqueKeysWithValues: Section.allCases.compactMap { section in
 			guard let title = section.title else {
@@ -41,6 +48,7 @@ class SearchSettingsCollectionViewModel {
 		}
 	)
 
+	// Button-containing view model for selecting the rover for our search request
 	lazy var roverSettingCellViewModels: [SelectorCellViewModel<Rover.Name>] = Rover.Name.allCases.map { roverName in
 		let viewModel = SelectorCellViewModel(value: roverName)
 		viewModel.isActive = roverName == selectedRover
@@ -50,6 +58,7 @@ class SearchSettingsCollectionViewModel {
 		return viewModel
 	}
 	
+	// Button-containing view model for selecting the camera for our search request
 	lazy var cameraSettingCellViewModels: [SelectorCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
 		let viewModel = SelectorCellViewModel(value: cameraName)
 		viewModel.isActive = cameraName == selectedCamera
@@ -59,34 +68,36 @@ class SearchSettingsCollectionViewModel {
 		return viewModel
 	}
 	
+	// Camera view models + a spacer cell so to center the last camera setting cell horizontally
 	lazy var adjustedCameraCellViewModels: [ItemRepresentable] = {
 		var cellViewModels: [ItemRepresentable] = cameraSettingCellViewModels
 		cellViewModels.insert(LabelCellViewModel(), at: 9)
 		return cellViewModels
 	}()
 
-	lazy var sliderCellViewModel: SliderCellViewModel = {
-		let viewModel = SliderCellViewModel()
+	// Slider cell view model for selecting the photos request date
+	lazy var dateSettingCellViewModel: DateSettingCellViewModel = {
+		let viewModel = DateSettingCellViewModel()
 		viewModel.setCurrentValue(to: selectedDate)
 		return viewModel
 	}()
 
-	var numberOfSections: Int = Section.allCases.count
-
 	private let cellViewModelTypes: [ItemRepresentable.Type] = [
 		SelectorCellViewModel<Rover.Name>.self,
 		LabelCellViewModel.self,
-		SliderCellViewModel.self
+		DateSettingCellViewModel.self
 	]
 	
 	private let sectionHeaderTypes: [CollectionHeaderRepresentable.Type] = [
 		SettingsSectionHeaderViewModel.self
 	]
 	
-	
+	//MARK: Networking
 	
 	let photosController: PaginatedPhotosController
 	let manifestStore: ManifestStore
+	
+	//MARK: Current search settings
 	
 	var selectedRover: Rover.Name { didSet { didSelectRover() }}
 	var selectedCamera: Camera.Name { didSet { didSelectCamera() }}
@@ -109,7 +120,11 @@ class SearchSettingsCollectionViewModel {
 		didSelectRover()
 	}
 	
+	//MARK: Handling state changes
+	
+	/// Handles rover selection
 	func didSelectRover() {
+		// Select rover
 		roverSettingCellViewModels.forEach { viewModel in
 			if viewModel.value != selectedRover {
 				viewModel.isActive = false
@@ -118,10 +133,15 @@ class SearchSettingsCollectionViewModel {
 			}
 		}
 		
+		//Update camera availability
 		setAvailableCameras()
+		
+		// Fetch manifest if it hasn't been done already
+		//TODO: Add alert for when manifest fetch fails
 		setManifest()
 	}
 	
+	/// On camera selection, deselect all but the selected camera
 	func didSelectCamera() {
 		cameraSettingCellViewModels.forEach { viewModel in
 			let camera = viewModel.value
@@ -129,10 +149,12 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
+	/// Set date setting manifest to current manifest
 	func didSetManifest() {
-		sliderCellViewModel.manifest = manifest
+		dateSettingCellViewModel.manifest = manifest
 	}
 	
+	/// Set availiable cameras in response to a rover selection change. If the currently selected camera is set to unavailable, change the camera setting to "ANY"
 	func setAvailableCameras() {
 		let availableCameras = selectedRover.availableCameras
 		
@@ -151,6 +173,7 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
+	/// Get a local manifest if available, otherwise fetch the manifest and set afterwards
 	func setManifest() {
 		let rover = selectedRover
 		
@@ -174,12 +197,13 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
+	/// Handles settings submission. Sets a new photo request based on the settings values
 	func onSubmit() {
 		do {
 			let photosRequest = try PhotosRequest(
 				roverName: selectedRover,
 				cameraName: selectedCamera,
-				dateOption: sliderCellViewModel.getCurrentValue())
+				dateOption: dateSettingCellViewModel.getCurrentValue())
 			
 			photosController.photosRequest = photosRequest
 			photosController.fetchNextPage()
@@ -189,29 +213,10 @@ class SearchSettingsCollectionViewModel {
 		}
 	}
 	
-	func onCancel() {
-		
-	}
+	func onCancel() {}
 }
 	
 extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
-	
-	func columnCount(forSection section: Int) -> Int {
-		guard let sectionType = Section.init(rawValue: section) else {
-			fatalError("Invalid section")
-		}
-
-		switch sectionType {
-		case .spacer:
-			return 1
-		case .selectRover:
-			return 3
-		case .selectCamera:
-			return 3
-		case .selectDate:
-			return 1
-		}
-	}
 	
 	func registerHeaders(collectionView: UICollectionView) {
 		for sectionHeaderType in sectionHeaderTypes {
@@ -224,6 +229,8 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 			cellViewModelType.registerCell(collectionView: collectionView)
 		}
 	}
+	
+	//MARK: UICollectionViewDataSource
 
 	func numberOfItems(inSection section: Int) -> Int {
 		guard let sectionType = Section.init(rawValue: section) else {
@@ -257,7 +264,7 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		case .selectCamera:
 			return adjustedCameraCellViewModels[row]
 		case .selectDate:
-			return sliderCellViewModel
+			return dateSettingCellViewModel
 		}
 	}
 	
@@ -267,6 +274,25 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 			return nil
 		}
 		return headerViewModels[sectionType]
+	}
+	
+	//MARK: WaterfallLayoutDelegate
+	
+	func columnCount(forSection section: Int) -> Int {
+		guard let sectionType = Section.init(rawValue: section) else {
+			fatalError("Invalid section")
+		}
+
+		switch sectionType {
+		case .spacer:
+			return 1
+		case .selectRover:
+			return 3
+		case .selectCamera:
+			return 3
+		case .selectDate:
+			return 1
+		}
 	}
 
 	func sizeForItem(at indexPath: IndexPath) -> CGSize {
@@ -295,8 +321,6 @@ extension SearchSettingsCollectionViewModel: WaterfallCollectionViewModel {
 		
 		return 44.0
 	}
-
-	func didSelectItem(at indexPath: IndexPath) {}
 	
 	func insets(forSection section: Int) -> UIEdgeInsets {
 

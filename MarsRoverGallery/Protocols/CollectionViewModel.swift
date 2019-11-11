@@ -83,6 +83,8 @@ extension CollectionViewModel {
 	
 	func registerHeaders(collectionView: UICollectionView) {}
 	
+	func didSelectItem(at indexPath: IndexPath) {}
+	
 	func prefetchItems(at indexPaths: [IndexPath]) {}
 	
 	func cancelPrefetchingForItems(at indexPaths: [IndexPath]) {}

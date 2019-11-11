@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SliderCellViewModel {
+class DateSettingCellViewModel {
 	
 	private let dateFormatter = NASADateFormatter.shared
 	private lazy var calendar = dateFormatter.calendar
@@ -141,24 +141,8 @@ class SliderCellViewModel {
 		}
 	}
 }
-//
-//extension SliderCellViewModel: CellRepresentable {
-//	static func registerCell(tableView: UITableView) {
-//		tableView.register(
-//			SliderCell.self,
-//			forCellReuseIdentifier: SliderCell.reuseIdentifier)
-//	}
-//
-//	func cellInstance(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-//		let cell = tableView.dequeueReusableCell(
-//			withIdentifier: SliderCell.reuseIdentifier,
-//			for: indexPath)
-//
-//		return cell
-//	}
-//}
 
-extension SliderCellViewModel: ItemRepresentable {
+extension DateSettingCellViewModel: ItemRepresentable {
 	static func registerCell(collectionView: UICollectionView) {
 		collectionView.register(
 			SliderCell.self,

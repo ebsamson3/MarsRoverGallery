@@ -227,6 +227,7 @@ extension PhotosCollectionViewModel: PaginatedPhotosControllerDelegate {
 			insert(photos: photos)
 		default:
 			// Any other status change updates the loading state of the collection view
+			//TODO: Add alert for errors
 			let indexSet = IndexSet(integer: Section.loading.rawValue)
 			reloadSections?(indexSet)
 		}
