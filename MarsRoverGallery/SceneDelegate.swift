@@ -11,6 +11,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
+	
+	// Store a reference to the coordinator that handles view controller navigation so it doesn't deinitialize
 	var coordinator: MainCoordinator?
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -23,11 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window?.makeKeyAndVisible()
 		window?.windowScene = windowScene
 		
+		// Settin up the Main Coordinator
 		let navigationController = UINavigationController()
 		let coordinator = MainCoordinator(navigationController: navigationController)
 		self.coordinator = coordinator
 		coordinator.start()
 		
+		// Set the window's root view controller to the coordinator's navigation controller
 		window?.rootViewController = navigationController
 	}
 
