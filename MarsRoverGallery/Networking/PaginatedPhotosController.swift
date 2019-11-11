@@ -124,8 +124,7 @@ class PaginatedPhotosController {
 						else {
 							return false
 						}
-						
-						return width > 100 && height > 100
+						return width > 200 || height > 200
 					}
 					
 					// Add filtered photos to the stored photos of the request
