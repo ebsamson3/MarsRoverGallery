@@ -8,11 +8,14 @@
 
 import UIKit
 
+/// A view controller for a standard waverfall collection view
 class WaterfallCollectionViewController: UIViewController {
-	
-	let viewModel: WaterfallCollectionViewModel
-	
+
+	//MARK: Private variables
+	private let viewModel: WaterfallCollectionViewModel
 	private var flowLayout = CHTCollectionViewWaterfallLayout()
+	
+	//MARK: Views
 	
 	@objc lazy var collectionView: UICollectionView = {
 		let collectionView = UICollectionView(
@@ -24,6 +27,8 @@ class WaterfallCollectionViewController: UIViewController {
 		return collectionView
 	}()
 	
+	//MARK: Lifecycle
+	
 	init(viewModel: WaterfallCollectionViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -33,6 +38,7 @@ class WaterfallCollectionViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// In the view did load we perform any required bindings to the collection view model.  One this is done we reload the data to sync the view controller and the view model
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		viewModel.registerCells(collectionView: collectionView)
@@ -61,37 +67,7 @@ class WaterfallCollectionViewController: UIViewController {
 		configure()
 	}
 	
-//	private var kvoContext = 0
-//	
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//		
-//        addObserver(
-//			self,
-//			forKeyPath: #keyPath(collectionView.contentSize),
-//			options: .new,
-//			context: &kvoContext)
-//
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        removeObserver(
-//			self,
-//			forKeyPath: #keyPath(collectionView.contentSize))
-//        super.viewDidDisappear(animated)
-//    }
-//
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        if
-//			context == &kvoContext,
-//			keyPath == #keyPath(collectionView.contentSize),
-//            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize
-//		{
-//            self.popoverPresentationController?
-//				.presentedViewController
-//				.preferredContentSize = contentSize
-//        }
-//    }
+	//MARK: Layout configuration
 	
 	private func configure() {
 		view.backgroundColor = .background
@@ -115,6 +91,7 @@ class WaterfallCollectionViewController: UIViewController {
 	}
 }
 
+//MARK: UICollectionViewDataSource
 extension WaterfallCollectionViewController: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return viewModel.numberOfSections
@@ -147,12 +124,14 @@ extension WaterfallCollectionViewController: UICollectionViewDataSource {
 	}
 }
 
+//MARK: UICollectionViewDelegate
 extension WaterfallCollectionViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		viewModel.didSelectItem(at: indexPath)
 	}
 }
 
+//MARK: WaterfallLayoutDelegate
 extension WaterfallCollectionViewController: CHTCollectionViewDelegateWaterfallLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		viewModel.sizeForItem(at: indexPath)
@@ -171,6 +150,7 @@ extension WaterfallCollectionViewController: CHTCollectionViewDelegateWaterfallL
 	}
 }
 
+//MARK: UICollectionViewPrefetchingDelegate
 extension WaterfallCollectionViewController: UICollectionViewDataSourcePrefetching {
 	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
 		viewModel.prefetchItems(at: indexPaths)
@@ -181,6 +161,7 @@ extension WaterfallCollectionViewController: UICollectionViewDataSourcePrefetchi
 	}
 }
 
+//MARK: UIScrollviewDelegate
 extension WaterfallCollectionViewController: UIScrollViewDelegate {
 	
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
