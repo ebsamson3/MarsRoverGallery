@@ -8,17 +8,29 @@
 
 import UIKit
 
-enum PhotosRequestError: Error {
-	case invalidCamera
+enum PhotosRequestError: LocalizedError {
+	case invalidCamera(camera: Camera.Name, rover: Rover.Name)
+	
+	var errorDescription: String? {
+		switch self {
+		case .invalidCamera(let camera, let rover):
+			return "Camera: \(camera) is not available for rover: \(rover)"
+		}
+	}
 }
 
+
+///Constructs requests for Nasa's rover photos endpoint
+///	- Throws:`PhotosRequestError.invalidCamera(camera: Camera.Name, rover: Rover.Name)`
 struct PhotosRequest: Identifiable {
 	
+	/// Photos request options
 	enum DateOption {
 		case sol(Int)
 		case earthDate(Date)
 		case latest
 		
+		// String for use in URLs
 		var string: String {
 			switch self {
 			case .latest:
@@ -43,7 +55,7 @@ struct PhotosRequest: Identifiable {
 		dateOption: DateOption = .latest) throws
 	{
 		guard roverName.availableCameras.contains(cameraName) else {
-			throw PhotosRequestError.invalidCamera
+			throw PhotosRequestError.invalidCamera(camera: cameraName, rover: roverName)
 		}
 		
 		self.roverName = roverName
@@ -51,6 +63,7 @@ struct PhotosRequest: Identifiable {
 		self.dateOption = dateOption
 	}
 	
+	/// Starts and returns a data task for carrying out the photo request
 	@discardableResult
 	func fetch(
 		page: Int = 1,
@@ -76,7 +89,8 @@ struct PhotosRequest: Identifiable {
 		}
 	}
 	
-	private func generateUrlString(forResultsOnPage page: Int) -> String {
+	/// Generates a URL string for fetching photos on a given page using the parameters of the photo request
+	func generateUrlString(forResultsOnPage page: Int) -> String {
 		let roverNameString = "rovers/\(roverName.rawValue.lowercased())"
 		let dateOptionString = dateOption.string
 		let cameraNameString: String
