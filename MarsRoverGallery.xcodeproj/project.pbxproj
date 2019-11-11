@@ -10,7 +10,6 @@
 		5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE0F237557D000ED1111 /* LoadingCell.swift */; };
 		5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */; };
 		5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE162376069100ED1111 /* MainCoordinator.swift */; };
-		5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1C2376171400ED1111 /* TableViewController.swift */; };
 		5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */; };
 		5F32EE2723764C8F00ED1111 /* NameValuePairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE2623764C8F00ED1111 /* NameValuePairCell.swift */; };
 		5F32EE2923764EA300ED1111 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE2823764EA300ED1111 /* UILabel+Extensions.swift */; };
@@ -89,7 +88,6 @@
 		5F32EE0F237557D000ED1111 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE162376069100ED1111 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		5F32EE1C2376171400ED1111 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
 		5F32EE2623764C8F00ED1111 /* NameValuePairCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValuePairCell.swift; sourceTree = "<group>"; };
 		5F32EE2823764EA300ED1111 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			children = (
 				5F8BFEA823737A9200465DD6 /* WaterfallCollectionViewController.swift */,
 				5FB21503237497D7008596DF /* PhotosCollectionViewModel.swift */,
-				5F32EE1C2376171400ED1111 /* TableViewController.swift */,
 				5F32EE2E2376680700ED1111 /* FullScreenPhotoViewModel.swift */,
 				5F32EE3123766B5B00ED1111 /* FullScreenPhotoViewController.swift */,
 				5F32EE4C2377550300ED1111 /* SearchSettingsViewController.swift */,
@@ -478,7 +475,6 @@
 				5F32EE362376A38000ED1111 /* SliderCell.swift in Sources */,
 				5F32EE632377A76600ED1111 /* ManifestRequest.swift in Sources */,
 				5F8BFE432370FE4E00465DD6 /* SceneDelegate.swift in Sources */,
-				5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */,
 				5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */,
 				5F8BFE942372B6F900465DD6 /* Constants.swift in Sources */,
 				5F8BFEB62373FF5D00465DD6 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
