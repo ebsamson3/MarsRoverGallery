@@ -45,6 +45,11 @@ class ImageStore {
 		// Adds a new completion to an older operation for the same URL instead of wastefully starting a duplicate fetch
 		if let previousOperation = downloadOperations[imageUrl] {
 			let adapterOperation = BlockOperation {
+				
+				guard !previousOperation.isCancelled else {
+					return
+				}
+				
 				guard let result = previousOperation.result else {
 					return
 				}

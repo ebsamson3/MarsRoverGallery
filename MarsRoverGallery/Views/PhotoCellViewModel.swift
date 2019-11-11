@@ -44,8 +44,8 @@ extension PhotoCellViewModel: ItemRepresentable {
 				
 				imageStore.fetchImage(withUrl: imageUrl) { result in
 					switch result {
-					case .failure(let error):
-						print(error.localizedDescription)
+					case .failure(_):
+						break
 					case .success(let image):
 						if imageCell.representedId == ObjectIdentifier(self) {
 							imageCell.setImage(to: image, animated: true)

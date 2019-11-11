@@ -211,7 +211,6 @@
 				5F8BFE902372A4D800465DD6 /* Networking */,
 				5F8BFE762371473100465DD6 /* Utilities */,
 				5F8BFE6C2371452700465DD6 /* Models */,
-				5F8BFE9F2373596400465DD6 /* ModelControllers */,
 				5F8BFEA723737A3600465DD6 /* ViewControllers */,
 				5FB2150523749963008596DF /* Views */,
 				5F8BFE402370FE4E00465DD6 /* AppDelegate.swift */,
@@ -277,16 +276,9 @@
 				5FB214FD237409B7008596DF /* ImageDownloadOperation.swift */,
 				5F32EE5C2377A49300ED1111 /* ManifestStore.swift */,
 				5F32EE5E2377A56500ED1111 /* ManifestDownloadOperation.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		5F8BFE9F2373596400465DD6 /* ModelControllers */ = {
-			isa = PBXGroup;
-			children = (
 				5F8BFEA0237359B600465DD6 /* PaginatedPhotosController.swift */,
 			);
-			path = ModelControllers;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		5F8BFEA22373783400465DD6 /* Protocols */ = {

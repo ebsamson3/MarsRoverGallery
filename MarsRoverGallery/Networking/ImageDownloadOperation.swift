@@ -61,6 +61,8 @@ class ImageDownloadOperation: AsynchronousOperation {
 		
 		task = session.dataTask(with: request) { [weak self] data, response, error in
 			
+			self?.task = nil
+			
 			if self?.isCancelled == true {
 				self?.finish()
 				return
