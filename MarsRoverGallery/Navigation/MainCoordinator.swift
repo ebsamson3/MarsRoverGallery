@@ -23,6 +23,8 @@ class MainCoordinator: NSObject {
 	
 	func start() {
 		
+		styleNavBar()
+		
 		// Initial request for app
 		let photosRequest = try? PhotosRequest(
 			roverName: .curiosity,
@@ -84,6 +86,12 @@ class MainCoordinator: NSObject {
 		}
 		
 		navigationController.present(viewController, animated: true)
+	}
+	
+	private func styleNavBar() {
+		UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+		UINavigationBar.appearance().tintColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+		UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
 	}
 }
 
