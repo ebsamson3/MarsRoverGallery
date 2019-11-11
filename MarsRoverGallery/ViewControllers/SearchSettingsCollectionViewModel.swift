@@ -49,9 +49,9 @@ class SearchSettingsCollectionViewModel {
 	)
 
 	// Button-containing view model for selecting the rover for our search request
-	lazy var roverSettingCellViewModels: [SelectorCellViewModel<Rover.Name>] = Rover.Name.allCases.map { roverName in
-		let viewModel = SelectorCellViewModel(value: roverName)
-		viewModel.isActive = roverName == selectedRover
+	lazy var roverSettingCellViewModels: [SettingsButtonCellViewModel<Rover.Name>] = Rover.Name.allCases.map { roverName in
+		let viewModel = SettingsButtonCellViewModel(value: roverName)
+		viewModel.isSelected = roverName == selectedRover
 		viewModel.selectionHandler = { [weak self] in
 			self?.selectedRover = roverName
 		}
@@ -59,9 +59,9 @@ class SearchSettingsCollectionViewModel {
 	}
 	
 	// Button-containing view model for selecting the camera for our search request
-	lazy var cameraSettingCellViewModels: [SelectorCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
-		let viewModel = SelectorCellViewModel(value: cameraName)
-		viewModel.isActive = cameraName == selectedCamera
+	lazy var cameraSettingCellViewModels: [SettingsButtonCellViewModel<Camera.Name>] = Camera.Name.allCases.map { cameraName in
+		let viewModel = SettingsButtonCellViewModel(value: cameraName)
+		viewModel.isSelected = cameraName == selectedCamera
 		viewModel.selectionHandler = { [weak self] in
 			self?.selectedCamera = cameraName
 		}
@@ -83,7 +83,7 @@ class SearchSettingsCollectionViewModel {
 	}()
 
 	private let cellViewModelTypes: [ItemRepresentable.Type] = [
-		SelectorCellViewModel<Rover.Name>.self,
+		SettingsButtonCellViewModel<Rover.Name>.self,
 		LabelCellViewModel.self,
 		DateSettingCellViewModel.self
 	]
@@ -127,9 +127,9 @@ class SearchSettingsCollectionViewModel {
 		// Select rover
 		roverSettingCellViewModels.forEach { viewModel in
 			if viewModel.value != selectedRover {
-				viewModel.isActive = false
+				viewModel.isSelected = false
 			} else {
-				viewModel.isActive = true
+				viewModel.isSelected = true
 			}
 		}
 		
@@ -145,7 +145,7 @@ class SearchSettingsCollectionViewModel {
 	func didSelectCamera() {
 		cameraSettingCellViewModels.forEach { viewModel in
 			let camera = viewModel.value
-			viewModel.isActive = selectedCamera == camera
+			viewModel.isSelected = selectedCamera == camera
 		}
 	}
 	

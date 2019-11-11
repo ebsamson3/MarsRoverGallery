@@ -1,5 +1,5 @@
 //
-//  SelectorCell.swift
+//  ButtonCell.swift
 //  MarsRoverGallery
 //
 //  Created by Edward Samson on 11/9/19.
@@ -8,8 +8,10 @@
 
 import UIKit
 
-class SelectorCell: UICollectionViewCell, Observer {
+/// Simple cell with a bordered button.
+class ButtonCell: UICollectionViewCell, Observer {
 	
+	/// Possible cell states
 	enum State {
 		case selected
 		case normal
@@ -18,18 +20,22 @@ class SelectorCell: UICollectionViewCell, Observer {
 	
 	static let reuseIdentifier = "SelectorCell"
 	
+	// Dispose bag for cleaning up bound observable values on de-init or reuse
 	var disposeBag = DisposeBag()
 	
+	// MARK: Views
 	private lazy var button: SettingsButton = {
 		let button = SettingsButton(color: UIColor.yellow)
 		
 		button.addTarget(
 			self,
-			action: #selector(handleButtonSelection(_:)),
+			action: #selector(handleButtonPress(_:)),
 			for: .touchUpInside)
 		
 		return button
 	}()
+	
+	// MARK: Properties
 	
 	var title: String? = nil {
 		didSet {
@@ -37,7 +43,7 @@ class SelectorCell: UICollectionViewCell, Observer {
 		}
 	}
 	
-	var selectionHandler: (() -> Void)?
+	var didPressHandler: (() -> Void)?
 	
 	var state = State.normal {
 		didSet {
@@ -55,6 +61,8 @@ class SelectorCell: UICollectionViewCell, Observer {
 		}
 	}
 	
+	//MARK: Lifecycle
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		configure()
@@ -64,14 +72,18 @@ class SelectorCell: UICollectionViewCell, Observer {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// Set the corner radius on layout
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		layer.cornerRadius = layer.bounds.height * 0.25
 	}
 	
+	// On reuse discard any bindings to observable objects
 	override func prepareForReuse() {
 		disposeBag = DisposeBag()
 	}
+	
+	// MARK: Configure Layout
 	
 	private func configure() {
 		contentView.addSubview(button)
@@ -83,7 +95,8 @@ class SelectorCell: UICollectionViewCell, Observer {
 		button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
 	}
 	
-	@objc private func handleButtonSelection(_ sender: UIButton) {
-		selectionHandler?()
+	/// Handles button press
+	@objc private func handleButtonPress(_ sender: UIButton) {
+		didPressHandler?()
 	}
 }

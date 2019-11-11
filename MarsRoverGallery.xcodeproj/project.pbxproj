@@ -18,8 +18,8 @@
 		5F32EE362376A38000ED1111 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE352376A38000ED1111 /* SliderCell.swift */; };
 		5F32EE3A2376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE392376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift */; };
 		5F32EE3C2376AB6E00ED1111 /* DateSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */; };
-		5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */; };
-		5F32EE412376ACFD00ED1111 /* SelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE402376ACFD00ED1111 /* SelectorCell.swift */; };
+		5F32EE3F2376ACBA00ED1111 /* SettingsButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE3E2376ACBA00ED1111 /* SettingsButtonCellViewModel.swift */; };
+		5F32EE412376ACFD00ED1111 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE402376ACFD00ED1111 /* ButtonCell.swift */; };
 		5F32EE472377359600ED1111 /* SettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */; };
 		5F32EE492377382D00ED1111 /* SettingsSectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */; };
 		5F32EE4B2377387800ED1111 /* CollectionHeaderRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE4A2377387800ED1111 /* CollectionHeaderRepresentable.swift */; };
@@ -94,8 +94,8 @@
 		5F32EE352376A38000ED1111 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		5F32EE392376AA9000ED1111 /* SearchSettingsCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsCollectionViewModel.swift; sourceTree = "<group>"; };
 		5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSettingCellViewModel.swift; sourceTree = "<group>"; };
-		5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCellViewModel.swift; sourceTree = "<group>"; };
-		5F32EE402376ACFD00ED1111 /* SelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorCell.swift; sourceTree = "<group>"; };
+		5F32EE3E2376ACBA00ED1111 /* SettingsButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonCellViewModel.swift; sourceTree = "<group>"; };
+		5F32EE402376ACFD00ED1111 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		5F32EE462377359600ED1111 /* SettingsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeaderView.swift; sourceTree = "<group>"; };
 		5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeaderViewModel.swift; sourceTree = "<group>"; };
 		5F32EE4A2377387800ED1111 /* CollectionHeaderRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeaderRepresentable.swift; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 				5F32EE482377382D00ED1111 /* SettingsSectionHeaderViewModel.swift */,
 				5F32EE352376A38000ED1111 /* SliderCell.swift */,
 				5F32EE3B2376AB6E00ED1111 /* DateSettingCellViewModel.swift */,
-				5F32EE402376ACFD00ED1111 /* SelectorCell.swift */,
-				5F32EE3E2376ACBA00ED1111 /* SelectorCellViewModel.swift */,
+				5F32EE402376ACFD00ED1111 /* ButtonCell.swift */,
+				5F32EE3E2376ACBA00ED1111 /* SettingsButtonCellViewModel.swift */,
 				5F32EE5623778BDE00ED1111 /* LabelCell.swift */,
 				5F32EE5823778BF500ED1111 /* LabelCellViewModel.swift */,
 				5F32EE542377629B00ED1111 /* SettingsFooterView.swift */,
@@ -457,7 +457,7 @@
 				5F8BFE9C2372C60900465DD6 /* URLSession+Extensions.swift in Sources */,
 				5F32EE612377A57900ED1111 /* ThreadSafe.swift in Sources */,
 				5F32EE3C2376AB6E00ED1111 /* DateSettingCellViewModel.swift in Sources */,
-				5F32EE3F2376ACBA00ED1111 /* SelectorCellViewModel.swift in Sources */,
+				5F32EE3F2376ACBA00ED1111 /* SettingsButtonCellViewModel.swift in Sources */,
 				5F32EE6D2377E2FA00ED1111 /* Selectable.swift in Sources */,
 				5F32EE2F2376680700ED1111 /* FullScreenPhotoViewModel.swift in Sources */,
 				5F32EE4D2377550300ED1111 /* SearchSettingsCollectionViewController.swift in Sources */,
@@ -487,7 +487,7 @@
 				5F32EE692377C11600ED1111 /* Observable+Extensions.swift in Sources */,
 				5F8BFE7A237147F700465DD6 /* NASADateFormatter.swift in Sources */,
 				5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */,
-				5F32EE412376ACFD00ED1111 /* SelectorCell.swift in Sources */,
+				5F32EE412376ACFD00ED1111 /* ButtonCell.swift in Sources */,
 				5F8BFE892371EE7D00465DD6 /* PhotosResponse.swift in Sources */,
 				5F32EE472377359600ED1111 /* SettingsSectionHeaderView.swift in Sources */,
 				5F32EE5723778BDF00ED1111 /* LabelCell.swift in Sources */,
