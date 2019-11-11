@@ -14,6 +14,7 @@ class ImageStore {
 	// Loaded images are cached for later use
 	private let imageCache: NSCache<NSString, UIImage> = {
 		let cache = NSCache<NSString, UIImage>()
+		cache.countLimit = 100
 		return cache
 	}()
 	
