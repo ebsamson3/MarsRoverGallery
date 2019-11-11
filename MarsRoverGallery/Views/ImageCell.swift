@@ -8,10 +8,15 @@
 
 import UIKit
 
+//Collection vie wcell that displays an image
 class ImageCell: UICollectionViewCell {
 	
 	static let reuseIdentifier = "PhotoCell"
+	
+	// Used to identify the view model by object identifier, this way if the view model changes we won't try to update the image with an old view model's image
 	var representedId: ObjectIdentifier?
+	
+	//MARK: Views
 	
 	private let imageView: UIImageView = {
 		let imageView = UIImageView()
@@ -19,6 +24,8 @@ class ImageCell: UICollectionViewCell {
 		imageView.backgroundColor = .lightGray
 		return imageView
 	}()
+	
+	//MARK: Lifecycle
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -37,6 +44,8 @@ class ImageCell: UICollectionViewCell {
 	override func prepareForReuse() {
 		representedId = nil
 	}
+	
+	//MARK: Configure layout
 	
 	private func configure() {
 		
@@ -59,8 +68,9 @@ class ImageCell: UICollectionViewCell {
 			.isActive = true
 	}
 	
+	//MARK: Methods
+	///Sets the image view image, if anmated the transition will use a cross-dissolve animation
 	func setImage(to image: UIImage?, animated: Bool = false) {
-		
 		if animated {
 			UIView.transition(
 				with: imageView,
