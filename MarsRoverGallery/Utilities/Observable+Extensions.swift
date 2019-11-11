@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+/// Generically wraps any variable and notifies observers whenever that variable changes
 class Observable<T> {
 	//We use a type alias for the type of function that executes upon a change in the observable value. This helps make the rest of our observable code a little less verbose.
 	typealias ChangeHandler = ((_ new: T, _ old: T?) -> Void)
@@ -27,7 +27,7 @@ class Observable<T> {
 		self.value = value
 	}
 	
-	//Notifying all observers essentially amounts to executing the callback function for each active observer.
+	/// Notifyies all observers essentially amounts to executing the callback function for each active observer.
 	func notifyAllObservers(oldValue: T?) {
 		for observer in observers.values {
 			observer(value, oldValue)
@@ -36,7 +36,7 @@ class Observable<T> {
 }
 
 extension Observable {
-	//Adding observers to the observable. The input arguments are the observer, any number of specified options, and a change handling closure that executes when the observer updates its value.
+	/// Adding observers to the observable.
 	func addObserver(
 		_ observer: AnyObject,
 		options: ObservableOptions = [],
@@ -57,7 +57,7 @@ extension Observable {
 		}
 	}
 	
-	//Removing an observer from the observers array stops it from receiving further value change notifications. This function is called simply by placing the observer as the input argument. The convenience of keying the observers dictionary with object identifiers is that we don’t have to store any specific UUID or tag in order to unsubscribe.
+	/// Removing an observer from the observers array stops it from receiving further value change notifications. This function is called simply by placing the observer as the input argument. The convenience of keying the observers dictionary with object identifiers is that we don’t have to store any specific UUID or tag in order to unsubscribe.
 	func removeObserver(_ observer: AnyObject) {
 		let objectIdentifier = ObjectIdentifier(observer)
 		observers.removeValue(forKey: objectIdentifier)
@@ -70,13 +70,14 @@ extension Observable: CustomStringConvertible {
 	}
 }
 
-//Here is where observable options are defined. I've added a comment which shows how to add a second option if you find you need to further tune your observations. Any option you add have needs to be implemented in the addObserver() function
+/// Struct that contains options for modifying observable function
 struct ObservableOptions: OptionSet {
 	let rawValue: Int
 	static let initial = ObservableOptions(rawValue: 1 << 0)
 	//static let secondOption  = ObservableOptions(rawValue: 1 << 1)
 }
 
+/// A n observable subclass that only notifies observers when the new value is different from the old value
 final class CoalescingObservable<T: Equatable>: Observable<T> {
 	
 	override func notifyAllObservers(oldValue: T?) {

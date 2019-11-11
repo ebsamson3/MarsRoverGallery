@@ -9,17 +9,6 @@
 import UIKit
 
 extension UILabel {
-
-	static func standard() -> UILabel {
-		let label = UILabel()
-		label.textAlignment = .natural
-		label.font = UIFont.preferredFont(forTextStyle: .body)
-			.withSize(UIFont.labelFontSize)
-		label.baselineAdjustment = .alignCenters
-		label.textColor = .darkText
-		label.isOpaque = true
-		return label
-	}
 	
 	static func clearCaption() -> UILabel {
 		let label = UILabel()

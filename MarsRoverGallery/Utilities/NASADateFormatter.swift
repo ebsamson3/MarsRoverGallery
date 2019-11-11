@@ -8,15 +8,27 @@
 
 import Foundation
 
-enum NASADateFormatterError: Error {
+enum NASADateFormatterError: LocalizedError {
 	case invalidDateFormat(dateString: String)
 	case invalidDateFromSol(sol: Int)
 	case invalidSolFromDate(date: Date)
-	case invalidDateFromComponents
+	
+	var errorDescription: String? {
+		switch self {
+		case .invalidDateFormat(let dateString):
+			return "Date string: \(dateString) is not in the NASA API format"
+		case .invalidDateFromSol(let sol):
+			return "Unable to convert sol: \(sol) to a valid earth date"
+		case .invalidSolFromDate(let date):
+			return "Unable to convert date: \(date) into a valid martian sol"
+		}
+	}
 }
 
+/// Handles functions related to NASA Mars rover date conversion
 class NASADateFormatter {
 	
+	// Date formatters are expensive, so we implement a shared formatter for our entire app
 	static let shared = NASADateFormatter()
 	
 	let calendar: Calendar = {
@@ -36,6 +48,8 @@ class NASADateFormatter {
 	
 	private init() {}
 	
+	/// Converts a string formatted in the style of the NASA mars rover API into the corresponding date
+	/// - Throws: `NASADateFormatterError.invalidDateFormat(dateString: String)`
 	func date(from string: String) throws -> Date {
 		guard let date =  dateFormatter.date(from: string) else {
 			throw NASADateFormatterError.invalidDateFormat(dateString: string)
@@ -43,14 +57,19 @@ class NASADateFormatter {
 		return date
 	}
 	
+	/// Converts a date to the NASA Api string format
 	func string(from date: Date) -> String {
 		return dateFormatter.string(from: date)
 	}
 	
+	/// Converta  date in sol for a given mars rover mission to a date in earth days
+	/// - Throws: `NASADateFormatterError.invalidDateFromSol(sol: Int)`
 	func date(fromSol sol: Int, andLandingDate landingDate: Date) throws -> Date {
 		return try date(fromSol: Double(sol), andLandingDate: landingDate)
 	}
 	
+	/// Converta  date in sol for a given mars rover mission to a date in earth days
+	/// - Throws: `NASADateFormatterError.invalidDateFromSol(sol: Int)`
 	func date(fromSol sol: Double, andLandingDate landingDate: Date) throws -> Date {
 		let days = Int(round(sol * 1.02749125))
 		
@@ -61,6 +80,8 @@ class NASADateFormatter {
 		return earthDate
 	}
 	
+	/// Coverts an earth date to sol for a given mars rover mission
+	/// - Throws: `NASADateFormatterError.invalidSolFromDate(date: Date)`
 	func sol(fromDate date: Date, andLandingDate landingDate: Date) throws -> Int {
 		let startOfLandingDate = start(of: landingDate)
 		let startOfDate = start(of: date)
@@ -73,11 +94,14 @@ class NASADateFormatter {
 		return sol
 	}
 	
-	func string(fromSol sol: Int, andLandingDate landingDate: Date) throws -> String {
+	/// Convers a date in sol for a given mars mission to the corresponding earth date
+	/// - Throws:`NASADateFormatterError.invalidDateFromSol(sol: Int)`
+	func dateString(fromSol sol: Int, andLandingDate landingDate: Date) throws -> String {
 		let dateFromSol = try date(fromSol: sol, andLandingDate: landingDate)
 		return string(from: dateFromSol)
 	}
 	
+	/// Finds the start of a date given a calendar in the NASA time zone
 	func start(of date: Date) -> Date {
 		 let unitFlags = Set<Calendar.Component>([.year, .month, .day])
 		 let components = calendar.dateComponents(unitFlags, from: date)

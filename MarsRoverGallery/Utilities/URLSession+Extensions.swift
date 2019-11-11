@@ -8,13 +8,25 @@
 
 import Foundation
 
-enum URLSessionError: Error {
+enum URLSessionError: LocalizedError {
 	case badResponse(code: Int)
 	case nilData
+	
+	var errorDescription: String? {
+		switch self {
+		case .badResponse(let code):
+			return "Invalid status code: \(code)"
+		case .nilData:
+			return "Fetch return no data"
+		}
+	}
 }
 
 extension URLSession {
 	
+	/// Convenience function for requesting decodable objects of a specific type
+	/// - Throws: `URLSessionError.badResponse(code: Int)`
+	/// - Throws: `URLSessionError.nilData`
 	@discardableResult
 	func fetch<T: Decodable>(
 		request: URLRequest,

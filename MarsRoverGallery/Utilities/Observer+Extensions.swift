@@ -8,14 +8,14 @@
 
 import Foundation
 
-//AAn observer should hold a reference to a dispose bag.
+/// Observer protocol that ensures an observer has a dispose bag for destroying observable subsciptions on de-init
 protocol Observer: class {
 	var disposeBag: DisposeBag { get set }
 }
 
 extension Observer {
 	
-	//Since the protocol guarantees our observer will have a dispose bag, it is convenient to have a function that subscribes to an observation and sticks the returned disposable in the dispose bag.
+	/// A function that subscribes to an observation and puts the returned disposable in the dispose bag.
 	func observe<T>(
 		_ observable: Observable<T>,
 		options: ObservableOptions = [],
@@ -25,7 +25,7 @@ extension Observer {
 			.disposed(by: disposeBag)
 	}
 	
-	//The observer can remove all its current observations by replacing its reference to its current dispose bag with a reference to a new dispose bag.
+	/// Removes all observations from the observer
 	func removeAllObservations() {
 		disposeBag = DisposeBag()
 	}

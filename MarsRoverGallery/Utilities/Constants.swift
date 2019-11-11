@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Basic app shared constants
 struct Constants {
 	static let baseURLString = "https://api.nasa.gov/mars-photos/api/v1"
 	
