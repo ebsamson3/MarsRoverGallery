@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View model that registers and instantiates a label collectinoViewCell
 class LabelCellViewModel {
 	
 	var title: String?

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Basic collection view cell with a centered label
 class LabelCell: UICollectionViewCell {
 	static let reuseIdentifier = "LabelCell"
 	

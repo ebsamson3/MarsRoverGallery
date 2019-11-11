@@ -13,8 +13,10 @@ protocol SettingsFooterViewDelegate: class {
 	func settingsFooterDidSubmit()
 }
 
+/// Footer view that contains a cancellated and submission buttons + a delegate protocol to handle the button presses
 class SettingsFooterView: UIView {
 
+	// MARK: Views
 	private let cancelButton: SettingsButton = {
 		let button = SettingsButton(color: UIColor.yellow)
 		button.setTitle("Cancel", for: .normal)
@@ -38,8 +40,10 @@ class SettingsFooterView: UIView {
 		   return button
 	}()
 	
+	//MARK: Properties
 	weak var delegate: SettingsFooterViewDelegate?
 	
+	//MARK: Lifecycle
 	init() {
 		super.init(frame: CGRect.zero)
 		configure()
@@ -54,6 +58,7 @@ class SettingsFooterView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	/// Handles the button press and notifies the delegate based on which button was pressed
 	@objc private func didPressButton(_ sender: SettingsButton) {
 		if sender == cancelButton {
 			delegate?.settingsFooterDidCancel()
@@ -61,6 +66,8 @@ class SettingsFooterView: UIView {
 			delegate?.settingsFooterDidSubmit()
 		}
 	}
+	
+	//MARK: Configure Layout
 	
 	private func configure() {
 		backgroundColor = .background
@@ -71,6 +78,7 @@ class SettingsFooterView: UIView {
 		cancelButton.translatesAutoresizingMaskIntoConstraints = false
 		submitButton.translatesAutoresizingMaskIntoConstraints = false
 		
+		// Set content hugging priority to required for vertical so that the footer view does not expand to hide a collection view with no content compression resisitance. 
 		cancelButton.setContentHuggingPriority(.required, for: .vertical)
 		submitButton.setContentHuggingPriority(.required, for: .vertical)
 		setContentHuggingPriority(.required, for: .vertical)

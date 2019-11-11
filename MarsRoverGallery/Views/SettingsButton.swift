@@ -8,16 +8,48 @@
 
 import UIKit
 
+/// A button used for selecting settings in the Search Settings Collection View
 class SettingsButton: UIButton {
 	
+	// When the button is highlighted, invert it's colors such that the text color becomes the background color
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundColor = isHighlighted || isSelected ? color : .clear
+		}
+	}
+	
+	// When a cell is selected, invert it's colors such that the text color becomes the background color
+	override var isSelected: Bool {
+		didSet {
+			backgroundColor = isSelected || isHighlighted ? color : .clear
+		}
+	}
+	
+	// When a button is disabled, set it's color to gray
+	override var isEnabled: Bool {
+		didSet {
+			if isEnabled {
+				setColor(to: color)
+				backgroundColor = isSelected ? color : .clear
+			} else {
+				setColor(to: .lightGray)
+				backgroundColor = .clear
+			}
+		}
+	}
+	
+	//MARK: Properties
 	var cornerRadiusToHeightRatio: CGFloat = 0.3
 	
+	// Sets the main color of the buttons text and border. Also background when the button is in the selected state
 	var color: UIColor = .brightText {
 		didSet {
 			setColor(to: color)
 		}
 	}
     
+	//MARK: Lifecycle
+	
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -35,34 +67,10 @@ class SettingsButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         layer.cornerRadius = frame.height * cornerRadiusToHeightRatio
-		
     }
 	
-	override var isHighlighted: Bool {
-		didSet {
-			backgroundColor = isHighlighted || isSelected ? color : .clear
-		}
-	}
-	
-	override var isSelected: Bool {
-		didSet {
-			backgroundColor = isSelected || isHighlighted ? color : .clear
-		}
-	}
-	
-	override var isEnabled: Bool {
-		didSet {
-			if isEnabled {
-				setColor(to: color)
-				backgroundColor = isSelected ? color : .clear
-			} else {
-				setColor(to: .lightGray)
-				backgroundColor = .clear
-			}
-		}
-	}
+	//MARK: Configure Layout
     
     private func setup() {
 		setColor(to: color)
