@@ -102,9 +102,10 @@ class SearchSettingsCollectionViewModel {
 		
 		let photosRequest = photosController.photosRequest
 		
-		self.selectedRover = photosRequest.roverName
-		self.selectedCamera = photosRequest.cameraName
-		self.selectedDate = photosRequest.dateOption
+		self.selectedRover = photosRequest?.roverName ?? .curiosity
+		self.selectedCamera = photosRequest?.cameraName ?? .any
+		self.selectedDate = photosRequest?.dateOption ?? .latest
+		
 		didSelectRover()
 	}
 	

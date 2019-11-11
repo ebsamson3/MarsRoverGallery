@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Adds methods for definitng waterfall layout paramers to collection view models
 protocol WaterfallCollectionViewModel: CollectionViewModel {
 	func columnCount(forSection section: Int) -> Int
 	func heightForHeader(inSection section: Int) -> CGFloat

@@ -10,8 +10,6 @@
 		5F32EE10237557D000ED1111 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE0F237557D000ED1111 /* LoadingCell.swift */; };
 		5F32EE1223755A3400ED1111 /* LoadingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */; };
 		5F32EE172376069100ED1111 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE162376069100ED1111 /* MainCoordinator.swift */; };
-		5F32EE192376151A00ED1111 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE182376151A00ED1111 /* TableViewModel.swift */; };
-		5F32EE1B2376162600ED1111 /* CellRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1A2376162600ED1111 /* CellRepresentable.swift */; };
 		5F32EE1D2376171400ED1111 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE1C2376171400ED1111 /* TableViewController.swift */; };
 		5F32EE252376364400ED1111 /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */; };
 		5F32EE2723764C8F00ED1111 /* NameValuePairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F32EE2623764C8F00ED1111 /* NameValuePairCell.swift */; };
@@ -91,8 +89,6 @@
 		5F32EE0F237557D000ED1111 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		5F32EE1123755A3400ED1111 /* LoadingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellViewModel.swift; sourceTree = "<group>"; };
 		5F32EE162376069100ED1111 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		5F32EE182376151A00ED1111 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
-		5F32EE1A2376162600ED1111 /* CellRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRepresentable.swift; sourceTree = "<group>"; };
 		5F32EE1C2376171400ED1111 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5F32EE242376364400ED1111 /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
 		5F32EE2623764C8F00ED1111 /* NameValuePairCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValuePairCell.swift; sourceTree = "<group>"; };
@@ -299,8 +295,6 @@
 				5F8BFEA3237378FF00465DD6 /* CollectionViewModel.swift */,
 				5FB215012374969A008596DF /* WaterfallCollectionViewModel.swift */,
 				5F8BFEA52373796500465DD6 /* ItemRepresentable.swift */,
-				5F32EE182376151A00ED1111 /* TableViewModel.swift */,
-				5F32EE1A2376162600ED1111 /* CellRepresentable.swift */,
 				5F32EE4A2377387800ED1111 /* CollectionHeaderRepresentable.swift */,
 				5F32EE6C2377E2FA00ED1111 /* Selectable.swift */,
 			);
@@ -463,14 +457,12 @@
 				5F32EE672377C11600ED1111 /* Observer+Extensions.swift in Sources */,
 				5F8BFEA1237359B600465DD6 /* PaginatedPhotosController.swift in Sources */,
 				5F32EE2923764EA300ED1111 /* UILabel+Extensions.swift in Sources */,
-				5F32EE192376151A00ED1111 /* TableViewModel.swift in Sources */,
 				5F8BFE9E2372D09700465DD6 /* Secrets.swift in Sources */,
 				5F8BFEA923737A9200465DD6 /* WaterfallCollectionViewController.swift in Sources */,
 				5F32EE2723764C8F00ED1111 /* NameValuePairCell.swift in Sources */,
 				5F32EE5923778BF500ED1111 /* LabelCellViewModel.swift in Sources */,
 				5F32EE2D237664D600ED1111 /* PropertyListView.swift in Sources */,
 				5F8BFE8B2371F99B00465DD6 /* Manifest.swift in Sources */,
-				5F32EE1B2376162600ED1111 /* CellRepresentable.swift in Sources */,
 				5FB214FE237409B7008596DF /* ImageDownloadOperation.swift in Sources */,
 				5F32EE682377C11600ED1111 /* Disposable+Extensions.swift in Sources */,
 				5F6A51142374D18400C61D25 /* UIColor+Extension.swift in Sources */,

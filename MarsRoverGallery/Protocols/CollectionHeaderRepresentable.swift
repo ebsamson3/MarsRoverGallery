@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Implemented by collection view header view models
 protocol CollectionHeaderRepresentable {
 	static func registerHeader(collectionView: UICollectionView)
 	func headerInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView

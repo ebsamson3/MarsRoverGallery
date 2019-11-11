@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum PaginatedPhotosControllerError: Error {
+	case nilRequest
+}
+
 protocol PaginatedPhotosControllerDelegate: class {
 	func photosController(statusDidChangeTo status: PaginatedPhotosController.Status)
 }
@@ -23,12 +27,12 @@ class PaginatedPhotosController {
 		static let initial: Self = .upToDate(latestResults: [], nextPage: 1)
 	}
 	
-	var photosRequest: PhotosRequest {
+	var photosRequest: PhotosRequest? {
 		didSet {
 			if case .loading(let task) = status {
 				task.cancel()
 			}
-			_status = .initial
+			_status = photosRequest != nil ? .initial : .finished(latestResults: [])
 			_photos = []
 		}
 	}
@@ -50,13 +54,18 @@ class PaginatedPhotosController {
 	
 	weak var delegate: PaginatedPhotosControllerDelegate?
 	
-	init(photosRequest: PhotosRequest) {
+	init(photosRequest: PhotosRequest? = nil) {
 		self.photosRequest = photosRequest
 	}
 	
 	func fetchNextPage(
 		completion: @escaping (Result<[Photo], Error>) -> Void = {_ in })
 	{
+		guard let photosRequest = photosRequest else {
+			completion(.failure(PaginatedPhotosControllerError.nilRequest))
+			return
+		}
+		
 		let requestId = photosRequest.id
 		
 		guard case .upToDate(_, let nextPage) = status else {
@@ -79,7 +88,7 @@ class PaginatedPhotosController {
 						sizedPhotos[index].size = sizes[sizedPhotos[index].imageUrl]
 					}
 					
-					guard self?.photosRequest.id == requestId else {
+					guard self?.photosRequest?.id == requestId else {
 						return
 					}
 					

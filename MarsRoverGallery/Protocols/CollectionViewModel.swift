@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Standard collection view model protocol
 protocol CollectionViewModel: class {
 	var numberOfSections: Int { get }
 	var reloadData: (() -> Void)? { get set }
@@ -29,6 +30,7 @@ protocol CollectionViewModel: class {
 	func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
+// Default implementation to reduce required boilerplate for collection view models
 extension CollectionViewModel {
 	var numberOfSections: Int {
 		return 1

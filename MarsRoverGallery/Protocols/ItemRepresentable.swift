@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Implemented by collection view item cell view models
 protocol ItemRepresentable {
 	static func registerCell(collectionView: UICollectionView)
 	func cellInstance(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell

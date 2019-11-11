@@ -8,70 +8,89 @@
 
 import UIKit
 
+/// Handles navigation and dependency injection of the model and networking controllers
 class MainCoordinator: NSObject {
 	
 	let navigationController: UINavigationController
-	let paginatedPhotosController: PaginatedPhotosController
+	
+	private lazy var paginatedPhotosController = PaginatedPhotosController()
 	private lazy var imageStore = ImageStore()
 	private lazy var manifestStore = ManifestStore()
 	
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
+	}
+	
+	func start() {
 		
-		let photosRequest = try! PhotosRequest(
+		// Initial request for app
+		let photosRequest = try? PhotosRequest(
 			roverName: .curiosity,
 			cameraName: .any,
 			dateOption: .sol(1000))
 		
-		paginatedPhotosController = PaginatedPhotosController(photosRequest: photosRequest)
-	}
-	
-	func start() {
+		// Object for handling paginated photo requests
+		paginatedPhotosController.photosRequest = photosRequest
+		
+		// Prefetch and store manifests on App start
+		Rover.Name.allCases.forEach { roverName in
+			manifestStore.fetchManifest(forRover: roverName)
+		}
+		
 		showPhotoGallery()
 	}
 	
-	func showPhotoGallery() {
+	/// Shows mars rover photo gallery
+	private func showPhotoGallery() {
 		
 		let viewModel = PhotosCollectionViewModel(
 			paginatedPhotosController: paginatedPhotosController,
 			imageStore: imageStore)
+		
 		viewModel.delegate = self
 		
 		let viewController = WaterfallCollectionViewController(
 			viewModel: viewModel)
 		viewController.title = "Photo Gallery"
 		
+		// Add search button to gallery
 		let searchButton = UIBarButtonItem(
 			barButtonSystemItem: .search,
 			target: self,
-			action: #selector(handleBarButtonPress(sender:)))
+			action: #selector(handleSearchButtonPress(sender:)))
 		
 		viewController.navigationItem.rightBarButtonItem = searchButton
 		
 		navigationController.pushViewController(viewController, animated: false)
 	}
 	
-	@objc private func handleBarButtonPress(sender: UIBarButtonItem) {
+	/// Presents search settings apon search button press
+	@objc private func handleSearchButtonPress(sender: UIBarButtonItem) {
+		
 		let viewModel = SearchSettingsCollectionViewModel(
 			photosController: paginatedPhotosController,
 			manifestStore: manifestStore)
+		
 		let viewController = SearchSettingsViewController(viewModel: viewModel)
-		viewController.modalPresentationStyle = .popover
-		viewController.preferredContentSize = CGSize(width: 450, height: 0)
-		let popOver = viewController.popoverPresentationController
-		popOver?.barButtonItem = sender
+		
+		let deviceIdiom = UIDevice.current.userInterfaceIdiom
+		
+		// Prepare pop up view controller for IPad
+		if deviceIdiom == .pad {
+			viewController.modalPresentationStyle = .popover
+			viewController.preferredContentSize = CGSize(width: 450, height: 0)
+			let popOver = viewController.popoverPresentationController
+			popOver?.barButtonItem = sender
+		}
+		
 		navigationController.present(viewController, animated: true)
 	}
 }
 
 extension MainCoordinator: PhotosCollectionViewModelDelegate {
+	
+	// Shows a full screen version of a selected gallery photo
 	func photosCollection(didSelect photo: Photo) {
-//		let viewModel = PhotoDetailsViewModel(
-//			photo: photo,
-//			imageStore: imageStore)
-//
-//		let viewController = PhotoDetailsViewController(
-//			viewModel: viewModel)
 		
 		let viewModel = FullScreenPhotoViewModel(
 			photo: photo,
