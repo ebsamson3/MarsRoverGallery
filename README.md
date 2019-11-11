@@ -28,7 +28,7 @@ For anyone who may be trying to understand the code, it may be helpful to know t
 
 The important models are:
 
-- `Photo`: An combination of a rover image + image details. I use "photo" when referring to objects that deal with the image + image datails and "image" when referring to images on their own
+- `Photo`: An combination of a rover image + image details. I use "photo" when referring to the image plus image datails and "image" when referring to images on their own
 - `Rover`: Details about the rover that took the image.
 - `Manifest`: Details how many photos the rover took on each day of its mission.
 
