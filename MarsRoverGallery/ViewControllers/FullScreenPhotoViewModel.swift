@@ -8,12 +8,15 @@
 
 import UIKit
 
+/// View model for the full screen photo image
 class FullScreenPhotoViewModel {
 	
+	// Image store for fetching the photo
 	private let imageStore: ImageStore
 	
 	let photo: Photo
 	
+	//MARK: Photo caption details
 	lazy var photoDetails: [(name: String, value: String)] = [
 		(name: "Photo ID", value: String(photo.id)),
 		(name: "Rover", value: photo.rover.name.rawValue),
@@ -22,6 +25,7 @@ class FullScreenPhotoViewModel {
 		(name: "Sol Taken", value: String(photo.sol))
 	]
 	
+	// Set the image if available, otherwise fetch then notify the view controller
 	var image: UIImage? {
 		get {
 			let imageUrl = photo.imageUrl
@@ -33,6 +37,7 @@ class FullScreenPhotoViewModel {
 					case .failure(let error):
 						print(error.localizedDescription)
 					case .success(let image):
+						// If the image url changed, do not set the image.
 						guard imageUrl == self?.photo.imageUrl else {
 							return
 						}
@@ -44,6 +49,7 @@ class FullScreenPhotoViewModel {
 		}
 	}
 	
+	// Used to notify the view controller when a photo is fetched
 	var didSetImage: ((UIImage) -> Void)?
 	
 	init(photo: Photo, imageStore: ImageStore) {

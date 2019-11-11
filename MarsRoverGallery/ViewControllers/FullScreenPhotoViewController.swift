@@ -8,8 +8,10 @@
 
 import UIKit
 
+/// View controller for displaying a full screen photo image
 class FullScreenPhotoViewController: UIViewController {
 	
+	// MARK: Views
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFit
@@ -19,11 +21,22 @@ class FullScreenPhotoViewController: UIViewController {
 	
 	let propertyListView = PropertyListView()
 	
-	let viewModel: FullScreenPhotoViewModel
+	private let viewModel: FullScreenPhotoViewModel
+	
+	// MARK: Lifecycle
 	
 	init(viewModel: FullScreenPhotoViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// Completing any view model bindings then request an photo image + properties from the view model
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
 		viewModel.didSetImage = { [weak self] image in
 			self?.imageView.image = image
@@ -31,25 +44,19 @@ class FullScreenPhotoViewController: UIViewController {
 		
 		imageView.image = viewModel.image
 		propertyListView.properties = viewModel.photoDetails
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
+		
 		configure()
 	}
 	
+	// Hide the navigation controller on appear
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 		navigationController?.navigationBar.shadowImage = UIImage()
 		navigationController?.navigationBar.isTranslucent = true
 	}
 
+	// Show the navigation controller when the view dissapears
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
@@ -57,6 +64,7 @@ class FullScreenPhotoViewController: UIViewController {
 		navigationController?.navigationBar.shadowImage = nil
 	}
 	
+	// On rotation, hide the image. Otherise you get weird image distortion due to view layout
 	override func viewWillTransition(
 		to size: CGSize,
 		with coordinator: UIViewControllerTransitionCoordinator)
@@ -74,6 +82,8 @@ class FullScreenPhotoViewController: UIViewController {
 			}
 		}
 	}
+	
+	//MARK: Configure layout
 	
 	private func configure() {
 		view.backgroundColor = .background
